@@ -51,6 +51,7 @@
         <button class="cancel">キャンセル</button>
     </div>
 
+    <!--登録している定期便を表示させる必要あり-->
     <br>
     　
     <span style="font-size:20px; text-decoration:underline; text-underline-offset: 5px;">ご登録中の定期便内容</span>
@@ -75,6 +76,8 @@
     </div>
     </center>
 
+
+    <!--登録している定期便の内容によって変更する定期便を変える必要あり-->
     <center><hr style="width:90%; border:solid #201a1e; height:1px;"></center>
     <br>
     　

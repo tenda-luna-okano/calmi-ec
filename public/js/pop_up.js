@@ -15,21 +15,19 @@ $(document).ready(function(){
     });
   });
 
+  //クリック後に定期便の内容をテーブルに反映
   $('.yes').on('click',function(){
     $('.modal').css('display','none'),
-    $('.popup').css('display','none'),
-    console.log('yes')
+    $('.popup').css('display','none')
   });
 
   $('.no').on('click',function(){
     $('.modal').css('display','none'),
-    $('.popup').css('display','none'),
-    console.log('no')
+    $('.popup').css('display','none')
   });
 
   $('.cancel').on('click',function(){
     $('.modal').css('display','none'),
-    $('.popup').css('display','none'),
-    console.log('cancel')
+    $('.popup').css('display','none')
   });
 });
