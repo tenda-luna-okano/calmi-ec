@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,4 +20,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/products/index', [ProductsController::class, 'index']);
+
+Route::get('/cart', [CartController::class, 'index'])
+->name('cart');
 require __DIR__.'/auth.php';
