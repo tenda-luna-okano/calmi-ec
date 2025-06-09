@@ -51,6 +51,10 @@
     <hr style="width:90%; border:solid #000; height:1px;">
     <div style="height:25px;"></div>
     
+    <!--
+        ジャンルごとの写真がまだないのでジャンルの中から一つの写真をピックアップして載せてます
+    -->
+
     <b style="font-size:30px;">ジャンルごとのご紹介</b><br><br>
     <div class="field">
         <li style="list-style:none;">アロマ<img id="アロマ" src="{{ asset('img/ピローミスト.png') }}" alt="" style="width:80%;"></li>
