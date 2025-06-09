@@ -35,8 +35,8 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
 
-        Route::get('withdrawal', [DeleteAccountController::class, 'delete'])
-    ->name('withdrawal');
+        Route::get('withdraw', [DeleteAccountController::class, 'delete'])
+    ->name('withdraw');
 });
 
 Route::middleware('auth')->group(function () {
@@ -61,6 +61,6 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-    Route::get('withdrawal', [DeleteAccountController::class, 'delete'])
-    ->name('withdrawal');
+    Route::get('withdraw', [DeleteAccountController::class, 'delete'])
+    ->name('withdraw');
 });

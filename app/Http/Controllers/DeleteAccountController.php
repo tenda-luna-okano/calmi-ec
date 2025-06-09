@@ -8,6 +8,6 @@ class DeleteAccountController extends Controller
 {
     //
     public function delete(){
-        return view('auth/withdrawal');
+        return view('mypage/withdraw');
     }
 }
