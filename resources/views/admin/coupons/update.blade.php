@@ -19,7 +19,7 @@
 </div>
 <div class="flex justify-center items-center">
     <form class="max-w-md w-80">
-        <div class="form-group justi＜fy-center mt-4 pb-4">
+        <div class="form-group justify-center mt-4 pb-4">
             <label for="coupon_name">インフルエンサー名</label>
             <input class="w-80" type="text" id="coupon_name" name="coupon_name" class="form-control" placeholder="インフルエンサー名を入力してください">
         </div>
