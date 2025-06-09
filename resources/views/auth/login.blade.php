@@ -54,7 +54,7 @@
             {{ __('Log in') }}
         </button>
     </form>
-    <div class="divide-y divide-white-400 flex justify-center">
+    <div class="divide-y-2 divide-black-400 flex justify-center">
         <div ></div>
         <div class="">
             <button class="btn-primary mt-4 w-140" onclick="location.href='{{ route('register') }}'">
