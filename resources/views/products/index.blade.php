@@ -16,7 +16,8 @@
 
 @section('content')
 <div class="border-b border-[#201a1e]">
-    <h1 class="font-black text-3xl text-center m-6 ">Products</h1>
+    <h1 class="font-black text-3xl text-center mt-6 ">Products</h1>
+    <p class="text-center mb-6">商品一覧</p>
 </div>
 <!--絞り込み検索-->
  <!--プルダウンカテゴリ選択-->
