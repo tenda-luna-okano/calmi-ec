@@ -8,11 +8,11 @@
 @section('content')
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="m-auto pt-6 pb-6">
-        <h2 class="mx-8">login</h2>
+    <div class="pt-6 pb-6 w-full mx-auto">
+        <h2 class=" w-full mx-auto">login</h2>
     </div>
 
-    <div class="bg-white pb-6 pt-6 mr-8 ml-8 pr-6 pl-6">
+    <div class="bg-white pb-6 pt-6  pr-6 pl-6 w-5/6 mx-auto">
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -50,13 +50,19 @@
                 </a>
             @endif
         </div>
-        <button class="btn-primary mx-auto">
+        <button class="btn-primary mx-auto w-100 mb-4">
             {{ __('Log in') }}
         </button>
     </form>
-    <button class="btn-primary mx-auto" onclick="location.href='{{ route('register') }}'">
-        新規会員登録
-    </button>
+    <div class="divide-y divide-white-400 w-5/6 mx-auto">
+        <div ></div>
+        <div class="w-5/6 mx-auto">
+            <button class="btn-primary mt-4 w-100 mx-auto" onclick="location.href='{{ route('register') }}'">
+                新規会員登録
+            </button>
+        </div>
+    </div>
+
 
     </div>
     <div class="mt-6">
