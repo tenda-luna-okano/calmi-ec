@@ -9,15 +9,15 @@
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <div class="pt-6 pb-6 flex justify-center">
-        <h2 class=" underline decoration-#201a1e decoration-3 underline-offset-8">　　　login　　　</h2>
+        <h2 class=" underline decoration-#201a1e decoration-3 underline-offset-8 text-2xl mb-4">管理者ログイン</h2>
     </div>
 
-    <div class="bg-white pb-6 pt-6  pr-6 pl-6 w-5/6 mx-auto">
+    <div class="bg-white w-full max-w-md mx-auto m-6 flex justify-center rounded shadow">
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
         <!-- Email Address -->
-        <div class="w-5/6 mx-auto" >
+        <div class="w-5/6 mx-auto mt-4" >
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -54,18 +54,10 @@
             {{ __('Log in') }}
         </button>
     </form>
-    <div class="divide-y-2 divide-black-400 flex justify-center">
-        <div ></div>
-        <div class="">
-            <button class="btn-primary mt-4 w-140" onclick="location.href='{{ route('register') }}'">
-                新規会員登録
-            </button>
-        </div>
-    </div>
 
 
     </div>
-    <div class="mt-6">
+    <div class="mt-8">
 
     </div>
 
