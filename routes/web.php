@@ -39,6 +39,11 @@ Route::get('/admin/dashboard',function(){
 });
 require __DIR__.'/auth.php';
 
+
+Route::get('/orders/payment', function(){
+    return view('orders.payment');
+});
+
 Route::get('/mypage/withdraw_confirm',function(){
     return view('mypage.withdraw_confirm');
 });
@@ -98,5 +103,4 @@ Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
 
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
-
 
