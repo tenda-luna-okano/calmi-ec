@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('columns', function (Blueprint $table) {
             $table->id('column_id')->comment('カラムID');
             $table->string('column_name')->comment('コラムタイトル');
-            $table->unsignedBigInteger('admin_user')->comment('作成者ID');
-            $table->foreign('admin_user')->references('admin_user')->on('admin_users');
+            $table->unsignedBigInteger('admin_user_id')->comment('作成者ID');
+            $table->foreign('admin_user_id')->references('admin_user_id')->on('admin_users');
             $table->text('column_img')->nullable()->comment('コラムイメージ画像');
             $table->text('column_content')->comment('コラム内容');
             $table->datetime('start_show')->nullable()->comment('表示開始日時');

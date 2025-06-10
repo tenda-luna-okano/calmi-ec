@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('notification_name')->nullable()->comment('お知らせタイトル');
             $table->unsignedBigInteger('admin_user_id')->comment('作成した管理者ID');
             $table->foreign('admin_user_id')->references('admin_user_id')->on('admin_users');
+            $table->integer('notification_type')->comment('お知らせタイプの変更(マイページなど)');
             $table->text('notification_img')->nullable()->comment('お知らせ画像');
             $table->text('notification_content')->comment('お知らせ内容');
             $table->dateTime('start_show')->nullable()->comment('お知らせ表示開始日時');
