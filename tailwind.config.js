@@ -14,6 +14,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['"Noto Serif JP"', 'serif'],
+                admin: ['"Noto Sans JP"', 'sans-serif'],
             },
         },
     },
