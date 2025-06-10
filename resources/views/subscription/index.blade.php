@@ -19,95 +19,61 @@
     <h1 class="font-black text-3xl text-center m-6 ">定期便紹介</h1>
 </div>
 <div class="p-6">
-  <div class="tabs" data-controller="tab" data-tab-index-value="0">
-    <div class="grid grid-cols-3" role="tablist" aria-label="Sample Tabs">
+  <div class="tabs" x-data="{ activeTab: 0 }">
+    <div class="grid grid-cols-3" role="tablist">
       <button
-        class="text-base p-2 rounded-t-md border transition-colors hover:bg-[#d0b49f] aria-selected:bg-[#d0b49f]
+        :class="activeTab === 0 ? 'bg-[#d0b49f]' : ''"
+        class="text-base p-2 rounded-t-md border transition-colors hover:bg-[#d0b49f]"
+        @click="activeTab = 0"
         role="tab"
-        aria-selected="true"
-        aria-controls="panel-1"
-        id="tab-1"
-        tabindex="0"
-        data-tab-target="tab"
-        data-action="
-          click->tab#selectTab
-          keydown.left->tab#moveLeft
-          keydown.right->tab#moveRight
-          keydown.home->tab#moveFirst
-          keydown.end->tab#moveLast
-        "
-        data-tab-index-param="0"
-       >
+      >
         LightNight
       </button>
       <button
-        class="text-base p-2 rounded-t-md border transition-colors hover:bg-[#d0b49f] aria-selected:bg-[#d0b49f]"
+        :class="activeTab === 1 ? 'bg-[#d0b49f]' : ''"
+        class="text-base p-2 rounded-t-md border transition-colors hover:bg-[#d0b49f]"
+        @click="activeTab = 1"
         role="tab"
-        aria-selected="false"
-        aria-controls="panel-2"
-        id="tab-2"
-        tabindex="-1"
-        data-tab-target="tab"
-        data-action="
-          click->tab#selectTab
-          keydown.left->tab#moveLeft
-          keydown.right->tab#moveRight
-          keydown.home->tab#moveFirst
-          keydown.end->tab#moveLast
-        "
-        data-tab-index-param="1"
       >
-        <p>DeepNight</p>
+        DeepNight
       </button>
       <button
-        class="text-base p-2 rounded-t-md border transition-colors hover:bg-[#d0b49f] aria-selected:bg-[#d0b49f]"
+        :class="activeTab === 2 ? 'bg-[#d0b49f]' : ''"
+        class="text-base p-2 rounded-t-md border transition-colors hover:bg-[#d0b49f]"
+        @click="activeTab = 2"
         role="tab"
-        aria-selected="false"
-        aria-controls="panel-3"
-        id="tab-3"
-        tabindex="-1"
-        data-tab-target="tab"
-        data-action="
-          click->tab#selectTab
-          keydown.left->tab#moveLeft
-          keydown.right->tab#moveRight
-          keydown.home->tab#moveFirst
-          keydown.end->tab#moveLast
-        "
-        data-tab-index-param="2"
       >
         LuxuryNight
       </button>
     </div>
-    <div class="border p-6" id="panel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1" >
+
+    <div class="border p-6" x-show="activeTab === 0">
       <p>Content for the first panel</p>
-        <p>
+      <p>
         お試し用<br>
         価格は{{ $subscriptions[0]['price'] }}円です。<br>
-        </p>
-        <div class="flex justify-center mb-6">
-            <button class="btn-primary">
-                定期便購入ページへ
-            </button>
-        </div>
+      </p>
+      <div class="flex justify-center mb-6">
+        <button class="btn-primary">定期便購入ページへ</button>
+      </div>
     </div>
-    <div class="border p-6" id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
+
+    <div class="border p-6" x-show="activeTab === 1">
       <p>Content for the second panel</p>
       <div class="flex justify-center mb-2">
-        <button class="btn-primary">
-            定期便購入ページへ
-        </button>
+        <button class="btn-primary">定期便購入ページへ</button>
+      </div>
+    </div>
+
+    <div class="border p-6" x-show="activeTab === 2">
+      <p>Content for the third panel</p>
+      <div class="flex justify-center mb-2">
+        <button class="btn-primary">定期便購入ページへ</button>
+      </div>
     </div>
   </div>
-    <div class="border p-6" id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
-      <p>Content for the third panel</p>
-        <div>
-            <button class="btn-primary">
-                定期便購入ページへ
-            </button>
-        </div>
-    </div>
-    </div>
+</div>
+
     <div class="mb-10"></div>
     <div class="border-b border-[#201a1e]">
     </div>
