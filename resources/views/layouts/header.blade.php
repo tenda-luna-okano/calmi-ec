@@ -1,3 +1,4 @@
+
 <!-- メインヘッダー -->
 <header class="bg-[#e2e6e7] h-20">
     <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
@@ -27,3 +28,4 @@
         <a href="#" class="hover:underline">コラム</a>
     </div>
 </nav>
+
