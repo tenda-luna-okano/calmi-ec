@@ -6,9 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
-
-
-
+use App\Http\Controllers\AdminProductController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -60,9 +58,7 @@ Route::get('/admin/sales/index', function() {
 });
 
 
-Route::get('/admin/products/index', function(){
-    return view ('admin.products.index');
-});
+Route::get('/admin/products/index', [AdminProductController::class, 'index']);
 
 Route::get('/admin/products/edit', function(){
     return view('admin.products.edit');
@@ -104,3 +100,9 @@ Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
+Route::get('/products/show',function(){
+    return view('products.show');
+});
+
+Route::post('/admin/products/insert',[AdminProductController::class, 'store'])->name('admin.products.insert');
+Route::get('/admin/products/index', [AdminProductController::class, 'index'])->name('admin.products.index');
