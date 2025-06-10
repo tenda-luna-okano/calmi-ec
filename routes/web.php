@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
 
@@ -28,6 +29,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/products/index', [ProductsController::class, 'index']);
+
+
+Route::get('/cart', [CartController::class, 'index'])
+->name('cart');
 
 Route::get('/admin/dashboard',function(){
     return view('admin.dashboard');
