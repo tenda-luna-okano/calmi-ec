@@ -31,6 +31,10 @@ Route::get('/products/index', [ProductsController::class, 'index']);
 require __DIR__.'/auth.php';
 
 
+Route::get('/mypage/index', function () {
+    return view('mypage.index');
+});
+
 Route::get('/mypage/purchase_history_detail', function(){
     return view('mypage.purchase_history_detail');
 });
