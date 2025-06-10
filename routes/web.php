@@ -11,7 +11,7 @@ use App\Http\Controllers\MyPageController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('top');
 });
 
 Route::get('subscription/index', function () {
@@ -104,3 +104,8 @@ Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
+//定期便詳細ページへ
+Route::get('/subscription/index',function(){return view('subscription/index');})->name('subscription.index');
+
+//ジャンルごとのページへ(検索結果ページを後で作成して調整する)
+Route::get('/search/results/{id}',function(){return view('search/results');})->name('search.results');
