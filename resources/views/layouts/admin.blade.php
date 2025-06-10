@@ -8,17 +8,15 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Serif+JP:wght@200..900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body class="font-serifJP text-lg bg-[#e4d4c8]">
-    <header>
-        @include('layouts.header')
+<body class="font-admin text-lg bg-white">
+    <header class="bg-[#e2e6e7]">
+        <button id="dashboard" class="p-4 bg-gray-800 text-white">管理者画面トップへ</button>
     </header>
 
     <main>
@@ -29,4 +27,6 @@
         @include('layouts.footer')
     </footer>
 </body>
+
 </html>
+
