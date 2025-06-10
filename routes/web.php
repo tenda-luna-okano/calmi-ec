@@ -28,6 +28,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/products/index', [ProductsController::class, 'index']);
+
+Route::get('/admin/dashboard',function(){
+    return view('admin.dashboard');
+});
 require __DIR__.'/auth.php';
 
 
