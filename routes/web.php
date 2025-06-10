@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('top');
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -20,3 +21,9 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/products/index', [ProductsController::class, 'index']);
 require __DIR__.'/auth.php';
+
+//定期便詳細ページへ
+Route::get('/subscription/index',function(){return view('subscription/index');})->name('subscription.index');
+
+//ジャンルごとページへ({id}は後で検索結果ページのロジック作成時修正)
+Route::get('/search/results/{id}',function(){return view('search/results');})->name('search.results');
