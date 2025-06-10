@@ -20,3 +20,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/products/index', [ProductsController::class, 'index']);
 require __DIR__.'/auth.php';
+
+Route::get('/orders/payment', function(){
+    return view('orders.payment');
+});
