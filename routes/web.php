@@ -35,6 +35,10 @@ Route::get('/admin/dashboard',function(){
 require __DIR__.'/auth.php';
 
 
+Route::get('/admin/auth/login',function(){
+    return view('admin.auth.login');
+});
+
 Route::get('/admin/coupons/index',function() {
     return view('admin.coupons.index');
 });
