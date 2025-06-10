@@ -53,7 +53,7 @@
         {{-- 始まりの日付 --}}
         <div class="flex flex-col">
             <label class="text-sm">期間</label>
-            <input type="date" name="min_price" class="px-2 py-1 border rounded w-[80px] text-sm" placeholder="1000">
+            <input type="date" name="start_date" class="px-2 py-1 border rounded w-[120px] text-sm">
         </div>
 
         <div class="flex items-center h-full">
@@ -63,7 +63,7 @@
       {{-- 終わりの日付 --}}
         <div class="flex flex-col">
             <label class="text-sm invisible">終了日</label> <!-- 見出しそろえ用 -->
-            <input type="date" name="max_price" class="px-2 py-1 border rounded w-[80px] text-sm" placeholder="3000">
+            <input type="date" name="end_date" class="px-2 py-1 border rounded w-[120px] text-sm">
         </div>
 
         {{-- 検索ボタン --}}
