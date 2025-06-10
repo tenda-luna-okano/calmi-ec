@@ -1,69 +1,121 @@
 @extends('layouts.app')
 
-@section('title', 'login')
+@section('title', 'cart')
 
 @section('content')
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="pt-6 pb-6 flex justify-center">
-        <h2 class=" underline decoration-#201a1e decoration-3 underline-offset-8">　　　login　　　</h2>
+    <div class="w-5/6 mx-auto">
+    <div class="pt-6 pb-4 flex justify-center border-b-2 mb-4">
+        <h2 >ショッピングカート</h2>
     </div>
 
-    <div class="bg-white pb-6 pt-6  pr-6 pl-6 w-5/6 mx-auto">
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    {{-- main --}}
+    <div class="bg-white pb-6 pt-6  pr-6 pl-6 w-6/7 mx-auto">
+    <table class="w-full">
+        <thead class="w-full">
+            <tr class="pr-4">
+                <th>商品</th>
+                <th class="text-right">小計</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="w-full">
+                <th class="border w-1/4"><img src="" alt="画像"></th>
+                <th class="w-full pl-3">
+                    <div class="w-full text-left">
+                        テスト商品名
+                    </div>
+                    <div class="grid grid-cols-3 w-full">
+                        {{-- <p class="text-left">ボタン</p> --}}
+                        <div class="grid grid-cols-3 spinner-container ">
+                            <div class="grid-item w-1/2 bg-[#d0b49f] ml-auto"><span class="spinner-sub disabled text-center select-none text-white">-</span></div>
+                            <input class="spinner h-8 select-none text-center w-full mx-auto" type="text" min="0" max="99" value="1">
+                            <div class="grid-item w-1/2 bg-[#d0b49f] mr-auto"><span class="spinner-add text-center select-none text-white">+</span></div>
+                        </div>
+                        <div><img class="h-8" src="{{ asset('img/trashcan.png')}}" alt="ゴミ箱"></div>
+                        <p class="text-right">￥2,350</p>
+                    </div>
+                </th>
+            </tr>
+            <tr class="w-full">
+                <th class="border w-1/4"><img src="" alt="画像"></th>
+                <th class="w-full pl-3">
+                    <div class="w-full text-left">
+                        商品名
+                    </div>
+                    <div class="grid grid-cols-3 w-full">
+                        <div class="grid grid-cols-3 spinner-container ">
+                            <div class="grid-item w-1/2 bg-[#d0b49f] ml-auto"><span class="spinner-sub disabled text-center select-none text-white">-</span></div>
+                            <input class="spinner h-8 select-none text-center w-full mx-auto" type="text" min="0" max="99" value="1">
+                            <div class="grid-item w-1/2 bg-[#d0b49f] mr-auto"><span class="spinner-add text-center select-none text-white">+</span></div>
+                        </div>
+                        <div><img class="h-8" src="{{ asset('img/trashcan.png')}}" alt="ゴミ箱"></div>
+                        <p class="text-right">￥1,000</p>
+                    </div>
+                </th>
+            </tr>
+        </tbody>
 
-        <!-- Email Address -->
-        <div class="w-5/6 mx-auto" >
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    </table>
 
-        <!-- Password -->
-        <div class="mt-4 w-5/6 mx-auto">
-            <x-input-label for="password" :value="__('Password')" />
+    </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4 w-5/6 mx-auto">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4 w-5/6 mx-auto">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-        </div>
-        <button class="btn-primary mx-auto  mb-4 mt-4 flex justify-center w-140">
-            {{ __('Log in') }}
-        </button>
-    </form>
-    <div class="divide-y-2 divide-black-400 flex justify-center">
-        <div ></div>
-        <div class="">
-            <button class="btn-primary mt-4 w-140" onclick="location.href='{{ route('register') }}'">
-                新規会員登録
+    {{-- under --}}
+    <div class="mt-6 border-b-2"></div>
+        <div class=""><p class="text-right">合計　￥2,350</p></div>
+        <div class="flex w-full">
+            <button class="btn-primary mt-4 w-140 ml-auto" onclick="location.href='">
+                ご購入へ
             </button>
         </div>
     </div>
 
+    {{-- 下の空白用 --}}
+    <div class="mb-6"></div>
 
-    </div>
-    <div class="mt-6">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function() {
+            $('.spinner').each(function() {
+                var el  = $(this);
+                var add = $('.spinner-add');
+                var sub = $('.spinner-sub');
 
-    </div>
+                // substract
+                el.parent().on('click', '.spinner-sub', function() {
+                if (el.val() > parseInt(el.attr('min'))) {
+                    el.val(function(i, oldval) {
+                    return --oldval;
+                    });
+                }
+                // disabled
+                if (el.val() == parseInt(el.attr('min'))) {
+                    el.prev(sub).addClass('disabled');
+                }
+                if (el.val() < parseInt(el.attr('max'))) {
+                    el.next(add).removeClass('disabled');
+                }
+                });
 
+                // increment
+                el.parent().on('click', '.spinner-add', function() {
+                if (el.val() < parseInt(el.attr('max'))) {
+                    el.val(function(i, oldval) {
+                    return ++oldval;
+                    });
+                }
+                // disabled
+                if (el.val() > parseInt(el.attr('min'))) {
+                    el.prev(sub).removeClass('disabled');
+                }
+                if (el.val() == parseInt(el.attr('max'))) {
+                    el.next(add).addClass('disabled');
+                }
+                });
+            });
+        });
+    </script>
 @endsection
