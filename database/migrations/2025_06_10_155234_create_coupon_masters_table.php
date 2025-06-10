@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id('coupon_id')->comment('クーポンID');
             $table->string('coupon_name')->comment('クーポン名');
             $table->string('coupon_code')->comment('クーポンコード');
-            $table->text('coupon_detail_explanation')->comment('クーポン説明');
-            $table->boolean('coupon_is_enable')->comment('クーポン使用可能フラグ');
+            $table->text('coupon_detail_explanation')->nullable()->comment('クーポン説明');
+            $table->boolean('coupon_is_enable')->default(1)->comment('クーポン使用可能フラグ');
             $table->dateTime('coupon_start_day')->comment('クーポン使用開始日');
             $table->datetime('coupon_end_day')->nullable()->comment('クーポン終了日');
             $table->integer('coupon_stock')->nullable()->comment('クーポン使用可能回数');

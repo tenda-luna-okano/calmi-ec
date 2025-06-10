@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('inquirys', function (Blueprint $table) {
             $table->id('inquirys')->comment('お問い合わせID');
-            $table->integer('user_nickname')->comment('お問い合わせのニックネーム');
+            $table->integer('customer_nickname')->comment('お問い合わせのニックネーム');
             $table->text('user_mail')->comment('問い合わせのメールアドレス');
             $table->text('inquiry_content')->comment('お問い合わせ内容');
             $table->boolean('answered_flg')->comment('回答済みフラグ');
