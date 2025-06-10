@@ -12,7 +12,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Products::all();
+        //公開中の商品のみ取得
+        $products = Products::where('seling_flg',1)->get();
         $count = Products::where('seling_flg',1)->count();
         return view('products.index', compact('products','count'));
     }
