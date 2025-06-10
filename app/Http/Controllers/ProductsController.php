@@ -12,7 +12,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('products.index');
+        $products = Products::all();
+        $count = Products::where('seling_flg',1)->count();
+        return view('products.index', compact('products','count'));
     }
 
     /**
