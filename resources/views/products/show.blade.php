@@ -4,16 +4,17 @@
 
 @section('content')
     {{-- 商品画像 --}}
-    <div class="flex item-start justify-center">
-        <div class="ltr w-1/2 mr-8">
+    <div class="flex justify-center">
+        <div class="size-14 grow w-1/2 mr-auto">
             {{-- 商品画像を出力 --}}
             {{-- 本番はちゃんとしたルートのアイテムを表示 --}}
             {{-- <img src="{{ asset('storage/' . $review->img) }}" alt="商品画像"> --}}
             {{-- テスト画像の代わり --}}
             <img class="mx-4 pe-8" src="https://placehold.jp/150x150.png" alt="ダミー">
         </div>
+        <div class="size-14 grow-0"></div>
         {{-- 商品説明 --}}
-        <div class="rtl w-1/2 mx-8">
+        <div class="size-14 grow w-1/2 mx-8">
             <div class="ml-2">
                 {{-- ジャンル --}}
                 <p class="text-xl">ジャンル</p>
@@ -36,7 +37,7 @@
                     <p>(TAX IN)</p>
                 </div>
             </div>
-            <div class="flex">
+            <div class="flex space-between">
                 {{-- 数字変更 --}}
                 {{-- <div class="flex flex-1 bg-white border-black">
                     <button class="flex-1">-</button>
@@ -45,17 +46,21 @@
                 </div>
                 <div class="container"> --}}
 
-                <div class="flex flex-1 ">
-                    <div class="bg-white w-auto" ><button id="down">－</button></div>
-                    <div class="w-10px"><input type="text" value="1"  id="textbox"></div>
-                    <div class="bg-white w-1/3"><button  id="up">＋</button></div>
+                
+                <div class="flex-1 grid grid-cols-3 spinner-container center">
+                    <div class="grid-item  w-1/2 bg-[#d0b49f] ml-auto"><span class="spinner-sub disabled text-center select-none text-white">-</span></div>
+                    <input class="spinner h-8 select-none text-center w-8 mx-auto" type="text" min="0" max="99" value="1">
+                    <div class="grid-item w-1/2 bg-[#d0b49f] mr-auto"><span class="spinner-add text-center select-none text-white">+</span></div>
+                    
                 </div>
+
+                
 
                 {{-- <button class="button resetbtn" id="reset">RESET</button> --}}
 
                 {{-- カートに入れるボタン --}}
-                <div class="flex-1 px-8">
-                    <button class="btn-primary text-xs px-8">カートに入れる</button>
+                <div class="flex-1 px-auto">
+                    <button class="btn-primary text-xs" >カートに入れる</button>
                 </div>
             </div>
             {{-- 数量変更時のエラーメッセージ --}}
@@ -128,33 +133,46 @@
             <p>商品名</p>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
-        (() => {
-  //HTMLのid値を使って以下のDOM要素を取得
-  const downbutton = document.getElementById('down');
-  const upbutton = document.getElementById('up');
-  const text = document.getElementById('textbox');
-  const reset = document.getElementById('reset');
+        $(function() {
+            $('.spinner').each(function() {
+                var el  = $(this);
+                var add = $('.spinner-add');
+                var sub = $('.spinner-sub');
 
-  //ボタンが押されたらカウント減
-  downbutton.addEventListener('click', (event) => {
-  //0以下にはならないようにする
-  if(text.value >= 1) {
-    text.value--;
-  }
-  });
+                // substract
+                el.parent().on('click', '.spinner-sub', function() {
+                if (el.val() > parseInt(el.attr('min'))) {
+                    el.val(function(i, oldval) {
+                    return --oldval;
+                    });
+                }
+                // disabled
+                if (el.val() == parseInt(el.attr('min'))) {
+                    el.prev(sub).addClass('disabled');
+                }
+                if (el.val() < parseInt(el.attr('max'))) {
+                    el.next(add).removeClass('disabled');
+                }
+                });
 
-  //ボタンが押されたらカウント増
-  upbutton.addEventListener('click', (event) => {
-    text.value++;
-  })
-
-  //ボタンが押されたら0に戻る
-  reset.addEventListener('click', (event) => {
-    text.value = 0;
-  })
-
-})();
-
+                // increment
+                el.parent().on('click', '.spinner-add', function() {
+                if (el.val() < parseInt(el.attr('max'))) {
+                    el.val(function(i, oldval) {
+                    return ++oldval;
+                    });
+                }
+                // disabled
+                if (el.val() > parseInt(el.attr('min'))) {
+                    el.prev(sub).removeClass('disabled');
+                }
+                if (el.val() == parseInt(el.attr('max'))) {
+                    el.next(add).addClass('disabled');
+                }
+                });
+            });
+        });
     </script>
 @endsection
