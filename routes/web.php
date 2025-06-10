@@ -39,6 +39,9 @@ Route::get('/admin/dashboard',function(){
 });
 require __DIR__.'/auth.php';
 
+Route::get('/mypage/withdraw_confirm',function(){
+    return view('mypage.withdraw_confirm');
+});
 
 Route::get('/admin/coupons/issue', function(){
     return view('admin.coupons.issue');
