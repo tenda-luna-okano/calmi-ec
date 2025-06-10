@@ -35,6 +35,10 @@ Route::get('/admin/dashboard',function(){
 require __DIR__.'/auth.php';
 
 
+Route::get('/admin/products/index', function(){
+    return view ('admin.products.index');
+});
+
 Route::get('/admin/products/edit', function(){
     return view('admin.products.edit');
 });
@@ -74,4 +78,3 @@ Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
 
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
-
