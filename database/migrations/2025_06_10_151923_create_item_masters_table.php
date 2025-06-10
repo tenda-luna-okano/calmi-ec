@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('item_masters', function (Blueprint $table) {
             $table->id('item_id')->comment('アイテムID');
-            $table->unsignedBigInteger('item_category')->comment('カテゴリID');
+            $table->string('item_name')->comment('商品名');
+            $table->unsignedBigInteger('item_category')->nullable()->comment('カテゴリID');
             $table->foreign('item_category')->references('category_id')->on('category_masters');
-            $table->integer('item_price')->comment('税抜き価格');
+            $table->integer('item_price')->nullable()->comment('税抜き価格');
             $table->integer('item_price_in_tax')->comment('税込み価格');
             $table->boolean('seling_flg')->comment('販売フラグ');
             $table->unsignedBigInteger('sale_id')->nullable()->comment('セール番号');
