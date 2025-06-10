@@ -31,6 +31,10 @@ Route::get('/products/index', [ProductsController::class, 'index']);
 require __DIR__.'/auth.php';
 
 
+Route::get('/admin/products/insert',function(){
+    return view('admin.products.insert');
+});
+
 Route::get('/contact/index', function () {
     return view('contact.index');
 });
