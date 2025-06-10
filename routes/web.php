@@ -89,7 +89,12 @@ Route::get('/reviews/index', function () {
 });
 
 Route::get('/mypage/index', function () {
+    if(Auth::guest()) {
+        //ログインされていなかったらログインフォームを表示
+        return view('auth.login');
+    }else{
     return view('mypage.index');
+    }
 });
 
 Route::get('/mypage/purchase_history_detail', function(){
