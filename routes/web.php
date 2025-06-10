@@ -40,6 +40,10 @@ Route::get('/admin/dashboard',function(){
 require __DIR__.'/auth.php';
 
 
+Route::get('/admin/coupons/issue', function(){
+    return view('admin.coupons.issue');
+});
+
 Route::get('/admin/coupons/update',function() {
     return view('admin.coupons.update');
 });
