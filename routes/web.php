@@ -30,6 +30,10 @@ Route::middleware('auth')->group(function () {
 Route::get('/products/index', [ProductsController::class, 'index']);
 require __DIR__.'/auth.php';
 
+
+Route::get('/mypage/purchase_history_detail', function(){
+    return view('mypage.purchase_history_detail');
+});
 // 購入確認画面
 Route::get('/orders/confirm',[OrderController::class,'confirm']);
 
@@ -38,3 +42,4 @@ Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
 
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
+
