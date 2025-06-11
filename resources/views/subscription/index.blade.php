@@ -1,10 +1,3 @@
-@php
- $subscriptions = [
-    ['name' => 'LightNight', 'description' => '定期便Aの説明', 'price' => 1000],
-    ['name' => 'DeepNight', 'description' => '定期便Bの説明', 'price' => 2000],
-    ['name' => 'PremiumNight', 'description' => '定期便Cの説明', 'price' => 3000],
- ];
-@endphp
 @extends('layouts.app')
 
 @section('title', '定期便紹介')
@@ -27,7 +20,7 @@
         @click="activeTab = 0"
         role="tab"
       >
-        LightNight
+        {{ $subscriptions[0]['subscribe_item_name'] }}
       </button>
       <button
         :class="activeTab === 1 ? 'bg-[#d0b49f]' : ''"
@@ -35,7 +28,7 @@
         @click="activeTab = 1"
         role="tab"
       >
-        DeepNight
+        {{ $subscriptions[1]['subscribe_item_name'] }}
       </button>
       <button
         :class="activeTab === 2 ? 'bg-[#d0b49f]' : ''"
@@ -43,36 +36,78 @@
         @click="activeTab = 2"
         role="tab"
       >
-        LuxuryNight
+        {{ $subscriptions[2]['subscribe_item_name'] }}
       </button>
     </div>
 
-    <div class="border p-6" x-show="activeTab === 0">
-      <p>Content for the first panel</p>
-      <p>
-        お試し用<br>
-        価格は{{ $subscriptions[0]['price'] }}円です。<br>
+    <!-- 各タブコンテンツは tabs 内で横並びに配置する -->
+  <div x-show="activeTab === 0" class="border p-6">
+    <div class="flex flex-col lg:flex-row gap-8">
+    <!-- 左: 画像 -->
+    <div class="w-full lg:w-1/2 flex justify-center">
+      <img src="{{ asset($subscriptions[0]['subscribe_img']) }}" class="w-full max-w-md h-auto object-cover rounded shadow">
+    </div>
+
+    <!-- 右: 説明文を縦方向センターに -->
+    <div class="w-full lg:w-1/2 flex flex-col justify-center">
+      <div class="text-base text-[#201a1e]">
+        {!! nl2br(e($subscriptions[0]['subscribe_detail_explanation'])) !!}
+      </div>
+      <p class="text-lg font-bold text-center mt-4">
+        ¥{{ number_format($subscriptions[0]['subscribe_price']) }}
       </p>
-      <div class="flex justify-center mb-6">
-        <button class="btn-primary">定期便購入ページへ</button>
-      </div>
     </div>
+  </div> 
 
-    <div class="border p-6" x-show="activeTab === 1">
-      <p>Content for the second panel</p>
-      <div class="flex justify-center mb-2">
-        <button class="btn-primary">定期便購入ページへ</button>
-      </div>
-    </div>
-
-    <div class="border p-6" x-show="activeTab === 2">
-      <p>Content for the third panel</p>
-      <div class="flex justify-center mb-2">
-        <button class="btn-primary">定期便購入ページへ</button>
-      </div>
-    </div>
+  <!-- ボタン -->
+  <div class="flex justify-center mt-6">
+    <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
   </div>
 </div>
+
+  <div x-show="activeTab === 1" class="border p-6">
+    <div class="flex flex-col lg:flex-row gap-8">
+  <!-- 左: 画像 -->
+  <div class="w-full lg:w-1/2 flex justify-center">
+    <img src="{{ asset($subscriptions[1]['subscribe_img']) }}" class="w-full max-w-md h-auto object-cover rounded shadow">
+  </div>
+
+  <!-- 右: 説明文を縦方向センターに -->
+  <div class="w-full lg:w-1/2 flex flex-col justify-center">
+    <div class="text-base text-[#201a1e]">
+      {!! nl2br(e($subscriptions[1]['subscribe_detail_explanation'])) !!}
+    </div>
+    <p class="text-lg font-bold text-center mt-4">
+      ¥{{ number_format($subscriptions[1]['subscribe_price']) }}
+    </p>
+  </div>
+</div>
+    <div class="flex justify-center mt-6">
+      <button class="btn-primary">定期便購入ページへ</button>
+    </div>
+  </div>
+
+  <div x-show="activeTab === 2" class="border p-6">
+    <div class="flex flex-col lg:flex-row gap-8">
+  <!-- 左: 画像 -->
+  <div class="w-full lg:w-1/2 flex justify-center">
+    <img src="{{ asset($subscriptions[2]['subscribe_img']) }}" class="w-full max-w-md h-auto object-cover rounded shadow">
+  </div>
+
+  <!-- 右: 説明文を縦方向センターに -->
+  <div class="w-full lg:w-1/2 flex flex-col justify-center">
+    <div class="text-base text-[#201a1e]">
+      {!! nl2br(e($subscriptions[2]['subscribe_detail_explanation'])) !!}
+    </div>
+    <p class="text-lg font-bold text-center mt-4">
+      ¥{{ number_format($subscriptions[2]['subscribe_price']) }}
+    </p>
+  </div>
+</div>
+    <div class="flex justify-center mt-6">
+      <button class="btn-primary">定期便購入ページへ</button>
+    </div>
+  </div>
 
     <div class="mb-10"></div>
     <div class="border-b border-[#201a1e]">
