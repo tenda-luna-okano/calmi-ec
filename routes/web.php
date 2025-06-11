@@ -46,7 +46,12 @@ Route::get('/orders/payment', function(){
 
 Route::get('/mypage/withdraw_confirm',function(){
     return view('mypage.withdraw_confirm');
-});
+})->name('mypage.withdraw_confirm');
+
+
+Route::get('/mypage/withdraw',function(){
+    return view('mypage.withdraw');
+})->name('mypage.withdraw');
 
 Route::get('/admin/coupons/issue', function(){
     return view('admin.coupons.issue');
@@ -88,7 +93,7 @@ Route::get('/reviews/index', function () {
     return view('reviews.index');
 });
 
-Route::get('/mypage/index',[MypageController::class, 'index']);
+Route::get('/mypage/index',[MypageController::class, 'index'])->name('mypage.index');;
 
 Route::get('/mypage/purchase_history_detail', function(){
     return view('mypage.purchase_history_detail');
@@ -97,8 +102,9 @@ Route::get('/mypage/purchase_history_detail', function(){
 Route::get('/orders/confirm',[OrderController::class,'confirm']);
 
 // ユーザー情報変更
-Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
+Route::get('/mypage/edit_user',[MyPageController::class,'edit_user'])->name('mypage.edit_user');
 
 // 購入履歴
-Route::get('/mypage/history',[MyPageController::class,'history']);
+Route::get('/mypage/purchase_history',[MyPageController::class,'history'])->name('mypage.purchase_history');;
+
 
