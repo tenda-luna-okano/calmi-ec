@@ -61,12 +61,12 @@ class Customer extends Authenticatable
 	];
 
 	protected $fillable = [
-		'customer_password',
-		'customer_fist_name',
+		'password',
+		'customer_first_name',
 		'customer_last_name',
 		'customer_first_furigana',
 		'customer_last_furigana',
-		'customer_email',
+		'email',
 		'customer_tel',
 		'customer_birthday',
 		'payment_id',
@@ -75,8 +75,10 @@ class Customer extends Authenticatable
 		'customer_municipalities',
 		'customer_building_name',
 		'customer_status',
-		'customer_subscribe',
-		'mail_magazine_flg'
+		'customer_subscribe_flg',
+		'mail_magazine_flg',
+        'created_at' ,
+        'update_at' ,
 	];
 
 	public function payment()
