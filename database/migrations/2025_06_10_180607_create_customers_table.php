@@ -30,9 +30,7 @@ return new class extends Migration
             $table->boolean('customer_status')->comment('会員ステータスフラグ');
             $table->boolean('customer_subscribe_flg')->comment('サブスクフラグ');
             $table->boolean('mail_magazine_flg')->comment('メールマガジン受信フラグ');
-            $table->timestamp('deleted_at');
             $table->timestamps();
-
             $table->softDeletes();
         });
     }
