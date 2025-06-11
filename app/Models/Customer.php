@@ -21,8 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $customer_last_furigana
  * @property string $customer_email
  * @property string $customer_tel
- * @property string $customer_birthday
- * @property int $payment_id
+ * @property Carbon|null $customer_birthday
+ * @property int|null $payment_id
  * @property int $customer_post_number
  * @property string $customer_states
  * @property string $customer_municipalities
@@ -33,8 +33,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property Payment $payment
+ * @property Payment|null $payment
  * @property Collection|Cart[] $carts
+ * @property Collection|Notification[] $notifications
  * @property Collection|Order[] $orders
  *
  * @package App\Models
@@ -45,6 +46,7 @@ class Customer extends Model
 	protected $primaryKey = 'customer_id';
 
 	protected $casts = [
+		'customer_birthday' => 'datetime',
 		'payment_id' => 'int',
 		'customer_post_number' => 'int',
 		'customer_status' => 'bool',
@@ -83,6 +85,11 @@ class Customer extends Model
 	public function carts()
 	{
 		return $this->hasMany(Cart::class);
+	}
+
+	public function notifications()
+	{
+		return $this->hasMany(Notification::class, 'send_to');
 	}
 
 	public function orders()

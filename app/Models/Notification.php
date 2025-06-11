@@ -15,7 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $notification_id
  * @property string|null $notification_name
  * @property int $admin_user_id
- * @property int $notification_type
+ * @property int|null $notification_type
+ * @property int|null $send_to
  * @property string|null $notification_img
  * @property string $notification_content
  * @property Carbon|null $start_show
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  * 
  * @property AdminUser $admin_user
+ * @property Customer|null $customer
  *
  * @package App\Models
  */
@@ -35,6 +37,7 @@ class Notification extends Model
 	protected $casts = [
 		'admin_user_id' => 'int',
 		'notification_type' => 'int',
+		'send_to' => 'int',
 		'start_show' => 'datetime',
 		'expire_day' => 'datetime'
 	];
@@ -43,6 +46,7 @@ class Notification extends Model
 		'notification_name',
 		'admin_user_id',
 		'notification_type',
+		'send_to',
 		'notification_img',
 		'notification_content',
 		'start_show',
@@ -52,5 +56,10 @@ class Notification extends Model
 	public function admin_user()
 	{
 		return $this->belongsTo(AdminUser::class);
+	}
+
+	public function customer()
+	{
+		return $this->belongsTo(Customer::class, 'send_to');
 	}
 }
