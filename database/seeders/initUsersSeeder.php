@@ -21,7 +21,7 @@ class initUsersSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-            'password' => 'tenda',
+            'password' => \Hash::make('tenda'),
             'customer_first_name' => '試験',
             'customer_last_name' => '中',
             'customer_first_furigana' => 'シケン',
