@@ -42,6 +42,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Customer extends Model
 {
+	use SoftDeletes;
+	
 	protected $table = 'customers';
 	protected $primaryKey = 'customer_id';
 
