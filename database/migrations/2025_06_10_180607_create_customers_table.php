@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id('customer_id')->comment('お客様ID');
-            $table->string('customer_password')->comment('お客様パスワード');
+            $table->string('password')->comment('お客様パスワード');
             $table->string('customer_first_name')->comment('姓（漢字）');
             $table->string('customer_last_name')->comment('名（漢字）');
             $table->string('customer_first_furigana')->comment('姓（カタカナ）');
             $table->string('customer_last_furigana')->comment('名（カタカナ）');
-            $table->string('customer_email')->comment('メールアドレス');
+            $table->string('email')->comment('メールアドレス');
             $table->string('customer_tel')->comment('電話番号');
             $table->date('customer_birthday')->nullable()->comment('誕生日');
             $table->unsignedBigInteger('payment_id')->nullable()->comment('登録済み支払情報');
@@ -30,7 +30,10 @@ return new class extends Migration
             $table->boolean('customer_status')->comment('会員ステータスフラグ');
             $table->boolean('customer_subscribe_flg')->comment('サブスクフラグ');
             $table->boolean('mail_magazine_flg')->comment('メールマガジン受信フラグ');
+            $table->timestamp('deleted_at');
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 
