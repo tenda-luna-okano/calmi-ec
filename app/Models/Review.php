@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $customer_nickname
  * @property int $review_item_id
  * @property int $review_star
- * @property string $user_mail
+ * @property string $customer_mail
  * @property string $review_content
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -42,7 +42,7 @@ class Review extends Model
 		'customer_nickname',
 		'review_item_id',
 		'review_star',
-		'user_mail',
+		'customer_mail',
 		'review_content'
 	];
 

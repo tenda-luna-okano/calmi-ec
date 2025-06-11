@@ -17,8 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $payment_name
  * @property int $card_number
  * @property int $expire
- * @property string $card_user_name
- * @property bool $can_user_flg
+ * @property string $card_customer_name
+ * @property bool $can_use_flg
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
@@ -35,15 +35,15 @@ class Payment extends Model
 	protected $casts = [
 		'card_number' => 'int',
 		'expire' => 'int',
-		'can_user_flg' => 'bool'
+		'can_use_flg' => 'bool'
 	];
 
 	protected $fillable = [
 		'payment_name',
 		'card_number',
 		'expire',
-		'card_user_name',
-		'can_user_flg'
+		'card_customer_name',
+		'can_use_flg'
 	];
 
 	public function customers()
