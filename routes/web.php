@@ -6,7 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
-
+use App\Http\Controllers\InquiryController;
 
 
 
@@ -79,10 +79,9 @@ Route::get('/admin/coupons/index',function() {
 Route::get('/admin/products/insert',function(){
     return view('admin.products.insert');
 });
-
-Route::get('/contact/index', function () {
-    return view('contact.index');
-});
+// お問い合わせフォームを表示（GET）
+Route::get('/contact/index', [InquiryController::class, 'index'])->name('inquiry.form');
+Route::post('/contact/index', [InquiryController::class, 'store'])->name('inquiry.store');
 
 Route::get('/reviews/index', function () {
     return view('reviews.index');
@@ -91,6 +90,10 @@ Route::get('/reviews/index', function () {
 Route::get('/mypage/index', function () {
     return view('mypage.index');
 });
+
+Route::get('/top', function () {
+    return view('top');
+})->name('top');
 
 Route::get('/mypage/purchase_history_detail', function(){
     return view('mypage.purchase_history_detail');
