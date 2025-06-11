@@ -60,17 +60,34 @@ class AdminProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AdminProduct $adminProduct)
+    public function edit($item_id)
     {
-        //
+        $product = AdminProduct::findOrFail($item_id);
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AdminProduct $adminProduct)
+    public function update(Request $request, $item_id)
     {
-        //
+        $product = AdminProduct::findOrFail($item_id);
+
+        $request->validate([
+            'item_name' => 'required|string|max:255',
+            'item_price_in_tax' => 'required|numeric',
+            'item_stock' => 'required|integer',
+            'item_img' => 'nullable|image',
+        ]);
+
+        $product->update([
+            'item_name' => $request->item_name,
+            'item_price_in_tax' => $request->item_price_in_tax,
+            'item_stock' => $request->item_stock,
+            'seling_flg' => $request->seling_flg,
+        ]);
+
+        return redirect()->route('admin.products.index')->with('success', '商品を更新しました');
     }
 
     /**
