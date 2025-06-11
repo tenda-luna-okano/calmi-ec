@@ -60,9 +60,8 @@ Route::get('/admin/sales/index', function() {
 
 Route::get('/admin/products/index', [AdminProductController::class, 'index']);
 
-Route::get('/admin/products/edit', function(){
-    return view('admin.products.edit');
-});
+// 編集フォーム表示
+Route::get('/admin/products/edit/{id}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
 
 Route::get('/admin/auth/login',function(){
     return view('admin.auth.login');
@@ -106,3 +105,4 @@ Route::get('/products/show',function(){
 
 Route::post('/admin/products/insert',[AdminProductController::class, 'store'])->name('admin.products.insert');
 Route::get('/admin/products/index', [AdminProductController::class, 'index'])->name('admin.products.index');
+Route::post('/admin/products/update/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
