@@ -6,6 +6,8 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CouponController;
 
 
 
@@ -104,3 +106,5 @@ Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
+Route::post('/reviews/index', [ReviewController::class, 'store'])->name('reviews.store');
+Route::get('/admin/coupons/index', [CouponController::class, 'index'])->name('admin.coupons.index');

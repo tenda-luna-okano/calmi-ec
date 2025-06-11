@@ -26,58 +26,24 @@
             </tr>
         </thead>
         <tbody>
+            @foreach($coupons as $coupon)
             <tr class="border-b hover:bg-gray-100">
-                <td class="p-2">野崎</td>
-                <td class="p-2">NOZAKI01</td>
-                <td class="p-2">タバコ</td>
-                <td class="p-2">有効</td>
-                <td class="p-2">2025/06/09~2026/06/09</td>
-                <td class="p-2">999</td>
-                <td class="p-2">1</td>
-                <td class="p-2">タバコ</td>
-                <td class="p-2">
-                    <button class="btn-edit">編集</button>
-                </td>
-            </tr>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="p-2">野崎02</td>
-                <td class="p-2">NOZAKI02</td>
-                <td class="p-2">タバコ</td>
-                <td class="p-2">有効</td>
-                <td class="p-2">2025/06/09~2026/06/09</td>
-                <td class="p-2">999</td>
-                <td class="p-2">1</td>
-                <td class="p-2">タバコ</td>
-                <td class="p-2">
-                    <button class="btn-edit">編集</button>
-                </td>
-            </tr>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="p-2">野崎03</td>
-                <td class="p-2">NOZAKI03</td>
-                <td class="p-2">タバコ</td>
-                <td class="p-2">有効</td>
-                <td class="p-2">2025/06/09~2026/06/09</td>
-                <td class="p-2">999</td>
-                <td class="p-2">1</td>
-                <td class="p-2">タバコ</td>
-                <td class="p-2">
-                    <button class="btn-edit">編集</button>
-                </td>
-            </tr>
-            <tr class="border-b hover:bg-gray-100">
-                <td class="p-2">野崎04</td>
-                <td class="p-2">NOZAKI04</td>
-                <td class="p-2">タバコ</td>
-                <td class="p-2">有効</td>
-                <td class="p-2">2025/06/09~2026/06/09</td>
-                <td class="p-2">999</td>
-                <td class="p-2">1</td>
-                <td class="p-2">タバコ</td>
-                <td class="p-2">
-                    <button class="btn-edit">編集</button>
-                </td>
-            </tr>
+            <td class="p-2">{{ $coupon->coupon_name }}</td>
+            <td class="p-2">{{ $coupon->coupon_code }}</td>
+            <td class="p-2">{{ $coupon->coupon_detail_explanation }}</td>
+            <td class="p-2">{{ $coupon->coupon_is_enable ? '有効' : '無効' }}</td>
+            <td class="p-2">
+                {{ \Carbon\Carbon::parse($coupon->coupon_start_day)->format('Y/m/d') }}~
+                {{ \Carbon\Carbon::parse($coupon->coupon_end_day)->format('Y/m/d') }}
+            </td>
+            <td class="p-2">{{ $coupon->coupon_stock }}</td>
+            <td class="p-2">{{ $coupon->coupon_sale_value }}</td>
+            <td class="p-2">{{ $coupon->category->name ?? '未分類' }}</td>
+            <td class="p-2">
+                <button class="btn-edit">編集</button>
+            </td>
+        </tr>
+        @endforeach
         </tbody>
     </table>
 @endsection
