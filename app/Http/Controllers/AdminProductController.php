@@ -85,6 +85,7 @@ class AdminProductController extends Controller
             'item_price_in_tax' => $request->item_price_in_tax,
             'item_stock' => $request->item_stock,
             'seling_flg' => $request->seling_flg,
+            'item_img' => $request->item_img,
         ]);
 
         return redirect()->route('admin.products.index')->with('success', '商品を更新しました');
