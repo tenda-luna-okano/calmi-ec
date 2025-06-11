@@ -28,3 +28,11 @@
 .stars input[type='radio']:checked ~ label{
   color: #F8C601;              /* 選択された星以降をすべて黄色にする */
 }
+
+body:has(dialog[open]){
+  overflow: hidden;
+}
+body:has(dialog[open]) div #container{
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
