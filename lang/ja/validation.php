@@ -260,6 +260,9 @@ return [
         'updated_at' => '更新日',
         'username' => 'ユーザー名',
         'year' => '年',
+        'customer_nickname' => 'お名前',
+        'customer_mail' => 'メールアドレス',
+        'inquiry_content' => 'お問い合わせ内容',
     ],
 
 ];
