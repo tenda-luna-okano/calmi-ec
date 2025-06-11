@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeleteAccountController;
+use App\Http\Controllers\Auth\LoginController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -22,6 +23,18 @@ Route::middleware('guest')->group(function () {
         ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+    // bleezeの改造出来てたやんけ
+    // Route::get('register', [RegisteredUserController::class, 'create'])
+    //     ->name('register');
+
+    // Route::post('register', [RegisteredUserController::class, 'store']);
+
+    // Route::get('login', function(){
+    //     return view('auth.login');
+    // })->name('login');
+
+    // Route::post('login', [LoginController::class, 'authenticate']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
