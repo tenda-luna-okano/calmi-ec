@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('card_number')->comment('カード番号');
             $table->integer('expire')->comment('有効期限');
             $table->string('card_customer_name')->comment('カード名義');
-            $table->boolean('can_user_flg')->comment('有効な支払方法フラグ');
+            $table->boolean('can_use_flg')->comment('有効な支払方法フラグ');
             $table->timestamps();
         });
     }

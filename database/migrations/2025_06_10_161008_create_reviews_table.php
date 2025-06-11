@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('review_item_id')->comment('レビューした商品ID');
             $table->foreign('review_item_id')->references('item_id')->on('item_masters');
             $table->integer('review_star')->comment('評価 -☆の数-');
-            $table->text('user_mail')->comment('レビュー者メールアドレス');
+            $table->text('customer_mail')->comment('レビュー者メールアドレス');
             $table->text('review_content')->comment('レビュー内容');
             $table->timestamps();
         });
