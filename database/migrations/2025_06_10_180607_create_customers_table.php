@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id('customer_id')->comment('お客様ID');
             $table->string('customer_password')->comment('お客様パスワード');
-            $table->string('customer_fist_name')->comment('姓（漢字）');
+            $table->string('customer_first_name')->comment('姓（漢字）');
             $table->string('customer_last_name')->comment('名（漢字）');
             $table->string('customer_first_furigana')->comment('姓（カタカナ）');
             $table->string('customer_last_furigana')->comment('名（カタカナ）');
