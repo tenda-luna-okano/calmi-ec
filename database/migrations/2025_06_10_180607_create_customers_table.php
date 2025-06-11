@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('customer_last_furigana')->comment('名（カタカナ）');
             $table->string('customer_email')->comment('メールアドレス');
             $table->string('customer_tel')->comment('電話番号');
-            $table->date('customer_birthday')->comment('誕生日');
-            $table->unsignedBigInteger('payment_id')->comment('登録済み支払情報');
+            $table->date('customer_birthday')->nullable()->comment('誕生日');
+            $table->unsignedBigInteger('payment_id')->nullable()->comment('登録済み支払情報');
             $table->foreign('payment_id')->references('payment_id')->on('payments');
             $table->unsignedBigInteger('customer_post_number')->comment('郵便番号');
             $table->string('customer_states')->comment('郵送先住所(都道府県)');
