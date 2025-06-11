@@ -8,6 +8,8 @@ class AdminProduct extends Model
 {
 
     protected $table = 'item_masters'; 
+    //プライマリーキーの指定
+    protected $primaryKey = 'item_id';
 
     protected $fillable = [
         'item_name',
