@@ -7,7 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
 
-
+use App\Http\Controllers\WithdrawController;
 
 
 Route::get('/', function () {
@@ -44,9 +44,10 @@ Route::get('/orders/payment', function(){
     return view('orders.payment');
 });
 
-Route::get('/mypage/withdraw_confirm',function(){
-    return view('mypage.withdraw_confirm');
-});
+Route::get('/mypage/withdraw_confirm', [WithdrawController::class, 'confirm'])->name('mypage.withdraw_confirm');
+
+// 実行（退会処理）
+Route::post('/mypage/withdraw', [WithdrawController::class, 'withdraw'])->name('mypage.withdraw');
 
 Route::get('/admin/coupons/issue', function(){
     return view('admin.coupons.issue');
