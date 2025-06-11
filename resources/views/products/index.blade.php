@@ -22,13 +22,15 @@
   <div class="flex justify-center">
     <div class="flex flex-wrap items-end gap-3">
 
+
+      <form action="{{route()}}"></form>
       {{-- カテゴリ --}}
       <div class="flex flex-col">
         <label class="text-sm">ジャンル</label>
         <select name="categoryId" class="px-2 py-1 border rounded w-[100px] text-sm">
           <option value="">未選択</option>
-          @foreach ($categorys as $category)
-            <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+          @foreach ($category as $category_key)
+            <option value="{{ $category_key->category_id }}">{{ $category_key->category_name }}</option>
           @endforeach
         </select>
       </div>
@@ -71,13 +73,13 @@
 </form>
 <p class="text-center m-4">{{ $count }}件の商品</p>
 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
-    @foreach ($products as $product)
+    @foreach ($items as $item)
         <div class="flex flex-col items-center">
-            <img src="{{ asset('storage/' . $product->item_img) }}" 
-                 alt="{{ $product['item_name'] }}" 
+            <img src="{{ asset('storage/' . $item->item_img) }}" 
+                 alt="{{ $item['item_name'] }}" 
                  class="w-full aspect-square object-cover mb-2">
-            <p>{{ $product['item_name'] }}</p>
-            <p>¥{{ number_format($product['item_price_in_tax']) }}</p>
+            <p>{{ $item['item_name'] }}</p>
+            <p>¥{{ number_format($item['item_price_in_tax']) }}</p>
             <button class="bg-[#d0b49f] text-white px-4 py-2 rounded mt-2">
                 カートに入れる
             </button>

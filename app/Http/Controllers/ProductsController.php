@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Products;
 use Illuminate\Http\Request;
+use App\Models\ItemMaster;
+use App\Models\CategoryMaster;
+
+
 
 class ProductsController extends Controller
 {
@@ -13,9 +17,13 @@ class ProductsController extends Controller
     public function index()
     {
         //公開中の商品のみ取得
-        $products = Products::where('seling_flg',1)->get();
-        $count = Products::where('seling_flg',1)->count();
-        return view('products.index', compact('products','count'));
+        $items = ItemMaster::where('seling_flg',1)->get();
+        $count = ItemMaster::where('seling_flg',1)->count();
+        // 今現在実装されているカテゴリーを取得
+        $category = CategoryMaster::get();
+
+        // ビューをデータとともに返す
+        return view('products.index', compact('items','count','category'));
     }
 
     /**
