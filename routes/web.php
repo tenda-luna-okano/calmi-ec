@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\ReviewController;
 
 
 
@@ -29,7 +30,18 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/products/index', [ProductsController::class, 'index']);
+// 本番環境は商品IDを指定する
+Route::get('/products/show/{item_id}',[ProductsController::class,'show'])
+->name('show');
+// 商品をカートに保存する
+Route::post('/products/show/{item_id}',[ProductsController::class,'store'])
+->name('store');
+// カートにある商品の個数を増やす
+Route::patch('/products/show/{item_id}',[ProductsController::class,'update'])
+->name('update');
 
+
+Route::get('/products/show',[ProductsController::class,'show']); //テスト用
 
 Route::get('/cart', [CartController::class, 'index'])
 ->name('cart');
@@ -83,10 +95,9 @@ Route::get('/admin/products/insert',function(){
 Route::get('/contact/index', function () {
     return view('contact.index');
 });
-
-Route::get('/reviews/index', function () {
-    return view('reviews.index');
-});
+// レビュー投稿のビュー
+Route::get('/reviews/index/{item_id}', [ReviewController::class,'index'])
+->name('reviews.index');
 
 Route::get('/mypage/index', function () {
     return view('mypage.index');
