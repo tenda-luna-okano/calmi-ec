@@ -25,6 +25,7 @@ return new class extends Migration
     {
         Schema::table('notifications', function (Blueprint $table) {
             //
+            $table->dropForeign('notifications_send_to_foreign');
             $table->dropColumn('send_to');
         });
     }
