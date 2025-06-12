@@ -53,19 +53,19 @@
             @else
                 @foreach($cartItems as $item)
                     <tr class="w-full">
-                        <th class="w-1/4"><img src="{{ asset($item->item_masters->item_img) }}" alt="画像"></th>
+                        <th class="w-1/4"><img src="{{ asset($item->item_master->item_img) }}" alt="画像"></th>
                         <th class="w-full pl-3">
                             
                             <div class="w-full text-left">
-                                {{$item->item_masters->item_name}}
+                                {{$item->item_master->item_name}}
                             </div>
 
                             <div class="w-full text-left">
-                                　{{$item->item_masters->item_price_in_tax}}円　　{{$item->item_count}}個
+                                　{{$item->item_master->item_price_in_tax}}円　　{{$item->item_count}}個
                             </div>
                             
                             <div class="grid grid-cols-1 w-full">
-                                <p class="text-right">{{$item->item_masters->item_price_in_tax*$item->item_count}}円</p>
+                                <p class="text-right">{{$item->item_master->item_price_in_tax*$item->item_count}}円</p>
                             </div>
                         </th>
                     </tr>
