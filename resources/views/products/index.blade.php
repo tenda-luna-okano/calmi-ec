@@ -23,7 +23,7 @@
     <div class="flex flex-wrap items-end gap-3">
 
 
-      <form action="{{route()}}"></form>
+      <form></form>
       {{-- カテゴリ --}}
       <div class="flex flex-col">
         <label class="text-sm">ジャンル</label>
