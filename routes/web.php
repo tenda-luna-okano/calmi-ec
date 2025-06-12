@@ -6,7 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
-
+use App\Http\Controllers\Auth\EditUserController;
 
 
 
@@ -99,7 +99,11 @@ Route::get('/mypage/purchase_history_detail', function(){
 Route::get('/orders/confirm',[OrderController::class,'confirm']);
 
 // ユーザー情報変更
-Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
+Route::get('/mypage/edit_user',[EditUserController::class,'show'])
+->name('edit_user.show');
+
+Route::put('/mypage/edit_user',[EditUserController::class,'update'])
+->name('edit_user.update');
 
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
