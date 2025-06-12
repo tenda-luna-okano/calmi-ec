@@ -6,6 +6,10 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\AdminCouponController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CouponController;
 
 
 
@@ -13,10 +17,8 @@ use App\Http\Controllers\MyPageController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('subscription/index', function () {
-    return view('subscription.index');
-});
+// サブスク詳細画面
+Route::get('/subscription/index',[SubscriptionController::class,'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -48,13 +50,9 @@ Route::get('/mypage/withdraw_confirm',function(){
     return view('mypage.withdraw_confirm');
 });
 
-Route::get('/admin/coupons/issue', function(){
-    return view('admin.coupons.issue');
-});
+Route::get('/admin/coupons/issue', [AdminCouponController::class, 'issue'])->name('admin.coupons.issue'); // フォーム表示
+Route::post('/admin/coupons/issue', [AdminCouponController::class, 'store'])->name('admin.coupons.store'); // 登録処理
 
-Route::get('/admin/coupons/update',function() {
-    return view('admin.coupons.update');
-});
 Route::get('/admin/sales/index', function() {
     return view('admin.sales.index');
 });
@@ -74,7 +72,7 @@ Route::get('/admin/auth/login',function(){
 
 Route::get('/admin/coupons/index',function() {
     return view('admin.coupons.index');
-});
+})->name('admin.coupons.index');
 
 Route::get('/admin/products/insert',function(){
     return view('admin.products.insert');
@@ -104,3 +102,11 @@ Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
+Route::post('/reviews/index', [ReviewController::class, 'store'])->name('reviews.store');
+Route::get('/admin/coupons/index', [CouponController::class, 'index'])->name('admin.coupons.index');
+
+// 編集フォームを表示（GET）
+Route::get('/admin/coupons/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupons.edit');
+
+// 更新処理（PUT or POST）
+Route::post('/admin/coupons/update/{id}', [CouponController::class, 'update'])->name('admin.coupons.update');
