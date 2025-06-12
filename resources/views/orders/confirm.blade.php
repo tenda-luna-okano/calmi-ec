@@ -7,7 +7,6 @@
     {{-- 後でフォームタグを編集する --}}
     {{-- <form action="" method="post"> --}}
 
-    
     {{-- 商品の数だけ表示 --}}
           {{-- main --}}
     <div class="bg-white pb-6 pt-6  pr-6 pl-6 w-5/6 mx-auto">

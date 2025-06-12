@@ -33,7 +33,7 @@
                 クレジットカード
             </label>
 
-            <!-- カード情報 -->
+            <!-- カード情報 --> s
             <div class="mt-4 space-y-4">
                 <div>
                     <label class="block text-sm font-medium">カード番号</label>
