@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdminCoupon;
+use App\Models\CouponMaster;
 use Illuminate\Http\Request;
 
 class AdminCouponController extends Controller
@@ -23,22 +23,33 @@ class AdminCouponController extends Controller
         //
     }
 
+    //くーぽん発行画面を返すメソッド
+    public function issue()
+    {
+         return view('admin.coupons.issue');
+    }
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $coupon = new Coupon;
-        $coupon->coupon_name = $request->coupon_name;
-        $coupon->coupon_code = $request->coupon_code;
-        $coupon->coupon_detail_explanation = $request->coupon_detail_explanation;
-        //基本的に「○日から使えます！」っていうのを想定しているのでdefaultは0にしておきます。
-        //けど開始日をチェックしてその日だったらtrueに変えるっていうメソッドが必要
-        $coupon->coupon_is_enable = 0;
-        $coupon->coupon_start_day = $request->coupon_start_day;
-        $coupon->coupon_end_day = $request -> coupon_end_day;
-        $coupon->coupon_stock = $request -> coupon_stock;
-        $coupon->coupon_category = $request->coupon_category;
+        $validated = $request->validate([
+           'coupon_name' => 'required|max:30',
+           'coupon_code' => 'required|unique:coupon_masters,coupon_code|max:6|min:6|regex:/^[A-Z0-9]+$/',
+           //基本的に「○日から使えます！」っていうのを想定しているのでdefaultは0にしておきます。
+           //けど開始日をチェックしてその日だったらtrueに変えるっていうメソッドが必要
+           'coupon_detail_explanation' => 'required',
+           'coupon_start_day' => 'required|date',
+           'coupon_sale_value' => 'required|min:1|max:99',
+           'coupon_end_day' => 'nullable|date',
+        ]);
+
+        $validated['coupon_is_enable'] = 0;
+        $validated['coupon_category'] = 1;
+
+        CouponMaster::create($validated);
+
+         return redirect()->back()->with('success', 'クーポンを登録しました');
      
     }
     /**
