@@ -1,11 +1,5 @@
 @extends('layouts.app')
-@php
-    $categorys = [
-        ['id' => 1, 'name' => 'カテゴリ1'],
-        ['id' => 2, 'name' => 'カテゴリ2'],
-        ['id' => 3, 'name' => 'カテゴリ3'],
-    ];
-@endphp
+
 @section('title', '商品一覧')
 
 @section('content')
@@ -27,8 +21,8 @@
         <label class="text-sm">ジャンル</label>
         <select name="categoryId" class="px-2 py-1 border rounded w-[100px] text-sm">
           <option value="">未選択</option>
-          @foreach ($categorys as $category)
-            <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+          @foreach ($categories as $category)
+            <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
           @endforeach
         </select>
       </div>
@@ -62,10 +56,10 @@
     <div class="flex justify-end mt-4">
         <label class="text-right mr-2">並び替え:</label>
         <select name="sort" class="px-2 py-1 border rounded w-[120px] text-sm mr-5">
-        <option value="default">デフォルト</option>
-        <option value="price_asc">価格の安い順</option>
-        <option value="price_desc">価格の高い順</option>
-        <option value="newest">新着順</option>
+        <option value="0">デフォルト</option>
+        <option value="1">価格の安い順</option>
+        <option value="2">価格の高い順</option>
+        <option value="3">新着順</option>
         </select>
     </div>
 </form>
