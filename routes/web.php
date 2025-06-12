@@ -57,12 +57,12 @@ Route::get('/admin/coupons/update',function() {
 });
 Route::get('/admin/sales/index', function() {
     return view('admin.sales.index');
-});
+})->name('admin.sales.index');
 
 
 Route::get('/admin/products/index', function(){
     return view ('admin.products.index');
-});
+})->name('admin.products.index');
 
 Route::get('/admin/products/edit', function(){
     return view('admin.products.edit');
@@ -74,7 +74,7 @@ Route::get('/admin/auth/login',function(){
 
 Route::get('/admin/coupons/index',function() {
     return view('admin.coupons.index');
-});
+})->name('admin.coupons.index');
 
 Route::get('/admin/products/insert',function(){
     return view('admin.products.insert');
