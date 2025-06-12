@@ -6,6 +6,8 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CouponController;
 
 
 
@@ -52,9 +54,6 @@ Route::get('/admin/coupons/issue', function(){
     return view('admin.coupons.issue');
 });
 
-Route::get('/admin/coupons/update',function() {
-    return view('admin.coupons.update');
-});
 Route::get('/admin/sales/index', function() {
     return view('admin.sales.index');
 });
@@ -104,3 +103,11 @@ Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
+Route::post('/reviews/index', [ReviewController::class, 'store'])->name('reviews.store');
+Route::get('/admin/coupons/index', [CouponController::class, 'index'])->name('admin.coupons.index');
+
+// 編集フォームを表示（GET）
+Route::get('/admin/coupons/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupons.edit');
+
+// 更新処理（PUT or POST）
+Route::post('/admin/coupons/update/{id}', [CouponController::class, 'update'])->name('admin.coupons.update');
