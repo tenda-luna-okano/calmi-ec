@@ -6,14 +6,13 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\AdminSalesController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AdminCouponController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\WithdrawController;
-
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -61,9 +60,9 @@ Route::post('/mypage/withdraw', [WithdrawController::class, 'withdraw'])->name('
 Route::get('/admin/coupons/issue', [AdminCouponController::class, 'issue'])->name('admin.coupons.issue'); // フォーム表示
 Route::post('/admin/coupons/issue', [AdminCouponController::class, 'store'])->name('admin.coupons.store'); // 登録処理
 
-Route::get('/admin/sales/index', function() {
-    return view('admin.sales.index');
-});
+Route::get('/admin/coupons/update',function() {
+    return view('admin.coupons.update');
+
 
 
 Route::get('/admin/products/index', function(){
@@ -118,7 +117,10 @@ Route::get('/admin/coupons/index', [CouponController::class, 'index'])->name('ad
 // 編集フォームを表示（GET）
 Route::get('/admin/coupons/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupons.edit');
 
+Route::get('/admin/sales/index', [AdminSalesController::class, 'index'])->name('admin.sales.index');
+
 // 更新処理（PUT or POST）
 Route::post('/admin/coupons/update/{id}', [CouponController::class, 'update'])->name('admin.coupons.update');
 
 Route::get('/mypage/history',[MyPageController::class,'history']);
+
