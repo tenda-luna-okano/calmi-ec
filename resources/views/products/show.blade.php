@@ -15,14 +15,10 @@
             <div class="ml-2">
                 {{-- ジャンル --}}
                 <p class="text-xl">{{$item->category_master->category_name}}</p>
-                {{-- <p class="text-xl">ジャンル</p> --}}
                 {{-- 商品名 --}}
-                {{-- <p class="mt-4 text-2xl">商品名</p> --}}
                 <p class="mt-4 text-2xl">{{$item->item_name}}</p>
             </div>
             <div class="flex">
-                {{-- 評価,本番は数字はDBから取得 --}}
-                {{-- <p class="flex-1 text-sm mt-4">☆4.2(8)</p> --}}
                 {{-- レビュー表示 --}}
                 <p class="flex-1 text-sm mt-4">☆{{$item->item_review_star}}({{$review_num}})</p>
                 {{-- 画面下のレビュー部分へ --}}
@@ -42,12 +38,9 @@
             </div>
             {{-- すでにカートに商品があるときは数を足して更新する --}}
             @if(!empty($cart))
-            dd({{$cart}});
-            
-            <form action="{{route('update',$item->item_id)}}" method="post">
+            <form action="{{route('products.update',$cart)}}" method="post">
             @csrf
             @method('patch')
-            <p>カートに入っています</p>
             <div class="flex space-between">
                 {{-- 数字変更 --}}
                 <div class="flex-1 grid grid-cols-3 spinner-container center">
@@ -66,9 +59,10 @@
 
                     {{-- テスト用のだれでもカートに追加できるバージョン --}}
                         
-
-                            <input type="hidden" name="">
-                            <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
+                    {{-- item_idを渡す --}}
+                    <input type="hidden" name="item_id" value="{{$cart->item_id}}">
+                    <input type="hidden" name="cart_id" value="{{$cart->cart_id}}">
+                    <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
                         
                         
                     
@@ -80,7 +74,7 @@
             </div>
             </form>
             @else {{--　カートに商品がないときはカートテーブルに追加　--}}
-            <form action="{{route('store',$cart)}}" method="POST">
+            <form action="{{route('products.store',$item->item_id)}}" method="POST">
             @csrf
             <p>新規追加です</p>
             <div class="flex space-between">
@@ -135,28 +129,37 @@
     <hr>
     <div class="flex py-8">
         <h2 id="review" class="flex-1">レビュー</h2>
-        <button class="flex-1 text-right border border-black"><a href="">レビューを投稿する</a></button>
+        {{-- 商品IDと一緒にレビュー投稿画面へ --}}
+        {{-- <form action="{{route('reviews.store')}}" method="POST"> --}}
+        <form action="{{route('reviews.index',$item->item_id)}}" method="POST">
+            <input type="hidden" name="item_id" value="{{$item->item_id}}">
+            <button class="flex-1 text-right border border-black">レビューを投稿する</button>
+        </form>
+        
     </div>
     <hr>
     {{-- 最初のレビューを2件まで表示 --}}
-    <div  class="py-4">
-        @if($reviews)
+    <div  class="py-4" id="parent_review">
+        @if(empty($reviews))
             <p>レビューがありません</p>
             {{--レビュー」があれば表示 --}}
         @else
             @foreach($reviews as $review )
             <div class="bg-white py-4">
-                <p>{{$review->review_star}}</p>
-                {{-- @for($i = 0;$i < {{$review->review_star}};$i++) --}}
-                    <p>☆</p>
-                {{-- @endfor --}}
-                {{-- @for($i = 0;$i < 5-{{$review->review_star}};$i++) --}}
-                    <p>★</p>
-                {{-- @endfor --}}
+                
+                {{-- レビューの★ --}}
+                @for($i = 0;$i < $review->review_star;$i++)
+                    <h4>☆</h4>
+                @endfor
+                @for($i = 0;$i < 5-$review->review_star;$i++)
+                    <h4>★</h4>
+                @endfor
                 <div>
+                    {{-- レビューのタイトル --}}
                     <h3>{{$review->review_name}}</h3>
                     <p>年代</p>
-                    <p>{{$review->created_at}}代</p>
+                    <p>{{$review->reviewer_age}}代</p>
+                    {{-- 投稿日 --}}
                     <p>2025/02/12</p>
                 </div>
                 <p>レビュー内容</p>
@@ -164,7 +167,7 @@
             </div>
             @endforeach
         @endif
-        {{-- <div class="text-right"><a href="/review/index/{{$item->item_id}}" class="border boder-white">もっと見る</div> --}}
+        <div class="text-right"><button class="more">もっと見る</button></div>
     </div>
     
     <hr>
@@ -172,8 +175,8 @@
     <p>このアイテムが気になった人はこちらも気になっています。</p>
     {{-- 商品５個表示 --}}
     <div class="flex bg-white px-4 py-3">
-        {{-- レビューがあれば表示、なければ「特定の5つの商品」を表示 --}}
-        @if($reviews)
+        {{-- おすすめがあれば表示、なければ「特定の5つの商品」を表示 --}}
+        @if(!empty($recommends))
             <div class="flex-1 px-2 ">
                 <img src="https://placehold.jp/150x150.png">
                 <p>商品名</p>
@@ -246,10 +249,30 @@
             });
         });
     </script>
-    {{-- カートに入れるボタンを押したときにアラートで「〇〇を〇個、購入しました、」と表示、ログインしていなければログイン画面へ遷移 --}}
+    {{--  --}}
     <script>
         $(function(){
-
-        })
+            $('.more').on('click',function(){
+                var data = @json($all_reviews);
+                const parent_review = document.getElementById('parent_review');
+                data.forEach(review => {
+                    const child = document.createElement('div');
+                    const star = document.createElement('h4');
+                    // レビューの★を表示
+                    for(let i = 0; i < review['review_star'];i++){
+                        star.innerText .= '☆';
+                    }
+                    for(let i = 0; i < 5-review['review_star'];i++){
+                        star.innerText .= '★';
+                    }
+                    // レビューのタイトルを作成
+                    const title = document.createElement('h3');
+                    title.innerText = review['review_name'];
+                    // レビューした人のの年代
+                    const review = docoment.createElement(p)
+                    review.innerText = review['review_age'];
+                });
+            });
+        });
     </script>
 @endsection

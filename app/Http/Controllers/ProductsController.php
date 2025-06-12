@@ -28,9 +28,12 @@ class ProductsController extends Controller
         $item = ItemMaster::where('item_id',$item_id)->first();
         
         $category_id = ItemMaster::where('item_id',$item_id)->first(['item_category']);
-        // reviewをitem_idからレビューをすべて取得。
-        $reviews = Review::where('review_item_id',$item_id)->take(2)->get();
+        // すべてのレビュー件数を取得
 
+        // reviewをitem_idからレビューを2件取得。
+        $reviews = Review::where('review_item_id',$item_id)->take(2)->get();
+        // 上で取得した以外のすべてのレビューを取得
+        $all_reviews = Review::where('review_item_id',$item_id)->skip(2)->take(10)->get();
         // review数を格納
         $review_num = Review::where('review_item_id',$item_id)->count();
 
@@ -41,7 +44,7 @@ class ProductsController extends Controller
         $cart = Cart::where('customer_id',$request->session()->get('customer_id',1))->where('item_id',$item_id)->first();
         
         // viewを返す
-        return view('products.show',compact('item','reviews','review_num','recommends','cart'));
+        return view('products.show',compact('item','reviews','all_reviews','review_num','recommends','cart'));
         // return view('products.show',compact('items','reviews','item'));
     }
 
@@ -60,6 +63,8 @@ class ProductsController extends Controller
         // 商品IDを登録
         $validated['item_id']=$item_id;
         $cart = Cart::create($validated);
+         // 更新メッセージを表示
+        $request->session()->flash('message','カートに挿入しました');
         // dd($validated);
         return back();
     }
@@ -104,8 +109,9 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Cart $cart)
     {
-        // 商品IDを取得
-        $item_id =  Cart::first(['item_id']);
+        // 商品IDからデータを取得
+        // $item =  Cart::first(['item_id']);
+        $item =  Cart::where('item_id',$request->item_id)->first();
         
         // 入力された商品個数
         $validated = $request->validate([
@@ -117,30 +123,22 @@ class ProductsController extends Controller
             'item_count' => 'required | integer | between:1,99',
         ]);
         //既存の商品個数
-        $item_num = Cart::where('item_id',$item_id)->first(['item_count']);
+        // $item_num = Cart::where('item_id',$item_id)->first();
+        $item_num = $item->item_count;//テスト
+        // dd($item_num);
         // dd(intval($item_num_add['item_count']));
-        // dd(intval($item_num['item_count']));
+        // dd($item_num->item_count);
         // 商品個数を合わせて格納する
-        $validated['item_count']=intval($item_num_add['item_count'])+intval($item_num['item_count']);
+        $validated['item_count']=intval($item_num_add['item_count'])+intval($item_num);
         // $item_num_add+=$item_num;
         // ユーザーIDを指定
         $validated['customer_id']=$request->session()->get('customer_id',1);
         // 商品IDを指定
-        $validated['item_id']=Cart::where('item_id',$item_id)->first(['item_id']);
-        // カートIDを指定
-        // $validated['cart_id']=$cart_id;
+        $validated['item_id']=$item->item_id;
         // カートテーブルを更新する
-        $cart->update($validated);
-
-        // 直接updateする
-        // Cart::where('customer_id',$request->session()->get('customer_id',1))->where('item_id',$item_id)->update([
-        //     'cart_id'=>$item_id,
-        //     'item_id'=>$item_id,
-        //     'customer_id'=>$request->session()->get('customer_id',1),
-        //     'item_count'=>$item_num_add,
-        // ]);
-
-
+        // $validated['cart_id']=$request->cart_id;
+        $cart_update = Cart::find($request->cart_id);
+        $cart_update->update($validated);
         // 更新メッセージを表示
         $request->session()->flash('message','カートを更新しました');
         // 商品詳細ページに戻す

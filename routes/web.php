@@ -35,10 +35,10 @@ Route::get('/products/show/{item_id}',[ProductsController::class,'show'])
 ->name('show');
 // 商品をカートに保存する
 Route::post('/products/show/{item_id}',[ProductsController::class,'store'])
-->name('store');
+->name('products.store');
 // カートにある商品の個数を増やす
 Route::patch('/products/show/{item_id}',[ProductsController::class,'update'])
-->name('update');
+->name('products.update');
 
 
 Route::get('/products/show',[ProductsController::class,'show']); //テスト用
