@@ -16,8 +16,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $review_name
  * @property int $customer_nickname
  * @property int $review_item_id
+ * @property int $reviewer_age
  * @property int $review_star
- * @property string $user_mail
+ * @property string $customer_mail
  * @property string $review_content
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -34,6 +35,7 @@ class Review extends Model
 	protected $casts = [
 		'customer_nickname' => 'int',
 		'review_item_id' => 'int',
+		'reviewer_age' => 'int',
 		'review_star' => 'int'
 	];
 
@@ -41,8 +43,9 @@ class Review extends Model
 		'review_name',
 		'customer_nickname',
 		'review_item_id',
+		'reviewer_age',
 		'review_star',
-		'user_mail',
+		'customer_mail',
 		'review_content'
 	];
 

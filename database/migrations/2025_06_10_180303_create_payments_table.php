@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id('payment_id')->comment('支払情報ID');
             $table->string('payment_name')->comment('支払方法名');
-            $table->integer('card_number')->comment('カード番号');
-            $table->integer('expire')->comment('有効期限');
-            $table->string('card_customer_name')->comment('カード名義');
-            $table->boolean('can_user_flg')->comment('有効な支払方法フラグ');
+            $table->bigInteger('card_number')->nullable()->comment('カード番号');
+            $table->integer('expire')->nullable()->comment('有効期限');
+            $table->string('card_customer_name')->nullable()->comment('カード名義');
+            $table->boolean('can_use_flg')->comment('有効な支払方法フラグ');
             $table->timestamps();
         });
     }

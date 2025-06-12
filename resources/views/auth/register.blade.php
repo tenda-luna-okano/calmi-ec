@@ -16,6 +16,7 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div> --}}
         {{-- 名前 --}}
+
         <div>
             <label>氏名（全角）</label>
             <label>必須</label>
@@ -24,16 +25,16 @@
             {{-- 氏名 --}}
             <div>
                 <label>姓</label>
-                <input type="text" placeholder="例)田中">
+                <input type="text" placeholder="例)田中" name="customer_first_name">
                 <label>名</label>
-                <input type="text" placeholder="例)太郎">
+                <input type="text" placeholder="例)太郎" name="customer_last_name">
             </div>
             {{-- フリガナ --}}
             <div>
                 <label>セイ</label>
-                <input type="text" placeholder="例)タナカ">
+                <input type="text" placeholder="例)タナカ" name="customer_first_furigana">
                 <label>メイ</label>
-                <input type="text" placeholder="例)タロウ">
+                <input type="text" placeholder="例)タロウ" name="customer_last_furigana">
             </div>
         </div>
         <hr>
@@ -45,15 +46,15 @@
                 <p>error</p>
             <div>
                 {{-- 年 --}}
-                <select name="year" id="year">
+                <select name="birthday_year" id="year">
                     <option value="">選択してください</option>
-                    @for($i = 1900; $i <= 2025; $i++)
+                    @for($i = 2025; $i >= 1900; $i--)
                         <option value="{{$i}}">{{$i}}</option>
                     @endfor
                 </select>
                 <label>年</label>
                 {{-- 月 --}}
-                <select name="month" id="month">
+                <select name="birthday_month" id="month">
                     <option value="">選択してください</option>
                     @for($i = 1; $i <= 12; $i++)
                         <option value="{{$i}}">{{$i}}</option>
@@ -61,7 +62,7 @@
                 </select>
                 <label>月</label>
                 {{-- 日 --}}
-                <select name="day" id="day">
+                <select name="birthday_day" id="day">
                     <option value="">選択してください</option>
                     @for($i = 1; $i <= 31; $i++)
                         <option value="{{$i}}">{{$i}}</option>
@@ -76,15 +77,15 @@
         <div>
             <label>電話番号</label>
             <label>必須</label>
-            
+
             {{-- エラーメッセージエリア --}}
                 <p>error</p>
             <div>
-                <input type="text" placeholder="例)08012345678">
+                <input type="text" placeholder="例)08012345678" name="customer_tel">
             </div>
         </div>
         <hr>
-        
+
         {{-- 郵便番号 --}}
         <div>
             <label>郵便番号</label>
@@ -92,17 +93,17 @@
             {{-- エラーメッセージエリア --}}
                 <p>error</p>
             <div>
-                <input type="text" placeholder="1330052">
+                <input type="text" placeholder="1330052" name="customer_post_number">
             </div>
         </div>
-        
+
         {{-- 都道府県 --}}
         <div>
             <label> 都道府県</label>
             <label>必須</label>
             {{-- エラーメッセージエリア --}}
                 <p>error</p>
-            <select type="text" class="form-control" name="area">                          
+            <select type="text" class="form-control" name="customer_states">
                 @foreach(config('pref') as $key => $score)
                     <option value="{{ $score }}">{{ $score }}</option>
                 @endforeach
@@ -115,12 +116,12 @@
             <label>必須</label>
             {{-- エラーメッセージエリア --}}
                 <p>error</p>
-            <input type="text" placeholder="例）千代田区千代田1番1号">
+            <input type="text" placeholder="例）千代田区千代田1番1号" name="customer_municipalities">
         </div>
         {{-- マンション・建物名など --}}
         <div>
             <p>マンション・建物名など</p>
-            <input type="text" placeholder="例） 〇〇マンション101号室">
+            <input type="text" placeholder="例） 〇〇マンション101号室" name="customer_building_name">
         </div>
         <hr>
 
@@ -163,14 +164,14 @@
             <fieldset>
                 <legend>メールマガジン配信</legend>
                 <div class="flex-1">
-                    <input type="radio" id="not_accept" name="mailmagazine" value="1"/>
+                    <input type="radio" id="not_accept" name="mail_magazine_flg" value="1"/>
                     <label for="not_accept">希望する</label>
                 </div>
                 <div class="flex-1">
-                    <input type="radio" id="accept" name="mailmagazine" value="0" checked/>
+                    <input type="radio" id="accept" name="mail_magazine_flg" value="0" checked/>
                     <label for="accept">希望しない</label>
                 </div>
-                
+
             </fieldset>
 
         </div>

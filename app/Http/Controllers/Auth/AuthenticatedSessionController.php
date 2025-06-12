@@ -24,6 +24,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // var_dump($request['customer_email'].$request['customer_password']);
         $request->authenticate();
 
         $request->session()->regenerate();
