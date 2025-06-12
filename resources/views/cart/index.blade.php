@@ -28,7 +28,7 @@
                 <th class="border w-1/4"><img src="" alt="画像"></th>
                 <th class="w-full pl-3">
                     <div class="w-full text-left">
-                        {{$cartItem->item_master->item_name}}
+                        <a href="/products/show/{{$cartItem->item_id}}">{{$cartItem->item_master->item_name}}</a>
                     </div>
                     <div class="grid grid-cols-3 w-full">
                         {{-- <p class="text-left">ボタン</p> --}}
