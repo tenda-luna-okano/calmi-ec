@@ -14,6 +14,61 @@ class initItemsSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::table('category_masters')->insert([
+            [
+                'category_name' => '消耗品',
+            ],
+            [
+                'category_name' => '化粧品',
+            ]
+        ]);
+        DB::table('sales')->insert([
+            [
+                'sale_name' => 'テストセール',
+                'sale_detail_explanation' => 'テスト用のセール',
+                'sale_start_day' => '2025-06-01 17:00:00',
+                // 'sale_end_day',
+                'sale_is_enable' => 1,
+            ]
+        ]);
+        
+        DB::table('customers')->insert([
+            [
+            'password' => 'tenda',
+            'customer_first_name' => '試験',
+            'customer_last_name' => '中',
+            'customer_first_furigana' => 'シケン',
+            'customer_last_furigana' => 'チュウ',
+            'email' => 'test@test.com',
+            'customer_tel' => '090-1111-1111',
+            'customer_birthday'=> '1999-05-29',
+            'payment_id' => NULL,
+            'customer_post_number' => 1330051,
+            'customer_states' => '東京都',
+            'customer_municipalities' => '江戸川区',
+            'customer_building_name' => 'TKP',
+            'customer_status' => 1,
+            'customer_subscribe_flg' => 0,
+            'mail_magazine_flg' => 1,
+            ],
+            ['password' => '2',
+            'customer_first_name' => '試験',
+            'customer_last_name' => '中です',
+            'customer_first_furigana' => 'シケン',
+            'customer_last_furigana' => 'チュウデス',
+            'email' => 'test@test.com',
+            'customer_tel' => '090-1111-1111',
+            'customer_birthday'=> '1999-05-29',
+            'payment_id' => NULL,
+            'customer_post_number' => 1330051,
+            'customer_states' => '東京都',
+            'customer_municipalities' => '江戸川区',
+            'customer_building_name' => 'TKP',
+            'customer_status' => 1,
+            'customer_subscribe_flg_flg' => 0,
+            'mail_magazine_flg' => 1,
+            ]
+        ]);
         DB::table('item_masters')->insert([
             [
                 'item_name' => 'テストアイテム1',
@@ -55,43 +110,7 @@ class initItemsSeeder extends Seeder
                 'special_subscribe_flg' => 1,
             ]
         ]);
-        DB::table('customers')->insert([
-            [
-            'customer_password' => 'tenda',
-            'customer_first_name' => '試験',
-            'customer_last_name' => '中',
-            'customer_first_furigana' => 'シケン',
-            'customer_last_furigana' => 'チュウ',
-            'customer_email' => 'test@test.com',
-            'customer_tel' => '090-1111-1111',
-            'customer_birthday'=> '1999-05-29',
-            'payment_id' => NULL,
-            'customer_post_number' => 1330051,
-            'customer_states' => '東京都',
-            'customer_municipalities' => '江戸川区',
-            'customer_building_name' => 'TKP',
-            'customer_status' => 1,
-            'customer_subscribe' => 0,
-            'mail_magazine_flg' => 1,
-            ],
-            ['customer_password' => '2',
-            'customer_first_name' => '試験',
-            'customer_last_name' => '中です',
-            'customer_first_furigana' => 'シケン',
-            'customer_last_furigana' => 'チュウデス',
-            'customer_email' => 'test@test.com',
-            'customer_tel' => '090-1111-1111',
-            'customer_birthday'=> '1999-05-29',
-            'payment_id' => NULL,
-            'customer_post_number' => 1330051,
-            'customer_states' => '東京都',
-            'customer_municipalities' => '江戸川区',
-            'customer_building_name' => 'TKP',
-            'customer_status' => 1,
-            'customer_subscribe_flg' => 0,
-            'mail_magazine_flg' => 1,
-            ]
-        ]);
+        
         DB::table('carts')->insert([
            [
                 'customer_id'=>1,
@@ -109,15 +128,6 @@ class initItemsSeeder extends Seeder
                 'item_count'=>2
            ]
         ]);
-        DB::table('category_masters')->insert([
-            [
-                'category_name' => '消耗品',
-            ],
-            [
-                'category_name' => '化粧品',
-            ]
-        ]);
-
         DB::table('coupon_masters')->insert([
 
                 'coupon_name' => 'テストクーポン',
@@ -132,14 +142,5 @@ class initItemsSeeder extends Seeder
 
         ]);
 
-        DB::table('sales')->insert([
-            [
-                'sale_name' => 'テストセール',
-                'sale_detail_explanation' => 'テスト用のセール',
-                'sale_start_day' => '2025-06-01 17:00:00',
-                // 'sale_end_day',
-                'sale_is_enable' => 1,
-            ]
-        ]);
     }
 }
