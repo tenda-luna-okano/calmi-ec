@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $payment_id
  * @property string $payment_name
- * @property int $card_number
- * @property int $expire
- * @property string $card_customer_name
+ * @property int|null $card_number
+ * @property int|null $expire
+ * @property string|null $card_customer_name
  * @property bool $can_use_flg
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at

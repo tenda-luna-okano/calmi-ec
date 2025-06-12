@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Products extends Model
+class AdminCoupon extends Model
 {
-    //
-    protected $table = 'item_masters';
+    protected $table = "coupon_masters";
 }
