@@ -1,3 +1,8 @@
+@if(session('message'))
+    <script>
+        alert('{{ session('message') }}');
+    </script>
+@endif
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>

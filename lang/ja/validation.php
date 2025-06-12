@@ -266,6 +266,7 @@ return [
         'coupon_detail_explanation' => 'クーポン説明',
         'coupon_start_day' => 'クーポンの開始日',
         'coupon_sale_value' => '割引率',
+        'coupon_end_day.after' => '終了日は開始日より後の日付を指定してください。',
     ],
 
 ];
