@@ -11,7 +11,7 @@ use App\Http\Controllers\AdminCouponController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CouponController;
 
-
+use App\Http\Controllers\WithdrawController;
 
 
 Route::get('/', function () {
@@ -46,9 +46,10 @@ Route::get('/orders/payment', function(){
     return view('orders.payment');
 });
 
-Route::get('/mypage/withdraw_confirm',function(){
-    return view('mypage.withdraw_confirm');
-});
+Route::get('/mypage/withdraw_confirm', [WithdrawController::class, 'confirm'])->name('mypage.withdraw_confirm');
+
+// 実行（退会処理）
+Route::post('/mypage/withdraw', [WithdrawController::class, 'withdraw'])->name('mypage.withdraw');
 
 Route::get('/admin/coupons/issue', [AdminCouponController::class, 'issue'])->name('admin.coupons.issue'); // フォーム表示
 Route::post('/admin/coupons/issue', [AdminCouponController::class, 'store'])->name('admin.coupons.store'); // 登録処理
