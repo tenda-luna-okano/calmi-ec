@@ -77,7 +77,7 @@ Route::post('/admin/coupons/issue', [AdminCouponController::class, 'store'])->na
 
 Route::get('/admin/coupons/update',function() {
     return view('admin.coupons.update');
-
+});
 
 
 Route::get('/admin/products/index', function(){
