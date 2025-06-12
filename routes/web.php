@@ -102,10 +102,9 @@ Route::get('/reviews/index/{item_id}', [ReviewController::class,'index'])
 Route::get('/mypage/index', function () {
     return view('mypage.index');
 });
-
-Route::get('/mypage/purchase_history_detail', function(){
-    return view('mypage.purchase_history_detail');
-});
+// マイページの購入履歴詳細画面
+Route::get('/mypage/purchase_history_detail', [MyPageController::class,'history_detail']);
+Route::post('/mypage/purchase_history_detail', [MyPageController::class,'history_detail']);
 // 購入確認画面
 Route::get('/orders/confirm',[OrderController::class,'confirm']);
 
