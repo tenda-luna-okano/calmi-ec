@@ -21,7 +21,7 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-        // バリデーション（必要に応じて）
+        // バリデーション
         $request->validate([
             'item_name' => 'required|string|max:255',
             'item_price_in_tax' => 'required|numeric',
@@ -46,7 +46,7 @@ class AdminProductController extends Controller
             'item_stock'=> $request->item_stock,
         ]);
 
-        return redirect()->route('admin.products.index')->with('success', '商品が追加されました');
+        return redirect()->route('admin.products.index')->with('message', '商品が追加されました');
     }
 
     /**
