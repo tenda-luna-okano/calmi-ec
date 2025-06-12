@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 // サブスク詳細画面
-Route::get('/subscription/index',[SubscriptionController::class,'index']);
+Route::get('/subscription/index',[SubscriptionController::class,'index'])->name('subscription.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -77,7 +77,7 @@ Route::post('/admin/coupons/issue', [AdminCouponController::class, 'store'])->na
 
 Route::get('/admin/coupons/update',function() {
     return view('admin.coupons.update');
-
+});
 
 
 Route::get('/admin/products/index', function(){
