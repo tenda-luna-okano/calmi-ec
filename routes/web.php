@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\AdminCouponController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CouponController;
 
@@ -50,9 +51,8 @@ Route::get('/mypage/withdraw_confirm',function(){
     return view('mypage.withdraw_confirm');
 });
 
-Route::get('/admin/coupons/issue', function(){
-    return view('admin.coupons.issue');
-});
+Route::get('/admin/coupons/issue', [AdminCouponController::class, 'issue'])->name('admin.coupons.issue'); // フォーム表示
+Route::post('/admin/coupons/issue', [AdminCouponController::class, 'store'])->name('admin.coupons.store'); // 登録処理
 
 Route::get('/admin/sales/index', function() {
     return view('admin.sales.index');
@@ -73,7 +73,7 @@ Route::get('/admin/auth/login',function(){
 
 Route::get('/admin/coupons/index',function() {
     return view('admin.coupons.index');
-});
+})->name('admin.coupons.index');
 
 Route::get('/admin/products/insert',function(){
     return view('admin.products.insert');
