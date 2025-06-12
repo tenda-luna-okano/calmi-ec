@@ -16,14 +16,14 @@
 <!--絞り込み検索-->
  <!--プルダウンカテゴリ選択-->
 <div class="container mx-auto my-6">
-  <form">
+  <form>
   <h2 class="text-lg font-bold mb-2 text-center">商品を絞り込む</h2>
 
   <div class="flex justify-center">
     <div class="flex flex-wrap items-end gap-3">
 
 
-      <form action="{{route()}}"></form>
+      <form></form>
       {{-- カテゴリ --}}
       <div class="flex flex-col">
         <label class="text-sm">ジャンル</label>
