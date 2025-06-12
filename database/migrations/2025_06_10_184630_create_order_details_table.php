@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id')->comment('注文id');
             $table->unsignedBigInteger('item_id')->comment('商品id');
             $table->string('item_name')->comment('購入時商品名');
-            $table->integer('price')->comment('購入時価格(税抜き)');
+            $table->integer('price')->nullable()->comment('購入時価格(税抜き)');
             $table->integer('price_in_tax')->comment('購入時価格(税込み)');
             $table->integer('count')->comment('購入個数');
             $table->timestamps();
