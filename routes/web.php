@@ -16,6 +16,7 @@ use App\Http\Controllers\WithdrawController;
 use App\Http\Controllers\AdminColumnController;
 use App\Http\Controllers\ColumnController;
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -33,7 +34,18 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/products/index', [ProductsController::class, 'index']);
+// 本番環境は商品IDを指定する
+Route::get('/products/show/{item_id}',[ProductsController::class,'show'])
+->name('show');
+// 商品をカートに保存する
+Route::post('/products/show/{item_id}',[ProductsController::class,'store'])
+->name('products.store');
+// カートにある商品の個数を増やす
+Route::patch('/products/show/{item_id}',[ProductsController::class,'update'])
+->name('products.update');
 
+
+Route::get('/products/show',[ProductsController::class,'show']); //テスト用
 
 Route::get('/cart', [CartController::class, 'index'])
 ->name('cart');
@@ -87,13 +99,18 @@ Route::get('/admin/coupons/index',function() {
 Route::get('/admin/products/insert',function(){
     return view('admin.products.insert');
 });
+
+
+Route::get('/contact/index', function () {
+    return view('contact.index');
+});
+// レビュー投稿のビュー
+Route::get('/reviews/index/{item_id}', [ReviewController::class,'index'])
+->name('reviews.index');
+
 // お問い合わせフォームを表示（GET）
 Route::get('/contact/index', [InquiryController::class, 'index'])->name('inquiry.form');
 Route::post('/contact/index', [InquiryController::class, 'store'])->name('inquiry.store');
-
-Route::get('/reviews/index', function () {
-    return view('reviews.index');
-});
 
 Route::get('/mypage/index',[MypageController::class, 'index'])->name('mypage.index');;
 
