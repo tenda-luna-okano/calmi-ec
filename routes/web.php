@@ -6,7 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
-
+use App\Http\Controllers\AdminSalesController;
 
 
 
@@ -55,9 +55,6 @@ Route::get('/admin/coupons/issue', function(){
 Route::get('/admin/coupons/update',function() {
     return view('admin.coupons.update');
 });
-Route::get('/admin/sales/index', function() {
-    return view('admin.sales.index');
-});
 
 
 Route::get('/admin/products/index', function(){
@@ -104,3 +101,4 @@ Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
+Route::get('/admin/sales/index', [AdminSalesController::class, 'index'])->name('admin.sales.index');
