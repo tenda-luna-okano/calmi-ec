@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property Collection|Customer[] $customers
  * @property Collection|Order[] $orders
+ * @property Collection|Subscribe[] $subscribes
  *
  * @package App\Models
  */
@@ -54,5 +55,10 @@ class Payment extends Model
 	public function orders()
 	{
 		return $this->hasMany(Order::class);
+	}
+
+	public function subscribes()
+	{
+		return $this->hasMany(Subscribe::class);
 	}
 }
