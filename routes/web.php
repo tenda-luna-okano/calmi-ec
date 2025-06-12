@@ -128,4 +128,3 @@ Route::get('/search/results/{id}',function(){return view('search/results');})->n
 Route::post('/orders/complete',[OrderController::class,'payment'])->name('orders.complete');
 
 
-
