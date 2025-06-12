@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Payment;
 use App\Models\Cart;
-use App\Models\Item_masters;
-use App\Models\Orders;
-use App\Models\Order_details;
-use App\Models\Customers;
+use App\Models\ItemMaster;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Customer;
 use App\Rules\ValidationCard;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -18,14 +18,14 @@ class OrderController extends Controller
     public function getCart()
     {
         //customer_idを後でAuthにする
-        $inCart=Cart::where('customer_id',2)->with('item_masters')->get();
+        $inCart=Cart::where('customer_id',2)->with('item_master')->get();
         return $inCart;
     }
 
     public function sumPrice_in_tax($inCart)
     {
         $sum_price_in_tax=$inCart->sum(function($cartItem){
-            return ($cartItem->item_masters->item_price_in_tax)*($cartItem->item_count);
+            return ($cartItem->item_master->item_price_in_tax)*($cartItem->item_count);
         });
         return $sum_price_in_tax;
     }
@@ -44,23 +44,23 @@ class OrderController extends Controller
         //customer_idを後でAuthにする
         $inCart=$this->getCart();
         $sum_price_in_tax=$this->sumPrice_in_tax($inCart);
-        $Customers=Customers::where('customer_id',2)->first();
+        $Customer=Customer::where('customer_id',2)->first();
         $sum_price=$inCart->sum(function($cartItem){
-            return ($cartItem->item_masters->item_price)*($cartItem->item_count);
+            return ($cartItem->item_master->item_price)*($cartItem->item_count);
         });
 
 
         //在庫を超える場合falseを返す
         foreach($inCart as $items)
         {
-            if($items->item_count>$items->item_masters->item_stock){return false;}
+            if($items->item_count>$items->item_master->item_stock){return false;}
         }
 
         foreach($inCart as $items)
         {
-            Item_masters::where('item_id',$items->item_id)
+            ItemMaster::where('item_id',$items->item_id)
             ->update([
-                'item_stock'=>$items->item_masters->item_stock - $items->item_count
+                'item_stock'=>$items->item_master->item_stock - $items->item_count
             ]);
         }
 
@@ -72,14 +72,14 @@ class OrderController extends Controller
         else if($Payment->payment_name=="cod"){$payment_type=4;}
         else if($Payment->payment_name=="convenience"){$payment_type=5;}
         
-        $Orders=Orders::create([
+        $Orders=Order::create([
             'payment_name'=>$payment_type,
-            'payment_id'=>$Payment->id,
+            'payment_id'=>$Payment->payment_id,
             'customer_id'=>2,//customer_idを後でAuthにする
-            'delivery_post_number'=>$Customers->customer_post_number,
-            'delivery_states'=>$Customers->customer_states,
-            'delivery_municipalities'=>$Customers->customer_municipalities,
-            'delivery_building_name'=>$Customers->customer_building_name,
+            'delivery_post_number'=>$Customer->customer_post_number,
+            'delivery_states'=>$Customer->customer_states,
+            'delivery_municipalities'=>$Customer->customer_municipalities,
+            'delivery_building_name'=>$Customer->customer_building_name,
             //'delivery_postage'=>
             'order_price'=>$sum_price,
             'order_price_in_tax'=>$sum_price_in_tax,
@@ -90,12 +90,12 @@ class OrderController extends Controller
 
         foreach($inCart as $items)
         {
-            $Order_details=Order_details::create([
-                'order_id'=>$Orders->id,
+            $Order_details=OrderDetail::create([
+                'order_id'=>$Orders->order_id,
                 'item_id'=>$items->item_id,
-                'item_name'=>$items->item_masters->item_name,
-                'price'=>$items->item_masters->item_price,
-                'price_in_tax'=>$items->item_masters->item_price_in_tax,
+                'item_name'=>$items->item_master->item_name,
+                'price'=>$items->item_master->item_price,
+                'price_in_tax'=>$items->item_master->item_price_in_tax,
                 'count'=>$items->item_count
             ]);
         }
@@ -127,6 +127,8 @@ class OrderController extends Controller
                 'card_name'=>'max:30|regex:/^[a-zA-Z]+ [a-zA-Z]+$/'//英字+半角スペース+英字  英語を大文字に変更してSQLに　スペースは消す
             ]);
             
+            $month=(int)substr($expire,0,2);//月の判定用
+            $year=(int)substr($expire,3,2);//年の判定用
             $expire_storage=$month*100+$year;
 
             $card_name=preg_replace('/\s+/','',$card_name);
