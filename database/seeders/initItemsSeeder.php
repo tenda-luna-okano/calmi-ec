@@ -27,7 +27,7 @@ class initItemsSeeder extends Seeder
                 'sale_name' => 'テストセール',
                 'sale_detail_explanation' => 'テスト用のセール',
                 'sale_start_day' => '2025-06-01 17:00:00',
-                // 'sale_end_day',
+                //'sale_end_day',
                 'sale_is_enable' => 1,
             ]
         ]);
