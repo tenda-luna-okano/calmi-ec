@@ -12,7 +12,8 @@ class AdminCouponController extends Controller
      */
     public function index()
     {
-        //
+        $coupons = CouponMaster::all();
+        return view ('admin.coupons.index', compact('coupons'));
     }
 
     /**
@@ -49,7 +50,7 @@ class AdminCouponController extends Controller
 
         CouponMaster::create($validated);
 
-         return redirect()->back()->with('success', 'クーポンを登録しました');
+         return redirect()->route('admin.coupons.index')->with('message', 'クーポンを登録しました');
      
     }
     /**
