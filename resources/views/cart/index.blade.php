@@ -5,6 +5,9 @@
 @section('content')
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+
+
+
     <div class="w-5/6 mx-auto">
     <div class="pt-6 pb-4 flex justify-center border-b-2 mb-4">
         <h2 >ショッピングカート</h2>
@@ -20,41 +23,27 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="w-full">
+            @foreach ($cartlist as $cartItem)
+                <tr class="w-full">
                 <th class="border w-1/4"><img src="" alt="画像"></th>
                 <th class="w-full pl-3">
                     <div class="w-full text-left">
-                        テスト商品名
+                        {{$cartItem->item_master->item_name}}
                     </div>
                     <div class="grid grid-cols-3 w-full">
                         {{-- <p class="text-left">ボタン</p> --}}
                         <div class="grid grid-cols-3 spinner-container ">
                             <div class="grid-item w-1/2 bg-[#d0b49f] ml-auto"><span class="spinner-sub disabled text-center select-none text-white">-</span></div>
-                            <input class="spinner h-8 select-none text-center w-full mx-auto" type="text" min="0" max="99" value="1">
+                            <input class="spinner h-8 select-none text-center w-full mx-auto" type="text" min="0" max="99" value="{{$cartItem->item_count}}">
                             <div class="grid-item w-1/2 bg-[#d0b49f] mr-auto"><span class="spinner-add text-center select-none text-white">+</span></div>
                         </div>
                         <div><img class="h-8" src="{{ asset('img/trashcan.png')}}" alt="ゴミ箱"></div>
-                        <p class="text-right">￥2,350</p>
+                        <p class="text-right">￥{{$cartItem->item_master->item_price_in_tax}}</p>
                     </div>
                 </th>
             </tr>
-            <tr class="w-full">
-                <th class="border w-1/4"><img src="" alt="画像"></th>
-                <th class="w-full pl-3">
-                    <div class="w-full text-left">
-                        商品名
-                    </div>
-                    <div class="grid grid-cols-3 w-full">
-                        <div class="grid grid-cols-3 spinner-container ">
-                            <div class="grid-item w-1/2 bg-[#d0b49f] ml-auto"><span class="spinner-sub disabled text-center select-none text-white">-</span></div>
-                            <input class="spinner h-8 select-none text-center w-full mx-auto" type="text" min="0" max="99" value="1">
-                            <div class="grid-item w-1/2 bg-[#d0b49f] mr-auto"><span class="spinner-add text-center select-none text-white">+</span></div>
-                        </div>
-                        <div><img class="h-8" src="{{ asset('img/trashcan.png')}}" alt="ゴミ箱"></div>
-                        <p class="text-right">￥1,000</p>
-                    </div>
-                </th>
-            </tr>
+            @endforeach
+
         </tbody>
 
     </table>
