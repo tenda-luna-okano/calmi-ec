@@ -21,7 +21,7 @@ class SubscriptionItemSeeder extends Seeder
                                                 少しだけ、自分にやさしくなる夜。\n
                                                 おやすみ前の5分が、心の栄養になるようなアイテムをセレクト。\n
                                                 気軽に始めるセルフケア習慣にぴったりな定期便です。\n",
-            'subscribe_img' => 'images/subscribe/LightNight.png', // public/images/subscribe に格納
+            'subscribe_img' => 'img/subscribe/LightNight.png', // public/images/subscribe に格納
             ],   
             [
             'subscribe_item_name' => 'DeepNight',
@@ -30,7 +30,7 @@ class SubscriptionItemSeeder extends Seeder
                                                 暮らしにひとさじの安らぎを。\n
                                                 忙しい日々のすき間に、自分だけのナイトルーティンを添えて。\n
                                                 穏やかな香りとやさしいごほうびが、月ごとに届きます。\n",
-            'subscribe_img' => 'images/subscribe/DeepNight.png', // public/images/subscribe に格納
+            'subscribe_img' => 'img/subscribe/DeepNight.png', // public/images/subscribe に格納
             ],
             [
             'subscribe_item_name' => 'LuxuaryNight',
@@ -39,7 +39,7 @@ class SubscriptionItemSeeder extends Seeder
                                                 頑張った自分へ贈る、特別な夜の時間。\n
                                                 毎月変わるとっておきの癒しを、月のしじまにそっと。\n
                                                 ミッドナイトカラーの上質なギフトボックスでお届けします。\n",
-            'subscribe_img' => 'images/subscribe/PremiumNight.png', // public/images/subscribe に格納
+            'subscribe_img' => 'img/subscribe/PremiumNight.png', // public/images/subscribe に格納
             ],       
         ]);
     }
