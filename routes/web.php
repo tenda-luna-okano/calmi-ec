@@ -8,11 +8,16 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
 
 
-
-
+Route::get('/',[OrderController::class,'confirm']);
+/*
 Route::get('/', function () {
-    return view('welcome');
+    return view('orders/confirm');
 });
+*/
+Route::get('/top', function(){
+    return view('top');
+})->name('top');
+
 
 Route::get('subscription/index', function () {
     return view('subscription.index');
@@ -95,6 +100,15 @@ Route::get('/mypage/index', function () {
 Route::get('/mypage/purchase_history_detail', function(){
     return view('mypage.purchase_history_detail');
 });
+
+Route::get('/orders/payment',function(){
+    return view('orders.payment');
+})->name('orders.payment');
+
+Route::get('/orders/confirm',function(){
+    return view('orders.confirm');
+})->name('orders.confirm');;
+
 // 購入確認画面
 Route::get('/orders/confirm',[OrderController::class,'confirm']);
 
@@ -103,4 +117,15 @@ Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
 
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
+
+//定期便詳細ページへ
+Route::get('/subscription/index',function(){return view('subscription/index');})->name('subscription.index');
+
+//ジャンルごとのページへ(検索結果ページを後で作成して調整する)
+Route::get('/search/results/{id}',function(){return view('search/results');})->name('search.results');
+
+//決済方法の取得
+Route::post('/orders/complete',[OrderController::class,'payment'])->name('orders.complete');
+
+
 
