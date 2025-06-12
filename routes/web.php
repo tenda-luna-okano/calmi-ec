@@ -13,6 +13,8 @@ use App\Http\Controllers\AdminCouponController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\WithdrawController;
+use App\Http\Controllers\AdminColumnController;
+use App\Http\Controllers\ColumnController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,7 +40,8 @@ Route::get('/cart', [CartController::class, 'index'])
 
 Route::get('/admin/dashboard',function(){
     return view('admin.dashboard');
-});
+})->name('admin.dashboard');
+
 require __DIR__.'/auth.php';
 
 
@@ -121,6 +124,15 @@ Route::get('/admin/sales/index', [AdminSalesController::class, 'index'])->name('
 
 // 更新処理（PUT or POST）
 Route::post('/admin/coupons/update/{id}', [CouponController::class, 'update'])->name('admin.coupons.update');
+
+Route::get('/admin/columns/create',function(){
+    return view('admin.columns.create');
+});
+Route::post('/admin/columns/create', [AdminColumnController::class, 'store'])->name('admin.columns.post');
+
+//ユーザーのコラム表示
+Route::get('/columns/index', [ColumnController::class, 'index'])->name('columns.index');
+Route::get('/columns/show/{id}', [ColumnController::class, 'show'])->name('columns.show');
 
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
