@@ -8,14 +8,14 @@
         '5' => 'サプリ',
     ];
 @endphp
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', '商品編集')
+@section('title', '商品追加')
 
 @section('content')
 
 <div class="border-b border-[#201a1e]">
-    <h1 class="font-black text-3xl text-center m-6 ">商品編集</h1>
+    <h1 class="font-black text-3xl text-center m-6 ">商品追加</h1>
 </div>
 <div class="flex justify-center items-center">
     <form class="max-w-md w-80">
@@ -56,7 +56,7 @@
             </select>
         </div>
         <div class="m-4 flex justify-center items-center">
-            <button class="inline-flex h-12 items-center justify-center rounded-md bg-neutral-950 px-6 font-medium text-neutral-50 transition active:scale-110 ">編集完了</button>
+            <button class="inline-flex h-12 items-center justify-center rounded-md bg-neutral-950 px-6 font-medium text-neutral-50 transition active:scale-110 ">商品を追加</button>
         </div>
     </form>
 </div>
