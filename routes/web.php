@@ -103,4 +103,3 @@ Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
 
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
-
