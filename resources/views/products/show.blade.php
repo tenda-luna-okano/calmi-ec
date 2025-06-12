@@ -7,9 +7,6 @@
     <div class="flex justify-center">
         <div class=" w-1/2 ">
             {{-- 商品画像を出力 --}}
-            {{-- 本番はちゃんとしたルートのアイテムを表示 --}}
-            {{-- <img src="{{ asset('storage/' . $item->img) }}" alt="商品画像"> --}}
-            {{-- テスト画像の代わり --}}
             <img class="mx-4 pe-8 mt-8 " src="{{asset('storage/'.$item->item_img ?? 'https://placehold.jp/150x150.png')}}" alt="商品画像">
         </div>
         {{-- <div class="size-14  w-1/3"></div> --}}
@@ -46,9 +43,10 @@
             {{-- すでにカートに商品があるときは数を足して更新する --}}
             @if(!empty($cart))
             dd({{$cart}});
-            @method('patch')
+            
             <form action="{{route('update',$item->item_id)}}" method="post">
             @csrf
+            @method('patch')
             <p>カートに入っています</p>
             <div class="flex space-between">
                 {{-- 数字変更 --}}
@@ -82,7 +80,7 @@
             </div>
             </form>
             @else {{--　カートに商品がないときはカートテーブルに追加　--}}
-            <form action="{{route('store',$item->item_id)}}" method="POST">
+            <form action="{{route('store',$cart)}}" method="POST">
             @csrf
             <p>新規追加です</p>
             <div class="flex space-between">

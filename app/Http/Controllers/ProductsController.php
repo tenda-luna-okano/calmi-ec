@@ -102,8 +102,10 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cart $cart, $cart_id)
+    public function update(Request $request, Cart $cart)
     {
+        // 商品IDを取得
+        $item_id =  Cart::first(['item_id']);
         
         // 入力された商品個数
         $validated = $request->validate([
@@ -115,22 +117,18 @@ class ProductsController extends Controller
             'item_count' => 'required | integer | between:1,99',
         ]);
         //既存の商品個数
-        $item_num = Cart::where('cart_id',$cart_id)->first(['item_count']);
-        // if(count(DB::select('select * from carts where item_id=:item_id',['item_id'=>1]))>0){
-        //     DB::update('update item_count set item_count + :item_count where customer_id=:customer_id AND item_id=:item_id',['item_count'=>$validated['item_count'],'customer_id'=>$request->session()->get('customer_id',1),'item_id'=>$item_id]);
-        // }
-
-        // dd($item_num);
-        // dd($item_id);
+        $item_num = Cart::where('item_id',$item_id)->first(['item_count']);
+        // dd(intval($item_num_add['item_count']));
+        // dd(intval($item_num['item_count']));
         // 商品個数を合わせて格納する
-        $validated['item_count']=$item_num;
-        $item_num_add+=$item_num;
+        $validated['item_count']=intval($item_num_add['item_count'])+intval($item_num['item_count']);
+        // $item_num_add+=$item_num;
         // ユーザーIDを指定
         $validated['customer_id']=$request->session()->get('customer_id',1);
         // 商品IDを指定
-        $validated['item_id']=Cart::where('cart_id',$cart_id)->first(['item_id']);
+        $validated['item_id']=Cart::where('item_id',$item_id)->first(['item_id']);
         // カートIDを指定
-        $validated['cart_id']=$cart_id;
+        // $validated['cart_id']=$cart_id;
         // カートテーブルを更新する
         $cart->update($validated);
 
