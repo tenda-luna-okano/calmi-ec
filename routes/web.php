@@ -18,7 +18,7 @@ use App\Http\Controllers\ColumnController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('top');
 });
 // サブスク詳細画面
 Route::get('/subscription/index',[SubscriptionController::class,'index'])->name('subscription.index');
@@ -153,3 +153,8 @@ Route::get('/columns/show/{id}', [ColumnController::class, 'show'])->name('colum
 
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
+//定期便詳細ページへ
+Route::get('/subscription/index',function(){return view('subscription/index');})->name('subscription.index');
+
+//ジャンルごとのページへ(検索結果ページを後で作成して調整する)
+Route::get('/search/results/{id}',function(){return view('search/results');})->name('search.results');
