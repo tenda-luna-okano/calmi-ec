@@ -22,12 +22,12 @@ return new class extends Migration
             $table->string('delivery_states')->comment('郵送先住所(都道府県)');
             $table->string('delivery_municipalities')->comment('郵送先住所(市区町村・番地)');
             $table->string('delivery_building_name')->comment('郵送先住所(建物名・部屋番号)');
-            $table->string('delivery_postage')->comment('郵送費');
+            $table->string('delivery_postage')->comment('郵送費')->nullable();
             $table->integer('order_price')->comment('注文合計額(税抜き)');
             $table->integer('order_price_in_tax')->comment('注文合計額(税込み)');
             $table->boolean('is_paid')->comment('支払済みフラグ');
             $table->boolean('is_delivery')->comment('配送済みフラグ');
-            $table->dateTime('delivery_day')->comment('配送日');
+            $table->dateTime('delivery_day')->comment('配送日')->nullable();
             $table->timestamps();
         });
     }
