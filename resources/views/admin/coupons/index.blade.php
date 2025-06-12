@@ -40,7 +40,9 @@
             <td class="p-2">{{ $coupon->coupon_sale_value }}</td>
             <td class="p-2">{{ $coupon->category->name ?? '未分類' }}</td>
             <td class="p-2">
-                <button class="btn-edit">編集</button>
+                <a href="{{ route('admin.coupons.edit', ['id' => $coupon->coupon_id]) }}" class="btn-edit">
+                    編集
+                </a>
             </td>
         </tr>
         @endforeach

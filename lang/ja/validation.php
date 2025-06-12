@@ -260,6 +260,7 @@ return [
         'updated_at' => '更新日',
         'username' => 'ユーザー名',
         'year' => '年',
+        'coupon_end_day.after' => '終了日は開始日より後の日付を指定してください。',
     ],
 
 ];
