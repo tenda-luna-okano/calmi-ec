@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
+use App\Models\SubscribeDetailMaster;
 use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+class SubscriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //公開中の商品のみ取得
-        $products = Products::where('seling_flg',1)->get();
-        $count = Products::where('seling_flg',1)->count();
-        return view('products.index', compact('products','count'));
+        $subscriptions = SubscribeDetailMaster::all();
+        return view ('subscription.index', compact('subscriptions'));
     }
 
     /**
@@ -37,7 +35,7 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Products $products)
+    public function show(Subscription $subscription)
     {
         //
     }
@@ -45,7 +43,7 @@ class ProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Products $products)
+    public function edit(Subscription $subscription)
     {
         //
     }
@@ -53,7 +51,7 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Products $products)
+    public function update(Request $request, Subscription $subscription)
     {
         //
     }
@@ -61,7 +59,7 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Products $products)
+    public function destroy(Subscription $subscription)
     {
         //
     }

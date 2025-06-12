@@ -1,11 +1,5 @@
 @extends('layouts.app')
 @php
-    $products = [
-        ['name' => '商品1', 'price' => 1000, 'image' => 'https://placehold.jp/150x150.png'],
-        ['name' => '商品2', 'price' => 2000, 'image' => 'https://placehold.jp/150x150.png'],
-        ['name' => '商品3', 'price' => 3000, 'image' => 'https://placehold.jp/150x150.png'],
-        ['name' => '商品4', 'price' => 4000, 'image' => 'https://placehold.jp/150x150.png'],
-    ];
     $categorys = [
         ['id' => 1, 'name' => 'カテゴリ1'],
         ['id' => 2, 'name' => 'カテゴリ2'],
@@ -75,16 +69,19 @@
         </select>
     </div>
 </form>
-<p class="text-center m-4">4件の商品</p>
-<div class="container mx-auto my-6">
-    <div class="container mx-auto grid grid-cols-2 gap-4">
-        @foreach ($products as $product)
-            <div class="col-span-1 flex flex-col items-center">
-                <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}">
-                <p>{{ $product['name'] }} - ¥{{ number_format($product['price']) }}</p>
-                <button class="btn-primary">
-                    カートに入れる
-                </button>
-            </div>
-        @endforeach
+<p class="text-center m-4">{{ $count }}件の商品</p>
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
+    @foreach ($products as $product)
+        <div class="flex flex-col items-center">
+            <img src="{{ asset('storage/' . $product->item_img) }}" 
+                 alt="{{ $product['item_name'] }}" 
+                 class="w-full aspect-square object-cover mb-2">
+            <p>{{ $product['item_name'] }}</p>
+            <p>¥{{ number_format($product['item_price_in_tax']) }}</p>
+            <button class="bg-[#d0b49f] text-white px-4 py-2 rounded mt-2">
+                カートに入れる
+            </button>
+        </div>
+    @endforeach
+</div>
 @endsection

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AdminCouponController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CouponController;
@@ -16,10 +17,8 @@ use App\Http\Controllers\CouponController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('subscription/index', function () {
-    return view('subscription.index');
-});
+// サブスク詳細画面
+Route::get('/subscription/index',[SubscriptionController::class,'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
