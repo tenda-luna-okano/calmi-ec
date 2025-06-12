@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubscribeDetailMaster;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
@@ -45,15 +46,38 @@ class SubscriptionController extends Controller
      */
     public function edit(Subscription $subscription)
     {
-        //
+        //customer_idをAuthに
+        $subscriptionNow = Subscription::where('customer_id',1)->with('subscribeDetailMaster')->first();
+        $subscriptionData = SubscribeDetailMaster::all();
+
+        //dd($subscriptionNow);
+
+        $subscription_img=[];
+        for($cnt=1;$cnt<=3;$cnt++)
+        {
+            if($cnt!=$subscriptionNow->subscribe_detail_id)
+            {
+                $subscription_img[]=['img'=>SubscribeDetailMaster::where('subscribe_detail_id',$cnt)->first()->subscribe_img,'id'=>$cnt];
+            }
+        }
+        //dd($subscription_img);
+
+        return view('subscription/edit',['subscription'=>$subscriptionNow,'subscriptionData'=>$subscriptionData,'subscriptionImg'=>$subscription_img]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subscription $subscription)
+    public function update(Request $request, /*Subscription $subscription*/)
     {
-        //
+        //dd($request);
+        $ID=$request->input('subscriptionID');
+
+        Subscription::where('customer_id',1)
+        ->update([
+            'subscribe_detail_id'=>$ID
+        ]);
+        return view('top');
     }
 
     /**
@@ -61,6 +85,6 @@ class SubscriptionController extends Controller
      */
     public function destroy(Subscription $subscription)
     {
-        //
+        Subscription::where('customer_id',1)->delete();
     }
 }
