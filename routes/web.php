@@ -120,3 +120,5 @@ Route::get('/admin/coupons/edit/{id}', [CouponController::class, 'edit'])->name(
 
 // 更新処理（PUT or POST）
 Route::post('/admin/coupons/update/{id}', [CouponController::class, 'update'])->name('admin.coupons.update');
+
+Route::get('/mypage/history',[MyPageController::class,'history']);

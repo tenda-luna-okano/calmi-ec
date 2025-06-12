@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\ItemMaster;
 use App\Models\CategoryMaster;
 
-
-
 class ProductsController extends Controller
 {
     /**
@@ -25,6 +23,7 @@ class ProductsController extends Controller
         // ビューをデータとともに返す
         return view('products.index', compact('items','count','category'));
     }
+
 
     /**
      * Show the form for creating a new resource.
