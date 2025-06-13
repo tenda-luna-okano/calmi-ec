@@ -34,26 +34,25 @@ class ProductsController extends Controller
     public function show(Request $request,$item_id){
         // item_idから基本的な情報を収納する変数
         $item = ItemMaster::where('item_id',$item_id)->first();
-        
+        // カテゴリーの種類を取得
         $category_id = ItemMaster::where('item_id',$item_id)->first(['item_category']);
-        // すべてのレビュー件数を取得
-
+        
         // reviewをitem_idからレビューを2件取得。
         $reviews = Review::where('review_item_id',$item_id)->take(2)->get();
-        // 上で取得した以外のすべてのレビューを取得
-        $all_reviews = Review::where('review_item_id',$item_id)->skip(2)->take(10)->get();
-        // review数を格納
+        // すべてのレビュー件数を取得
         $review_num = Review::where('review_item_id',$item_id)->count();
-
+        // 上で取得した以外のすべてのレビューを取得
+        $all_reviews = collect(); // 空のコレクション
+        if ($review_num > 2) {
+            $all_reviews = Review::where('review_item_id', $item_id)->skip(2)->take($review_num - 2)->get();
+        }
         //おすすめの商品を5個格納する
-        $recommends =  ItemMaster::where('item_category',$category_id)->take(5)->get();
-
+        $recommends =  ItemMaster::where('item_category',$category_id->item_category)->take(5)->get();
         // cartに同じ商品が入っているかチェックするための変数　空なら商品追加、あるなら商品更新を行う
         $cart = Cart::where('customer_id',$request->session()->get('customer_id',1))->where('item_id',$item_id)->first();
         
         // viewを返す
         return view('products.show',compact('item','reviews','all_reviews','review_num','recommends','cart'));
-        // return view('products.show',compact('items','reviews','item'));
     }
 
     // カートに入れる処理
