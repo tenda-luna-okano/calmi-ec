@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inquirys', function (Blueprint $table) {
-            $table->id('inquirys')->comment('お問い合わせID');
+            $table->id('inquiry_id')->comment('お問い合わせID');
             $table->string('customer_nickname')->comment('お問い合わせのニックネーム');
             $table->text('customer_mail')->comment('問い合わせのメールアドレス');
             $table->text('inquiry_content')->comment('お問い合わせ内容');

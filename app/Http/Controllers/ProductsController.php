@@ -9,6 +9,7 @@ use App\Models\Review;
 use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\CategoryMaster;
 
 
 class ProductsController extends Controller
@@ -18,7 +19,14 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('products.index');
+        //公開中の商品のみ取得
+        $items = ItemMaster::where('seling_flg',1)->get();
+        $count = ItemMaster::where('seling_flg',1)->count();
+        // 今現在実装されているカテゴリーを取得
+        $category = CategoryMaster::get();
+
+        // ビューをデータとともに返す
+        return view('products.index', compact('items','count','category'));
     }
 
 
@@ -67,9 +75,6 @@ class ProductsController extends Controller
         // dd($validated);
         return back();
     }
-
-
-
 
     /**
      * Show the form for creating a new resource.

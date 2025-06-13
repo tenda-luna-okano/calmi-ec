@@ -9,10 +9,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class Customer
- * 
+ *
  * @property int $customer_id
  * @property string $customer_password
  * @property string $customer_fist_name
@@ -32,7 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $mail_magazine_flg
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Payment|null $payment
  * @property Collection|Cart[] $carts
  * @property Collection|Notification[] $notifications
@@ -40,8 +41,11 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Customer extends Model
+// class Customer extends Model
+class Customer extends Authenticatable
 {
+	use SoftDeletes;
+	
 	protected $table = 'customers';
 	protected $primaryKey = 'customer_id';
 
@@ -59,12 +63,12 @@ class Customer extends Model
 	];
 
 	protected $fillable = [
-		'customer_password',
-		'customer_fist_name',
+		'password',
+		'customer_first_name',
 		'customer_last_name',
 		'customer_first_furigana',
 		'customer_last_furigana',
-		'customer_email',
+		'email',
 		'customer_tel',
 		'customer_birthday',
 		'payment_id',
@@ -73,8 +77,10 @@ class Customer extends Model
 		'customer_municipalities',
 		'customer_building_name',
 		'customer_status',
-		'customer_subscribe',
-		'mail_magazine_flg'
+		'customer_subscribe_flg',
+		'mail_magazine_flg',
+        'created_at' ,
+        'update_at' ,
 	];
 
 	public function payment()
