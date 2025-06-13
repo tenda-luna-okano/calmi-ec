@@ -9,7 +9,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\Auth\EditUserController;
-use App\Http\Controllers\AdminloginController;
 use App\Http\Controllers\AdminSalesController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\SubscriptionController;
@@ -146,7 +145,7 @@ Route::get('/contact/index', function () {
 });
 // レビュー投稿のビュー
 Route::get('/reviews/index/{item_id}', [
-  ::class,'index'])
+  ReviewController::class,'index'])
 ->name('reviews.index');
 
 
