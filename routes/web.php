@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\Auth\EditUserController;
 use App\Http\Controllers\AdminSalesController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\SubscriptionController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\WithdrawController;
 use App\Http\Controllers\AdminColumnController;
 use App\Http\Controllers\ColumnController;
+
 
 
 Route::get('/', function () {
@@ -125,7 +127,12 @@ Route::get('/mypage/purchase_history_detail', function(){
 Route::get('/orders/confirm',[OrderController::class,'confirm']);
 
 // ユーザー情報変更
-Route::get('/mypage/edit_user',[MyPageController::class,'edit_user'])->name('mypage.edit_user');
+Route::get('/mypage/edit_user',[EditUserController::class,'show'])
+->name('edit_user.show');
+
+Route::put('/mypage/edit_user',[EditUserController::class,'update'])
+->name('edit_user.update');
+
 
 // 購入履歴
 Route::get('/mypage/purchase_history',[MyPageController::class,'history'])->name('mypage.purchase_history');;
