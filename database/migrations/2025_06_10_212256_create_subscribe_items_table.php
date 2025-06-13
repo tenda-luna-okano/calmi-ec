@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('subscribe_detail_id')->comment('サブスクに追加する商品ID');
             $table->unsignedBigInteger('item_id')->comment('商品ID');
             $table->integer('item_count')->comment('個数');
-            $table->datetime('date_subscribe')->comment('どの月のサブスク報酬か(年/月)');
+            $table->date('date_subscribe')->comment('どの月のサブスク報酬か(年/月)');
         });
     }
 

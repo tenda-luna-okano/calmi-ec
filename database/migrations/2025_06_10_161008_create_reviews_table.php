@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id('review_id')->comment('レビューID');
             $table->string('review_name')->comment('レビュータイトル');
-            $table->integer('customer_nickname')->comment('レビュー者ニックネーム');
+            $table->string('customer_nickname')->comment('レビュー者ニックネーム');
             $table->unsignedBigInteger('review_item_id')->comment('レビューした商品ID');
             $table->foreign('review_item_id')->references('item_id')->on('item_masters');
             $table->integer('reviewer_age')->comment('レビュー者の年代(ex:20(代)');

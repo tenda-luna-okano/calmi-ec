@@ -9,17 +9,20 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class Customer
- * 
+ *
  * @property int $customer_id
- * @property string $customer_password
- * @property string $customer_fist_name
+ * @property string $password
+ * @property string $customer_first_name
  * @property string $customer_last_name
  * @property string $customer_first_furigana
  * @property string $customer_last_furigana
- * @property string $customer_email
+ * @property string $email
  * @property string $customer_tel
  * @property Carbon|null $customer_birthday
  * @property int|null $payment_id
@@ -28,11 +31,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $customer_municipalities
  * @property string $customer_building_name
  * @property bool $customer_status
- * @property bool $customer_subscribe
+ * @property bool $customer_subscribe_flg
  * @property bool $mail_magazine_flg
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ * @property string|null $deleted_at
+ *
  * @property Payment|null $payment
  * @property Collection|Cart[] $carts
  * @property Collection|Notification[] $notifications
@@ -40,8 +44,10 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Customer extends Model
+class Customer extends Authenticatable
 {
+	use SoftDeletes;
+
 	protected $table = 'customers';
 	protected $primaryKey = 'customer_id';
 
@@ -50,21 +56,21 @@ class Customer extends Model
 		'payment_id' => 'int',
 		'customer_post_number' => 'int',
 		'customer_status' => 'bool',
-		'customer_subscribe' => 'bool',
+		'customer_subscribe_flg' => 'bool',
 		'mail_magazine_flg' => 'bool'
 	];
 
 	protected $hidden = [
-		'customer_password'
+		'password'
 	];
 
 	protected $fillable = [
-		'customer_password',
-		'customer_fist_name',
+		'password',
+		'customer_first_name',
 		'customer_last_name',
 		'customer_first_furigana',
 		'customer_last_furigana',
-		'customer_email',
+		'email',
 		'customer_tel',
 		'customer_birthday',
 		'payment_id',
@@ -73,7 +79,7 @@ class Customer extends Model
 		'customer_municipalities',
 		'customer_building_name',
 		'customer_status',
-		'customer_subscribe',
+		'customer_subscribe_flg',
 		'mail_magazine_flg'
 	];
 

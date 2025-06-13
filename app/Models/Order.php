@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $delivery_municipalities
  * @property string $delivery_building_name
  * @property string $delivery_postage
- * @property int $order_price
+ * @property int|null $order_price
  * @property int $order_price_in_tax
  * @property bool $is_paid
  * @property bool $is_delivery

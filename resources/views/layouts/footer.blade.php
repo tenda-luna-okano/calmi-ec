@@ -9,9 +9,8 @@
         <!-- 右：GUIDE -->
         <div class="text-right text-sm space-y-1">
             <h3 class="font-bold underline underline-offset-2">GUIDE</h3>
-            <p><a href="#">新規登録</a></p>
-            <p><a href="#">マイページ/ログイン</a></p>
-            <p><a href="#">問い合わせ</a></p>
+            <p><a href="{{ route('register') }}">新規登録</a></p>
+            <p><a href="{{ route('inquiry.form') }}">問い合わせ</a></p>
         </div>
     </div>
 

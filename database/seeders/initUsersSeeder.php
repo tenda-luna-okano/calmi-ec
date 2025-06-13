@@ -21,13 +21,13 @@ class initUsersSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-            'customer_password' => 'tenda',
+            'password' => \Hash::make('tenda'),
             'customer_first_name' => '試験',
             'customer_last_name' => '中',
             'customer_first_furigana' => 'シケン',
             'customer_last_furigana' => 'チュウ',
-            'customer_email' => 'test@test.com',
-            'customer_tel' => '090-1111-1111',
+            'email' => 'test@test.com',
+            'customer_tel' => '09011111111',
             'customer_birthday'=> '1999-05-29',
             'payment_id' => NULL,
             'customer_post_number' => 1330051,

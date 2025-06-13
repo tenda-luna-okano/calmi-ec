@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $order_id
  * @property int $item_id
  * @property string $item_name
- * @property int $price
+ * @property int|null $price
  * @property int $price_in_tax
  * @property int $count
  * @property Carbon|null $created_at
