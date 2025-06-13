@@ -73,4 +73,18 @@ class ProductsController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+
+        //dd($request);
+        $SearchWord=$request->input('search');
+
+        //$products = Product::where('name', 'like', '%' . $keyword . '%')->get();
+        $resultItem=ItemMaster::where('item_name','like','%'.$SearchWord.'%')->get();
+        $itemCount=$resultItem->count();
+        //dd($resultItem);
+        //dd($SearchWord);
+        return view('search.results',['SearchWord'=>$SearchWord,'resultItem'=>$resultItem,'itemCount'=>$itemCount]);
+    }
 }
