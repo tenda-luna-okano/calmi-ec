@@ -40,9 +40,21 @@
         -->
         <b style="font-size:30px;">定期便のご紹介</b><br><br>
         <div class="field">
-            <li style="list-style:none;">LightNight<img id="LightNight" src="{{ asset('img/LightNight.png') }}" alt="" style="width:80%;"></li>
-            <li style="list-style:none;">DeepNight<img id="DeepNight" src="{{ asset('img/DeepNight.png') }}" alt="" style="width:80%;"></li>
-            <li style="list-style:none;">PremiumNight<img id="PremiumNight" src="{{ asset('img/PremiumNight.png') }}" alt="" style="width:80%;"></li>
+            <li style="list-style:none;">
+                <a href="{{route('subscription.index')}}">
+                    LightNight<img class="subscription" name="LightNight" src="{{ asset('img/LightNight.png') }}" alt="" style="width:80%;">
+                </a>
+            </li>
+            <li style="list-style:none;">
+                <a href="{{route('subscription.index')}}">
+                    DeepNight<img class="subscription" name="DeepNight" src="{{ asset('img/DeepNight.png') }}" alt="" style="width:80%;">
+                </a>
+            </li>
+            <li style="list-style:none;">
+                <a href="{{route('subscription.index')}}">
+                    PremiumNight<img class="subscription" name="PremiumNight" src="{{ asset('img/PremiumNight.png') }}" alt="" style="width:80%;">
+                </a>
+            </li>
         </div>
             
 
@@ -57,13 +69,29 @@
 
         <b style="font-size:30px;">ジャンルごとのご紹介</b><br><br>
         <div class="field">
-            <li style="list-style:none;">アロマ<img id="アロマ" src="{{ asset('img/ピローミスト.png') }}" alt="" style="width:80%;"></li>
-            <li style="list-style:none;">フード<img id="フード" src="{{ asset('img/GABAチョコレート.png') }}" alt="" style="width:80%;"></li>
+            <li style="list-style:none;">
+                <a href="{{route('search.results',['id'=>'アロマ'])}}">
+                    アロマ<img class="category" id="アロマ" src="{{ asset('img/ピローミスト.png') }}" alt="" style="width:80%;">
+                </a>
+            </li>
+            <li style="list-style:none;">
+                <a href="{{route('search.results',['id'=>'フード'])}}">
+                    フード<img class="category" id="フード" src="{{ asset('img/GABAチョコレート.png') }}" alt="" style="width:80%;">
+                </a>
+            </li>
         </div>
         <br>
         <div class="field">
-            <li style="list-style:none;">タッチ<img id="タッチ" src="{{ asset('img/温感ジェル.png') }}" alt="" style="width:80%;"></li>
-            <li style="list-style:none;">ご褒美スイーツ<img id="ご褒美スイーツ" src="{{ asset('img/マカロン.png') }}" alt="" style="width:80%;"></li>
+            <li style="list-style:none;">
+                <a href="{{route('search.results',['id'=>'タッチ'])}}">
+                    タッチ<img class="category" id="タッチ" src="{{ asset('img/温感ジェル.png') }}" alt="" style="width:80%;">
+                </a>
+            </li>
+            <li style="list-style:none;">
+                <a href="{{route('search.results',['id'=>'ご褒美スイーツ'])}}">
+                    ご褒美スイーツ<img class="category" id="ご褒美スイーツ" src="{{ asset('img/マカロン.png') }}" alt="" style="width:80%;">
+                </a>
+            </li>
         </div>
 
         <div style="height:50px;"></div>

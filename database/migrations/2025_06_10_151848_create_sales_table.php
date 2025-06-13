@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id('sale_id')->comment('セールid');
+            $table->string('sale_name')->nullable()->comment('セール名');
             $table->text('sale_detail_explanation')->comment('セール説明文');
             $table->dateTime('sale_start_day')->comment('セール開始日');
-            $table->dateTime('sale_end_day')->comment('セール終了日');
+            $table->dateTime('sale_end_day')->nullable()->comment('セール終了日');
             $table->boolean('sale_is_enable')->comment('セール実施フラグ');
             $table->timestamps();
         });
