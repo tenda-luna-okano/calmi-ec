@@ -24,6 +24,11 @@ class DatabaseSeeder extends Seeder
             initAdminSeeder::class,
             initUsersSeeder::class,
             initCartSeeder::class,
+            initOrdersSeeder::class,
+            initReviewsSeeder::class,
+            NotificationSeeder::class,
+            OrdersSeeder::class,
+            SubscriptionItemSeeder::class,
         ]);
     }
 }
