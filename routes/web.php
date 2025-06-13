@@ -144,7 +144,8 @@ Route::get('/contact/index', function () {
     return view('contact.index');
 });
 // レビュー投稿のビュー
-Route::get('/reviews/index/{item_id}', [ReviewController::class,'index'])
+Route::get('/reviews/index/{item_id}', [
+  ReviewController::class,'index'])
 ->name('reviews.index');
 
 
