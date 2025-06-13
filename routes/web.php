@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\Auth\EditUserController;
 use App\Http\Controllers\AdminloginController;
 use App\Http\Controllers\AdminSalesController;
@@ -17,7 +18,6 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\WithdrawController;
 use App\Http\Controllers\AdminColumnController;
 use App\Http\Controllers\ColumnController;
-
 
 
 Route::get('/', function () {
@@ -83,9 +83,7 @@ Route::get('/admin/coupons/update',function() {
 });
 
 
-Route::get('/admin/products/index', function(){
-    return view ('admin.products.index');
-});
+Route::get('/admin/products/index', [AdminProductController::class, 'index']);
 
 Route::get('/admin/products/edit', function(){
     return view('admin.products.edit');
@@ -179,8 +177,12 @@ Route::get('/columns/show/{id}', [ColumnController::class, 'show'])->name('colum
 
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
+Route::post('/admin/products/insert',[AdminProductController::class, 'store'])->name('admin.products.insert');
+Route::get('/admin/products/index', [AdminProductController::class, 'index'])->name('admin.products.index');
+
 //定期便詳細ページへ
 Route::get('/subscription/index',function(){return view('subscription/index');})->name('subscription.index');
 
 //ジャンルごとのページへ(検索結果ページを後で作成して調整する)
 Route::get('/search/results/{id}',function(){return view('search/results');})->name('search.results');
+

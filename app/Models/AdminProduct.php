@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Products extends Model
+class AdminProduct extends Model
 {
-    use HasFactory;
 
-    protected $table = 'item_master'; 
+    protected $table = 'item_masters'; 
 
     protected $fillable = [
         'item_name',
@@ -26,5 +25,4 @@ class Products extends Model
     protected $guarded = [
         'item_id',
     ];
-
 }
