@@ -16,6 +16,8 @@
   <div class="flex justify-center">
     <div class="flex flex-wrap items-end gap-3">
 
+
+      <form></form>
       {{-- カテゴリ --}}
       <div class="flex flex-col">
         <label class="text-sm">ジャンル</label>
@@ -23,6 +25,7 @@
           <option value="">未選択</option>
           @foreach ($categories as $category)
             <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+
           @endforeach
         </select>
       </div>
