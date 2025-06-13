@@ -148,12 +148,14 @@
             <div class="bg-white py-4">
                 
                 {{-- レビューの★ --}}
+                <h4>
                 @for($i = 0;$i < $review->review_star;$i++)
-                    <h4>☆</h4>
+                    ☆
                 @endfor
                 @for($i = 0;$i < 5-$review->review_star;$i++)
-                    <h4>★</h4>
+                    ★
                 @endfor
+                </h4>
                 <div>
                     {{-- レビューのタイトル --}}
                     <h3>{{$review->review_name}}</h3>
@@ -167,7 +169,10 @@
             </div>
             @endforeach
         @endif
-        <div class="text-right"><button class="more">もっと見る</button></div>
+        <div class="text-right">
+            <button class="more">もっと見る</button>
+            <button class="less border px-2 hidden">元に戻す</button>
+        </div>
     </div>
     
     <hr>
@@ -176,7 +181,7 @@
     {{-- 商品５個表示 --}}
     <div class="flex bg-white px-4 py-3">
         {{-- おすすめがあれば表示、なければ「特定の5つの商品」を表示 --}}
-        @if(!empty($recommends))
+        @if(empty($recommends))
             <div class="flex-1 px-2 ">
                 <img src="https://placehold.jp/150x150.png">
                 <p>商品名</p>
@@ -201,8 +206,10 @@
             {{-- おすすめ五件の画像と商品名を表示 --}}
             @foreach($recommends as $recommend)
                 <div class="flex-1 px-2 ">
+                    <a href="{{route('show',$recommend->item_id)}}">
                     <img src="{{asset('storage/'.$recommend->item_img ?? 'https://placehold.jp/150x150.png')}}">
                 <p>{{$recommend->item_name}}</p> 
+                </a>
             </div>
             @endforeach
         @endif
@@ -249,29 +256,60 @@
             });
         });
     </script>
-    {{--  --}}
+    {{-- もっと見るを押したときの挙動 --}}
     <script>
         $(function(){
             $('.more').on('click',function(){
                 var data = @json($all_reviews);
                 const parent_review = document.getElementById('parent_review');
+
                 data.forEach(review => {
                     const child = document.createElement('div');
-                    const star = document.createElement('h4');
-                    // レビューの★を表示
-                    for(let i = 0; i < review['review_star'];i++){
-                        star.innerText .= '☆';
+                    child.classList.add('bg-white', 'py-4');
+
+                    // 星の表示
+                    const starWrapper = document.createElement('div');
+                    for(let i = 0; i < review['review_star']; i++){
+                        const star = document.createElement('span');
+                        star.innerText = '☆';
+                        starWrapper.appendChild(star);
                     }
-                    for(let i = 0; i < 5-review['review_star'];i++){
-                        star.innerText .= '★';
+                    for(let i = 0; i < 5 - review['review_star']; i++){
+                        const star = document.createElement('span');
+                        star.innerText = '★';
+                        starWrapper.appendChild(star);
                     }
-                    // レビューのタイトルを作成
+                    child.appendChild(starWrapper);
+
+                    // タイトル
                     const title = document.createElement('h3');
                     title.innerText = review['review_name'];
-                    // レビューした人のの年代
-                    const review = docoment.createElement(p)
-                    review.innerText = review['review_age'];
+                    child.appendChild(title);
+
+                    // 年代
+                    const age = document.createElement('p');
+                    age.innerText = `${review['reviewer_age']}代`;
+                    child.appendChild(age);
+
+                    // 投稿日
+                    const postDate = document.createElement('p');
+                    postDate.innerText = review['created_at'] ?? '日付不明';
+                    child.appendChild(postDate);
+
+                    // レビュー内容
+                    const contentLabel = document.createElement('p');
+                    contentLabel.innerText = 'レビュー内容';
+                    const content = document.createElement('p');
+                    content.innerText = review['review_content'];
+                    child.appendChild(contentLabel);
+                    child.appendChild(content);
+
+                    // レビューを追加
+                    parent_review.appendChild(child);
                 });
+
+                // 「もっと見る」ボタンを消す
+                this.style.display = 'none';
             });
         });
     </script>
