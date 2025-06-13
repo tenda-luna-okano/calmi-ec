@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Sale|null $sale
  * @property Collection|Cart[] $carts
  * @property Collection|Review[] $reviews
+ * @property Collection|SubscribeItem[] $subscribe_items
  *
  * @package App\Models
  */
@@ -83,5 +84,10 @@ class ItemMaster extends Model
 	public function reviews()
 	{
 		return $this->hasMany(Review::class, 'review_item_id');
+	}
+
+	public function subscribe_items()
+	{
+		return $this->hasMany(SubscribeItem::class, 'item_id');
 	}
 }

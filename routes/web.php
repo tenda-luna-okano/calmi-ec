@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminloginController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
@@ -74,7 +75,7 @@ Route::get('/mypage/withdraw_confirm', [WithdrawController::class, 'confirm'])->
 
 
 // 実行（退会処理）
-Route::post('/mypage/withdraw', [WithdrawController::class, 'withdraw'])->name('mypage.withdraw');
+// Route::post('/mypage/withdraw', [WithdrawController::class, 'withdraw'])->name('mypage.withdraw');
 
 Route::get('/admin/coupons/issue', [AdminCouponController::class, 'issue'])->name('admin.coupons.issue'); // フォーム表示
 Route::post('/admin/coupons/issue', [AdminCouponController::class, 'store'])->name('admin.coupons.store'); // 登録処理
@@ -89,12 +90,21 @@ Route::get('/admin/sales/index', function() {
 
 
 
+
 Route::get('/admin/products/index', [AdminProductController::class, 'index']);
 
 // Route::get('/admin/products/index', function(){
 //     return view ('admin.products.index');
 // })->name('admin.products.index');
 
+
+
+//Route::get('/admin/auth/login',[AdminloginController::class,'create'])
+//->name('admin.login');
+
+//Route::post('/admin/auth/login',[AdminloginController::class, 'store']);
+
+//Route::post('logout', [AdminloginController::class, 'destroy'])->name('admin.auth.logout');
 
 // 編集フォーム表示
 Route::get('/admin/products/edit/{id}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
@@ -120,6 +130,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         })->name('dashboard');
     });
 });
+
 
 Route::get('/admin/coupons/index',function() {
     return view('admin.coupons.index');
