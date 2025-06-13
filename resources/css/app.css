@@ -8,10 +8,9 @@
 };
 .stars span{
   display: flex;               /* 要素をフレックスボックスにする */
-  flex-direction: row-reverse; /* 星を逆順に並べる */
-  justify-content: flex-end;   /* 逆順なので、左寄せにする */
+  flex-direction: row-reverse; /* 右から表示されるように */
+  gap: 0.25rem;
 }
-
 .stars input[type='radio']{
   display: none;               /* デフォルトのラジオボタンを非表示にする */
 }
@@ -27,4 +26,12 @@
 .stars label:hover ~ label,
 .stars input[type='radio']:checked ~ label{
   color: #F8C601;              /* 選択された星以降をすべて黄色にする */
+}
+
+body:has(dialog[open]){
+  overflow: hidden;
+}
+body:has(dialog[open]) div #container{
+  overflow: hidden;
+  scrollbar-gutter: stable;
 }
