@@ -14,14 +14,16 @@ class initOrdersSeeder extends Seeder
     public function run(): void
     {
         //
-        // DB::table('order_details')->insert([
-        //     'order_id'=>1,
-        //     'item_id'=>1,
-        //     'item_name'=>'テスト商品1',
-        //     'price'=>1100,
-        //     'price_in_tax'=>1200,
-        //     'count'=>1,
-        // ]);
+
+        DB::table('order_details')->insert([
+            'order_id'=>1,
+            'item_id'=>1,
+            'item_name'=>'テスト商品1',
+            'price'=>1100,
+            'price_in_tax'=>1200,
+            'count'=>1,
+        ]);
+
         DB::table('payments')->insert([
             'payment_name'=>'クレジットカード',
             'card_number'=>0202020202020202,
@@ -48,4 +50,5 @@ class initOrdersSeeder extends Seeder
 
         
     }
+
 }

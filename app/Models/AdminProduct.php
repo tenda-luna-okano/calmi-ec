@@ -4,11 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Products extends Model
+class AdminProduct extends Model
 {
-    use HasFactory;
 
-    protected $table = 'item_master'; 
+    protected $table = 'item_masters'; 
+<<<<<<< feature-logic-adminProductEdit
+    //プライマリーキーの指定
+    protected $primaryKey = 'item_id';
+=======
+>>>>>>> develop
 
     protected $fillable = [
         'item_name',
