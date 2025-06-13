@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Inquiry
  * 
- * @property int $inquirys
+ * @property int $inquiry_id
  * @property string $customer_nickname
  * @property string $customer_mail
  * @property string $inquiry_content
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
 class Inquiry extends Model
 {
 	protected $table = 'inquirys';
-	protected $primaryKey = 'inquirys';
+	protected $primaryKey = 'inquiry_id';
 
 	protected $casts = [
 		'answered_flg' => 'bool'

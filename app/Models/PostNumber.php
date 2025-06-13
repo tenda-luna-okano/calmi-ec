@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $post_number
  * @property string $states
- * @property string $municipalities
+ * @property string|null $municipalities
  *
  * @package App\Models
  */

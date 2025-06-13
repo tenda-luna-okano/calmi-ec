@@ -6,9 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Notification;
+
 
 class MyPageController extends Controller
 {
+    public function index(){
+        if(Auth::guest()) {
+        //ログインされていなかったらログインフォームを表示
+        return view('auth.login');
+        }else{
+            $notifications = $this->notification();
+            return view('mypage.index', compact('notifications','notifications'));
+        }
+    }
     //ユーザー情報変更
     public function edit_user(){
         return view('mypage.edit_user');
@@ -88,5 +100,11 @@ class MyPageController extends Controller
         // dd($order_details);
         // ビューを返す'
         return view('mypage.purchase_history_detail',compact('order_details','order','order_method'));
+    }
+
+    //お知らせ
+    public function notification(){
+        $notifications = Notification::orderBy('notification_id','desc')->take(2)->get();
+        return $notifications;
     }
 }
