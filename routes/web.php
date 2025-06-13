@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\Auth\EditUserController;
+use App\Http\Controllers\AdminloginController;
 use App\Http\Controllers\AdminSalesController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\SubscriptionController;
@@ -90,8 +91,26 @@ Route::get('/admin/products/edit', function(){
     return view('admin.products.edit');
 });
 
-Route::get('/admin/auth/login',function(){
-    return view('admin.auth.login');
+// Route::get('/admin/auth/login',function(){
+//     return view('admin.auth.login');
+// });
+
+
+//admin用ルーティング
+//prefixのなかに入れるとurlに勝手に/adminがつきます
+//ログインしてない用
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::middleware('guest:admin')->group(function() {
+        Route::get('/login', [AdminloginController::class, 'create'])
+        ->name('login');
+        Route::post('/login', [AdminloginController::class, 'store']);
+    });
+    //ログインしてる用
+   Route::middleware('auth:admin')->group(function() {
+        Route::get('/dashboard', function() {
+            return view('admin.dashboard');
+        })->name('dashboard');
+    });
 });
 
 Route::get('/admin/coupons/index',function() {
