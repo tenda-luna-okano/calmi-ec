@@ -47,6 +47,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Customer extends Authenticatable
 {
 	use SoftDeletes;
+
 	protected $table = 'customers';
 	protected $primaryKey = 'customer_id';
 

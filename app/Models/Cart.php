@@ -36,6 +36,7 @@ class Cart extends Model
 	];
 
 	protected $fillable = [
+		'cart_id',
 		'customer_id',
 		'item_id',
 		'item_count'
