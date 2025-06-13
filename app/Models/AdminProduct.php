@@ -8,6 +8,11 @@ class AdminProduct extends Model
 {
 
     protected $table = 'item_masters'; 
+<<<<<<< feature-logic-adminProductEdit
+    //プライマリーキーの指定
+    protected $primaryKey = 'item_id';
+=======
+>>>>>>> develop
 
     protected $fillable = [
         'item_name',

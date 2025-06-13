@@ -26,5 +26,4 @@ class Products extends Model
     protected $guarded = [
         'item_id',
     ];
-
 }

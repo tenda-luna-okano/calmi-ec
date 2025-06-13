@@ -23,46 +23,22 @@
             </tr>
         </thead>
         <tbody>
+            @foreach($products as $product)
             <tr class="border-b hover:bg-gray-100 text-center">
-                <td class="p-2">1</td>
-                <td class="p-2">チョコレート</td>
-                <td class="p-2">200</td>
-                <td class="p-2">10</td>
-                <td class="p-2">販売中</td>
+                <td class="p-2">{{ $product->item_id }}</td>
+                <td class="p-2">{{ $product->item_name }}</td>
+                <td class="p-2">{{ $product->item_price }}</td>
+                <td class="p-2">{{ $product->item_stock }}</td>
                 <td class="p-2">
-                    <button class="btn-edit">編集</button>
+                    {{ $product->seling_flg == 1 ? '販売中' : '停止中' }}
+                </td>
+                <td class="p-2">
+                    <a href="{{ route('admin.products.edit', ['id' => $product->item_id]) }}" class="btn-edit">
+                        編集
+                    </a>
                 </td>
             </tr>
-            <tr class="border-b hover:bg-gray-100 text-center">
-                <td class="p-2">2</td>
-                <td class="p-2">マフィン</td>
-                <td class="p-2">200</td>
-                <td class="p-2">10</td>
-                <td class="p-2">販売中</td>
-                <td class="p-2">
-                    <button class="btn-edit">編集</button>
-                </td>
-            </tr>
-            <tr class="border-b hover:bg-gray-100 text-center">
-                <td class="p-2">3</td>
-                <td class="p-2">ナッツ</td>
-                <td class="p-2">200</td>
-                <td class="p-2">10</td>
-                <td class="p-2">販売中</td>
-                <td class="p-2">
-                    <button class="btn-edit">編集</button>
-                </td>
-            </tr>
-            <tr class="border-b hover:bg-gray-100 text-center">
-                <td class="p-2">4</td>
-                <td class="p-2">プロテイン</td>
-                <td class="p-2">200</td>
-                <td class="p-2">10</td>
-                <td class="p-2">販売中</td>
-                <td class="p-2">
-                    <button class="btn-edit">編集</button>
-                </td>
-            </tr>
+        @endforeach
         </tbody>
     </table>
 @endsection
