@@ -25,7 +25,7 @@
     <div class="max-w-7xl mx-auto px-4 py-2 flex justify-center space-x-8 text-sm text-gray-700">
         <a href="{{ route('subscription.index') }}" class="hover:underline">定期便</a>
         <a href="#" class="hover:underline">ジャンル</a>
-        <a href="#" class="hover:underline">コラム</a>
+        <a href="{{ route('columns.index') }}" class="hover:underline">コラム</a>
     </div>
 </nav>
 
