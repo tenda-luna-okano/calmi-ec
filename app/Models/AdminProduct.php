@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class AdminProduct extends Model
 {
 
-    protected $table = 'item_masters'; 
-<<<<<<< feature-logic-adminProductEdit
+    protected $table = 'item_masters';
+
     //プライマリーキーの指定
     protected $primaryKey = 'item_id';
-=======
->>>>>>> develop
+
 
     protected $fillable = [
         'item_name',

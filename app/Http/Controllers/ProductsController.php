@@ -25,7 +25,7 @@ class ProductsController extends Controller
         $count = ItemMaster::where('seling_flg',1)->count();
         // 今現在実装されているカテゴリーを取得
         $categories = CategoryMaster::get();
-        
+
         // カテゴリー絞り込みのためのカテゴリーID
         $item_category = $request->categoryId;
         // クエリ作成
@@ -69,7 +69,7 @@ class ProductsController extends Controller
         $item = ItemMaster::where('item_id',$item_id)->first();
         // カテゴリーの種類を取得
         $category_id = ItemMaster::where('item_id',$item_id)->first(['item_category']);
-        
+
         // reviewをitem_idからレビューを2件取得。
         $reviews = Review::where('review_item_id',$item_id)->take(2)->get();
         // すべてのレビュー件数を取得
@@ -83,7 +83,7 @@ class ProductsController extends Controller
         $recommends =  ItemMaster::where('item_category',$category_id->item_category)->take(5)->get();
         // cartに同じ商品が入っているかチェックするための変数　空なら商品追加、あるなら商品更新を行う
         $cart = Cart::where('customer_id',$request->session()->get('customer_id',1))->where('item_id',$item_id)->first();
-        
+
         // viewを返す
         return view('products.show',compact('item','reviews','all_reviews','review_num','recommends','cart'));
     }
@@ -110,47 +110,47 @@ class ProductsController extends Controller
     }
 
 
-    // 商品詳細
-    public function show(Request $request,$item_id){
-        // item_idから基本的な情報を収納する変数
-        $item = ItemMaster::where('item_id',$item_id)->first();
-        
-        $category_id = ItemMaster::where('item_id',$item_id)->first(['item_category']);
-        // reviewをitem_idからレビューをすべて取得。
-        $reviews = Review::where('review_item_id',$item_id)->take(2)->get();
+    // // 商品詳細
+    // public function show(Request $request,$item_id){
+    //     // item_idから基本的な情報を収納する変数
+    //     $item = ItemMaster::where('item_id',$item_id)->first();
 
-        // review数を格納
-        $review_num = Review::where('review_item_id',$item_id)->count();
+    //     $category_id = ItemMaster::where('item_id',$item_id)->first(['item_category']);
+    //     // reviewをitem_idからレビューをすべて取得。
+    //     $reviews = Review::where('review_item_id',$item_id)->take(2)->get();
 
-        //おすすめの商品を5個格納する
-        $recommends =  ItemMaster::where('item_category',$category_id)->take(5)->get();
+    //     // review数を格納
+    //     $review_num = Review::where('review_item_id',$item_id)->count();
 
-        // cartに同じ商品が入っているかチェックするための変数　空なら商品追加、あるなら商品更新を行う
-        $cart = Cart::where('customer_id',$request->session()->get('customer_id',1))->where('item_id',$item_id)->first();
-        
-        // viewを返す
-        return view('products.show',compact('item','reviews','review_num','recommends','cart'));
-        // return view('products.show',compact('items','reviews','item'));
-    }
+    //     //おすすめの商品を5個格納する
+    //     $recommends =  ItemMaster::where('item_category',$category_id)->take(5)->get();
 
-    // カートに入れる処理
-    public function store(Request $request,$item_id){
-        // すでにカートに入っているかチェック
-        $cart_check = Cart::where('customer_id',$request->session()->get('customer_id',1))->where('item_id',$item_id)->first();
+    //     // cartに同じ商品が入っているかチェックするための変数　空なら商品追加、あるなら商品更新を行う
+    //     $cart = Cart::where('customer_id',$request->session()->get('customer_id',1))->where('item_id',$item_id)->first();
 
-        $validated = $request->validate([
-            // 商品個数を入力
-            'item_count' => 'required | integer | between:1,99',
-        ]);
-        // $validated['item_count']=1;
-        // ユーザーIDを登録
-        $validated['customer_id']=$request->session()->get('customer_id',1);
-        // 商品IDを登録
-        $validated['item_id']=$item_id;
-        $cart = Cart::create($validated);
-        // dd($validated);
-        return back();
-    }
+    //     // viewを返す
+    //     return view('products.show',compact('item','reviews','review_num','recommends','cart'));
+    //     // return view('products.show',compact('items','reviews','item'));
+    // }
+
+    // // カートに入れる処理
+    // public function store(Request $request,$item_id){
+    //     // すでにカートに入っているかチェック
+    //     $cart_check = Cart::where('customer_id',$request->session()->get('customer_id',1))->where('item_id',$item_id)->first();
+
+    //     $validated = $request->validate([
+    //         // 商品個数を入力
+    //         'item_count' => 'required | integer | between:1,99',
+    //     ]);
+    //     // $validated['item_count']=1;
+    //     // ユーザーIDを登録
+    //     $validated['customer_id']=$request->session()->get('customer_id',1);
+    //     // 商品IDを登録
+    //     $validated['item_id']=$item_id;
+    //     $cart = Cart::create($validated);
+    //     // dd($validated);
+    //     return back();
+    // }
 
 
 
@@ -196,7 +196,7 @@ class ProductsController extends Controller
         // 商品IDを取得
         $item_id =  Cart::first(['item_id']);
 
-        
+
         // 入力された商品個数
         $validated = $request->validate([
             // 商品個数を入力
