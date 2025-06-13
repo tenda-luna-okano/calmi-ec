@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $review_id
  * @property string $review_name
- * @property int $customer_nickname
+ * @property string $customer_nickname
  * @property int $review_item_id
  * @property int $reviewer_age
  * @property int $review_star
@@ -33,7 +33,6 @@ class Review extends Model
 	protected $primaryKey = 'review_id';
 
 	protected $casts = [
-		'customer_nickname' => 'int',
 		'review_item_id' => 'int',
 		'reviewer_age' => 'int',
 		'review_star' => 'int'
