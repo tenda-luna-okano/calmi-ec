@@ -7,8 +7,6 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\AdminProductController;
-<<<<<<< feature-logic-adminProductEdit
-=======
 use App\Http\Controllers\Auth\EditUserController;
 use App\Http\Controllers\AdminloginController;
 use App\Http\Controllers\AdminSalesController;
@@ -21,7 +19,6 @@ use App\Http\Controllers\WithdrawController;
 use App\Http\Controllers\AdminColumnController;
 use App\Http\Controllers\ColumnController;
 
->>>>>>> develop
 
 Route::get('/', function () {
     return view('top');
@@ -50,6 +47,7 @@ Route::post('/products/show/{item_id}',[ProductsController::class,'store'])
 Route::patch('/products/show/{item_id}',[ProductsController::class,'update'])
 ->name('products.update');
 
+Route::get('/products/show',[ProductsController::class,'show']); //テスト用
 
 Route::get('/products/show',[ProductsController::class,'show']); //テスト用
 
@@ -90,14 +88,13 @@ Route::get('/admin/sales/index', function() {
 })->name('admin.sales.index');
 
 
-<<<<<<< feature-logic-adminProductEdit
-Route::get('/admin/products/index', [AdminProductController::class, 'index']);
-=======
-Route::get('/admin/products/index', function(){
-    return view ('admin.products.index');
-})->name('admin.products.index');
 
->>>>>>> develop
+Route::get('/admin/products/index', [AdminProductController::class, 'index']);
+
+// Route::get('/admin/products/index', function(){
+//     return view ('admin.products.index');
+// })->name('admin.products.index');
+
 
 // 編集フォーム表示
 Route::get('/admin/products/edit/{id}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
@@ -137,8 +134,18 @@ Route::get('/contact/index', function () {
     return view('contact.index');
 });
 // レビュー投稿のビュー
-Route::get('/reviews/index/{item_id}', [ReviewController::class,'index'])
+Route::get('/reviews/index/{item_id}', [
+  ::class,'index'])
 ->name('reviews.index');
+
+
+Route::get('/mypage/index', function () {
+    return view('mypage.index');
+});
+// マイページの購入履歴詳細画面
+Route::get('/mypage/purchase_history_detail', [MyPageController::class,'history_detail']);
+Route::post('/mypage/purchase_history_detail', [MyPageController::class,'history_detail']);
+
 
 // お問い合わせフォームを表示（GET）
 Route::get('/contact/index', [InquiryController::class, 'index'])->name('inquiry.form');
@@ -153,6 +160,7 @@ Route::get('/top', function () {
 Route::get('/mypage/purchase_history_detail', function(){
     return view('mypage.purchase_history_detail');
 });
+
 // 購入確認画面
 Route::get('/orders/confirm',[OrderController::class,'confirm']);
 
@@ -190,7 +198,7 @@ Route::get('/columns/show/{id}', [ColumnController::class, 'show'])->name('colum
 
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
-<<<<<<< feature-logic-adminProductEdit
+
 Route::get('/products/show',function(){
     return view('products.show');
 });
@@ -198,9 +206,6 @@ Route::get('/products/show',function(){
 Route::post('/admin/products/insert',[AdminProductController::class, 'store'])->name('admin.products.insert');
 Route::get('/admin/products/index', [AdminProductController::class, 'index'])->name('admin.products.index');
 Route::post('/admin/products/update/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
-=======
-Route::post('/admin/products/insert',[AdminProductController::class, 'store'])->name('admin.products.insert');
-Route::get('/admin/products/index', [AdminProductController::class, 'index'])->name('admin.products.index');
 
 //定期便詳細ページへ
 Route::get('/subscription/index',function(){return view('subscription/index');})->name('subscription.index');
@@ -208,4 +213,3 @@ Route::get('/subscription/index',function(){return view('subscription/index');})
 //ジャンルごとのページへ(検索結果ページを後で作成して調整する)
 Route::get('/search/results/{id}',function(){return view('search/results');})->name('search.results');
 
->>>>>>> develop
