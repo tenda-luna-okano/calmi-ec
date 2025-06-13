@@ -82,8 +82,15 @@ Route::get('/admin/coupons/update',function() {
     return view('admin.coupons.update');
 });
 
+Route::get('/admin/sales/index', function() {
+    return view('admin.sales.index');
+})->name('admin.sales.index');
 
-Route::get('/admin/products/index', [AdminProductController::class, 'index']);
+
+Route::get('/admin/products/index', function(){
+    return view ('admin.products.index');
+})->name('admin.products.index');
+
 
 Route::get('/admin/products/edit', function(){
     return view('admin.products.edit');
