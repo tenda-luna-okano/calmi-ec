@@ -64,7 +64,7 @@ require __DIR__.'/admin.php';
 
 Route::get('/orders/payment', function(){
     return view('orders.payment');
-});
+})->name('orders.payment');
 
 
 Route::get('/mypage/withdraw',function(){
@@ -173,7 +173,8 @@ Route::get('/mypage/purchase_history_detail', function(){
 });
 
 // 購入確認画面
-Route::get('/orders/confirm',[OrderController::class,'confirm']);
+Route::get('/orders/confirm',[OrderController::class,'confirm'])
+->name('orders.confirm');
 
 // ユーザー情報変更
 Route::get('/mypage/edit_user',[EditUserController::class,'show'])
@@ -224,3 +225,5 @@ Route::get('/subscription/index',function(){return view('subscription/index');})
 //ジャンルごとのページへ(検索結果ページを後で作成して調整する)
 Route::get('/search/results/{id}',function(){return view('search/results');})->name('search.results');
 
+//決済方法の取得
+Route::post('/orders/complete',[OrderController::class,'payment'])->name('orders.complete');

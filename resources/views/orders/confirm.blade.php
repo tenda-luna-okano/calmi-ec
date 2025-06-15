@@ -3,11 +3,10 @@
 @section('title', '購入確認')
 
 @section('content')
-    <h1>購入商品確認</h1>
+    <center><h1>購入商品確認</h1></center>
     {{-- 後でフォームタグを編集する --}}
     {{-- <form action="" method="post"> --}}
 
-    
     {{-- 商品の数だけ表示 --}}
           {{-- main --}}
     <div class="bg-white pb-6 pt-6  pr-6 pl-6 w-5/6 mx-auto">
@@ -19,43 +18,58 @@
             </tr>
         </thead>
         <tbody>
+            <!--
             <tr class="w-full">
                 <th class="border w-1/4"><img src="https://placehold.jp/150x150.png" alt="画像"></th>
                 <th class="w-full pl-3">
+
                     <div class="w-full text-left">
                         商品名
                     </div>
-                    <div class="grid grid-cols-3 w-full">
-                        <div class="flex flex-1 ">
-                            <div class="bg-white w-auto" ><button id="down">－</button></div>
-                            <div class="w-10px"><input class="w-10" type="text" value="1"  id="textbox"></div>
-                            <div class="bg-white w-1/3"><button  id="up">＋</button></div>
-                        </div>
 
-                        {{-- 押したらその商品を削除してリロード --}}
-                        <button>ゴミ箱</button>
+                    <div class="grid grid-cols-1 w-full">
                         <p class="text-right">値段</p>
                     </div>
                 </th>
             </tr>
-                <tr class="w-full">
+            <tr class="w-full">
                 <th class="border w-1/4"><img src="https://placehold.jp/150x150.png" alt="画像"></th>
                 <th class="w-full pl-3">
+
                     <div class="w-full text-left">
                         商品名
                     </div>
-                    <div class="grid grid-cols-3 w-full">
-                        <div class="flex flex-1 ">
-                            <div class="bg-white w-auto" ><button id="down">－</button></div>
-                            <div class="w-10px"><input type="text" value="1"  id="textbox"></div>
-                            <div class="bg-white w-1/3"><button  id="up">＋</button></div>
-                        </div>
-                        {{-- 押したらその商品を削除してリロード --}}
-                        <button>ゴミ箱</button>
+
+                    <div class="grid grid-cols-1 w-full">
                         <p class="text-right">値段</p>
                     </div>
                 </th>
             </tr>
+            -->
+
+            @if($cartItems->isEmpty())
+                <p>なし</p>
+            @else
+                @foreach($cartItems as $item)
+                    <tr class="w-full">
+                        <th class="w-1/4"><img src="{{ asset($item->item_master->item_img) }}" alt="画像"></th>
+                        <th class="w-full pl-3">
+
+                            <div class="w-full text-left">
+                                {{$item->item_master->item_name}}
+                            </div>
+
+                            <div class="w-full text-left">
+                                　{{$item->item_master->item_price_in_tax}}円　　{{$item->item_count}}個
+                            </div>
+
+                            <div class="grid grid-cols-1 w-full">
+                                <p class="text-right">{{$item->item_master->item_price_in_tax*$item->item_count}}円</p>
+                            </div>
+                        </th>
+                    </tr>
+                @endforeach
+            @endif
         </tbody>
 
     </table>
@@ -63,21 +77,22 @@
     {{-- 右寄せしたいけどできなかった --}}
     <div class="flex">
         <p class="text-right">合計</p>
-        <p class="text-right">￥1,000</p>
-    </div>
-   
-
+        <p class="text-right">￥{{$sum_price}}</p>
     </div>
 
-    
 
-    <form action="" method="POST">
+    </div>
+
+
+
+    <form action="{{route('orders.payment')}}">
     {{-- 決済情報の確認 --}}
     {{-- あとで上と同じく商品だけタグを作成し、hiddenでデータを送る --}}
-    <button class="btn-primary">決済情報確認へ</button>
-
+    <center><button class="btn-primary">決済情報確認へ</button></center>
+    <br>
     </form>
 
+    <!--
     {{-- 数量変更のボタンのJS --}}
     <script>
         (() => {
@@ -108,4 +123,5 @@
         })();
 
     </script>
+    -->
 @endsection
