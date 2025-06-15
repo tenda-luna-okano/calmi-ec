@@ -36,10 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/products/index', [ProductsController::class, 'index']);
+Route::get('/products/index', [ProductsController::class, 'index'])
+->name('products.index');
 // 本番環境は商品IDを指定する
 Route::get('/products/show/{item_id}',[ProductsController::class,'show'])
-->name('show');
+->name('products.show');
 // 商品をカートに保存する
 Route::post('/products/show/{item_id}',[ProductsController::class,'store'])
 ->name('products.store');
