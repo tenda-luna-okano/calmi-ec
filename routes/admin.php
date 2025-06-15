@@ -36,9 +36,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
             return view('admin.dashboard');
         })->name('dashboard');
 
-        Route::get('/coupons/index',function() {
-            return view('admin.coupons.index');
-        })->name('coupons.index');
+        // Route::get('/coupons/index',function() {
+        //     return view('admin.coupons.index');
+        // })->name('coupons.index');
 
         Route::get('/products/insert',function(){
             return view('products.insert');
