@@ -7,21 +7,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\AdminProductController;
-<<<<<<< feature-logic-adminProductEdit
-=======
-use App\Http\Controllers\Auth\EditUserController;
-use App\Http\Controllers\AdminloginController;
-use App\Http\Controllers\AdminSalesController;
-use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\AdminCouponController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\CouponController;
-use App\Http\Controllers\WithdrawController;
-use App\Http\Controllers\AdminColumnController;
 use App\Http\Controllers\ColumnController;
-
->>>>>>> develop
 
 Route::get('/', function () {
     return view('top');
@@ -90,14 +77,7 @@ Route::get('/admin/sales/index', function() {
 })->name('admin.sales.index');
 
 
-<<<<<<< feature-logic-adminProductEdit
 Route::get('/admin/products/index', [AdminProductController::class, 'index']);
-=======
-Route::get('/admin/products/index', function(){
-    return view ('admin.products.index');
-})->name('admin.products.index');
-
->>>>>>> develop
 
 // 編集フォーム表示
 Route::get('/admin/products/edit/{id}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
@@ -190,7 +170,6 @@ Route::get('/columns/show/{id}', [ColumnController::class, 'show'])->name('colum
 
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
-<<<<<<< feature-logic-adminProductEdit
 Route::get('/products/show',function(){
     return view('products.show');
 });
@@ -198,14 +177,15 @@ Route::get('/products/show',function(){
 Route::post('/admin/products/insert',[AdminProductController::class, 'store'])->name('admin.products.insert');
 Route::get('/admin/products/index', [AdminProductController::class, 'index'])->name('admin.products.index');
 Route::post('/admin/products/update/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
-=======
-Route::post('/admin/products/insert',[AdminProductController::class, 'store'])->name('admin.products.insert');
-Route::get('/admin/products/index', [AdminProductController::class, 'index'])->name('admin.products.index');
 
-//定期便詳細ページへ
-Route::get('/subscription/index',function(){return view('subscription/index');})->name('subscription.index');
 
-//ジャンルごとのページへ(検索結果ページを後で作成して調整する)
-Route::get('/search/results/{id}',function(){return view('search/results');})->name('search.results');
 
->>>>>>> develop
+
+//ジャンルごとのページへ
+Route::get('/search/results/category/{idName}',[ProductsController::class,'category'])->name('search.results.category');
+
+//検索結果ページ search/resultsをURLで直接入力したとき用
+Route::get('/search/results',[ProductsController::class,'search'])->name('search.results');
+
+//検索結果ページ
+Route::post('/search/results',[ProductsController::class,'search'])->name('search.results');
