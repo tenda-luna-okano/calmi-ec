@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('subscribe_items', function (Blueprint $table) {
             $table->id('subscribe_item_id')->comment('サブスクリプション商品詳細ID');
             $table->unsignedBigInteger('subscribe_detail_id')->comment('サブスクに追加する商品ID');
+            $table->foreign('subscribe_detail_id')->references('subscribe_detail_id')->on('subscribe_detail_masters');
             $table->unsignedBigInteger('item_id')->comment('商品ID');
+            $table->foreign('item_id')->references('item_id')->on('item_masters');
             $table->integer('item_count')->comment('個数');
             $table->date('date_subscribe')->comment('どの月のサブスク報酬か(年/月)');
         });

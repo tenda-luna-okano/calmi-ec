@@ -1,7 +1,7 @@
 
 
 
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'login')
 
@@ -57,7 +57,7 @@
                 </a>
             @endif
         </div>
-        <button class="btn-primary mx-auto  mb-4 mt-4 flex justify-center w-140">
+        <button class="bg-gray-800 text-white rounded mx-auto  mb-4 mt-4 flex justify-center w-140">
             {{ __('Log in') }}
         </button>
     </form>

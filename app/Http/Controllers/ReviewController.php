@@ -20,6 +20,7 @@ class ReviewController extends Controller
         // レビュー投稿のビューを返す
         return view('reviews.index');
     }
+
       public function store(Request $request)
     {
        $validated = $request->validate([
@@ -37,3 +38,4 @@ class ReviewController extends Controller
     return redirect()->back()->with('message', 'レビューを投稿しました！');  
    }
 }
+

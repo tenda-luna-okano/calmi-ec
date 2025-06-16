@@ -3,14 +3,15 @@
 
 @extends('layouts.app')
 
-@section('title', 'login')
+@section('title', 'ログイン')
 
 @section('content')
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="pt-6 pb-6 flex justify-center">
-        <h2 class=" underline decoration-#201a1e decoration-3 underline-offset-8">　　　login　　　</h2>
-    </div>
+    <div class="border-b border-[#201a1e] mb-6">
+            <h1 class="font-black text-3xl text-center mt-6 ">Login</h1>
+            <p class="text-center mb-6">ログイン</p>
+        </div>
 
     <div class="bg-white pb-6 pt-6  pr-6 pl-6 w-5/6 mx-auto">
     <form method="POST" action="{{ route('login') }}">

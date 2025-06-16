@@ -17,6 +17,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $item_id
  * @property int $item_count
  * @property Carbon $date_subscribe
+ * 
+ * @property ItemMaster $item_master
+ * @property SubscribeDetailMaster $subscribe_detail_master
  *
  * @package App\Models
  */
@@ -39,4 +42,14 @@ class SubscribeItem extends Model
 		'item_count',
 		'date_subscribe'
 	];
+
+	public function item_master()
+	{
+		return $this->belongsTo(ItemMaster::class, 'item_id');
+	}
+
+	public function subscribe_detail_master()
+	{
+		return $this->belongsTo(SubscribeDetailMaster::class, 'subscribe_detail_id');
+	}
 }

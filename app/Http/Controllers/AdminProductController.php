@@ -21,11 +21,9 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< feature-logic-adminProductEdit
+
         // バリデーション（必要に応じて）
-=======
-        // バリデーション
->>>>>>> develop
+
         $request->validate([
             'item_name' => 'required|string|max:255',
             'item_price_in_tax' => 'required|numeric',
@@ -50,11 +48,9 @@ class AdminProductController extends Controller
             'item_stock'=> $request->item_stock,
         ]);
 
-<<<<<<< feature-logic-adminProductEdit
-        return redirect()->route('admin.products.index')->with('success', '商品が追加されました');
-=======
+
         return redirect()->route('admin.products.index')->with('message', '商品が追加されました');
->>>>>>> develop
+
     }
 
     /**
@@ -68,22 +64,15 @@ class AdminProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-<<<<<<< feature-logic-adminProductEdit
     public function edit($item_id)
     {
         $product = AdminProduct::findOrFail($item_id);
         return view('admin.products.edit', compact('product'));
-=======
-    public function edit(AdminProduct $adminProduct)
-    {
-        //
->>>>>>> develop
     }
 
     /**
      * Update the specified resource in storage.
      */
-<<<<<<< feature-logic-adminProductEdit
     public function update(Request $request, $item_id)
     {
         $product = AdminProduct::findOrFail($item_id);
@@ -104,11 +93,6 @@ class AdminProductController extends Controller
         ]);
 
         return redirect()->route('admin.products.index')->with('success', '商品を更新しました');
-=======
-    public function update(Request $request, AdminProduct $adminProduct)
-    {
-        //
->>>>>>> develop
     }
 
     /**

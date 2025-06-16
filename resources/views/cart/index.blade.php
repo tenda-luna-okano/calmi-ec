@@ -9,9 +9,10 @@
 
 
     <div class="w-5/6 mx-auto">
-    <div class="pt-6 pb-4 flex justify-center border-b-2 mb-4">
-        <h2 >ショッピングカート</h2>
-    </div>
+    <div class="border-b border-[#201a1e] mb-6">
+            <h1 class="font-black text-3xl text-center mt-6 ">Cart</h1>
+            <p class="text-center mb-6">カート</p>
+        </div>
 
     {{-- main --}}
     <div class="bg-white pb-6 pt-6  pr-6 pl-6 w-6/7 mx-auto">

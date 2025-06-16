@@ -3,7 +3,10 @@
 @section('title', '退会確認')
 
 @section('content')
-    <h1 class="text-center">退会確認</h1>
+    <div class="border-b border-[#201a1e] mb-6">
+            <h1 class="font-black text-3xl text-center mt-6 ">Withdraw Confirm</h1>
+            <p class="text-center mb-6">退会確認</p>
+    </div>
     <div class="bg-white text-center">
         <form method="POST" action="{{ route('mypage.withdraw') }}">
         @csrf

@@ -1,5 +1,6 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <style>
+
     {{--ジャンルごとの商品--}}
     #category{
         display:none;
@@ -11,22 +12,26 @@
     }
     {{--検索ボックス--}}
     #search{
+
         width: 70%;
         margin: auto;
         padding: 30px 20px;
         display: none;
         text-align: center;
         position: fixed;
+
         background: #e4d4c8;
         z-index:9999;
     }
     {{--ポップアップの表示のさい背景を暗くする--}}
+
     .modal{
         display:none;
         position:fixed;
         width:100vw;
         height:100vh;
         background: rgba(0,0,0,0.5);
+
         
     }
     .field{
@@ -42,6 +47,7 @@
     <form action="{{route('search.results')}}" method="POST">
         @csrf
         <input type="text" name="search" class="w-3/4" placeholder="キーワードを入力">
+
 
         <button type="submit" class="bg-[#d0b49f] text-white px-3 py-1.5 rounded text-sm">
             検索
@@ -114,6 +120,7 @@
             </div>
             <br>
         </div>
+
     </center>
 </div>
 
@@ -140,5 +147,6 @@
         $('#category').css('display','none'),
         $('.modal').css('display','none'),
         $('#search').css('display','none')
+
     })
 </script>

@@ -13,9 +13,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
 /**
  * Class Customer
- *
+ * 
  * @property int $customer_id
  * @property string $password
  * @property string $customer_first_name
@@ -36,14 +37,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
- *
+
+ * 
+
  * @property Payment|null $payment
  * @property Collection|Cart[] $carts
  * @property Collection|Notification[] $notifications
  * @property Collection|Order[] $orders
+ * @property Collection|Subscribe[] $subscribes
  *
  * @package App\Models
  */
+
 class Customer extends Authenticatable
 {
 	use SoftDeletes;
@@ -101,5 +106,10 @@ class Customer extends Authenticatable
 	public function orders()
 	{
 		return $this->hasMany(Order::class);
+	}
+
+	public function subscribes()
+	{
+		return $this->hasMany(Subscribe::class);
 	}
 }

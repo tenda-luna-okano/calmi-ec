@@ -19,18 +19,17 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-admin text-lg bg-white">
+<body class="min-h-screen flex flex-col font-admin text-lg bg-white">
+
     <header class="bg-[#e2e6e7]">
         <button id="dashboard" class="p-4 bg-gray-800 text-white">管理者画面トップへ</button>
     </header>
 
-    <main>
+    <main class="flex-grow">
         @yield('content')
     </main>
 
     <footer>
-        @include('layouts.footer')
     </footer>
 </body>
-
 </html>
