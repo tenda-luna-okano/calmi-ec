@@ -12,12 +12,11 @@ use App\Http\Controllers\Auth\EditUserController;
 use App\Http\Controllers\AdminSalesController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\AdminCouponController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\CouponController;
-use App\Http\Controllers\WithdrawController;
-use App\Http\Controllers\AdminColumnController;
 use App\Http\Controllers\ColumnController;
+
+
+Route::get('/', function () {
+    return view('top');
 
 
 
@@ -25,6 +24,7 @@ use App\Http\Controllers\ColumnController;
 
 Route::get('', function(){
     return view('search.results');
+
 });
 
 Route::get('/top', function(){
@@ -114,6 +114,7 @@ Route::get('/admin/sales/index', function() {
 
 
 
+
 Route::get('/admin/products/index', [AdminProductController::class, 'index']);
 
 // Route::get('/admin/products/index', function(){
@@ -128,6 +129,7 @@ Route::get('/admin/products/index', [AdminProductController::class, 'index']);
 //Route::post('/admin/auth/login',[AdminloginController::class, 'store']);
 
 //Route::post('logout', [AdminloginController::class, 'destroy'])->name('admin.auth.logout');
+
 
 // 編集フォーム表示
 Route::get('/admin/products/edit/{id}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
@@ -257,7 +259,6 @@ Route::get('/columns/show/{id}', [ColumnController::class, 'show'])->name('colum
 
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
-
 Route::get('/products/show',function(){
     return view('products.show');
 });
@@ -266,10 +267,16 @@ Route::post('/admin/products/insert',[AdminProductController::class, 'store'])->
 Route::get('/admin/products/index', [AdminProductController::class, 'index'])->name('admin.products.index');
 Route::post('/admin/products/update/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
 
-//定期便詳細ページへ
-Route::get('/subscription/index',function(){return view('subscription/index');})->name('subscription.index');
 
-//ジャンルごとのページへ(検索結果ページを後で作成して調整する)
-Route::get('/search/results/{id}',function(){return view('search/results');})->name('search.results');
 
+
+
+//ジャンルごとのページへ
+Route::get('/search/results/category/{idName}',[ProductsController::class,'category'])->name('search.results.category');
+
+//検索結果ページ search/resultsをURLで直接入力したとき用
+Route::get('/search/results',[ProductsController::class,'search'])->name('search.results');
+
+//検索結果ページ
+Route::post('/search/results',[ProductsController::class,'search'])->name('search.results');
 

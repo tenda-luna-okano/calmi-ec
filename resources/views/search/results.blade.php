@@ -84,8 +84,12 @@
     <div class="container mx-auto grid grid-cols-2 gap-4">
       @foreach ($resultItem as $product)
         <div class="col-span-1 flex flex-col items-center">
-          <img src="{{ asset($product->item_img) }}" alt="{{$product->item_name}}">
-          <p>{{$product->item_name}} - ¥{{$product->item_price_in_tax}}</p>
+
+          <a href="{{route('show',['item_id'=>$product->item_id])}}">
+            <img src="{{ asset($product->item_img) }}" alt="{{$product->item_name}}">
+            <p>{{$product->item_name}} - ¥{{$product->item_price_in_tax}}</p>
+          </a>
+
           <button class="btn-primary">
               カートに入れる
           </button>
