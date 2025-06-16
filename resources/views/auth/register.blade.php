@@ -4,7 +4,7 @@
 
 @section('content')
 
-        
+
         <div class="border-b border-[#201a1e] mb-6">
             <h1 class="font-black text-3xl text-center mt-6 ">Sign Up</h1>
             <p class="text-center mb-6">新規会員登録</p>
@@ -25,20 +25,23 @@
             <label>氏名（全角）</label>
             <span class="text-red-500">必須</span>
             {{-- エラーメッセージエリア --}}
-            <p>error</p>
+            <x-input-error :messages="$errors->get('customer_first_name')" class="mt-2" />
+            <x-input-error :messages="$errors->get('customer_last_name')" class="mt-2" />
+            <x-input-error :messages="$errors->get('customer_first_furigana')" class="mt-2" />
+            <x-input-error :messages="$errors->get('customer_last_furigana')" class="mt-2" />
             {{-- 氏名 --}}
             <div>
                 <label class="block mb-1">姓</label>
-                <input type="text" class="w-full border rounded px-3 py-2" placeholder="例)田中" name="customer_first_name"><br>
+                <input type="text" class="w-full border rounded px-3 py-2" placeholder="例)田中" name="customer_first_name" value="{{ old('customer_first_name') }}"><br>
                 <label>名</label>
-                <input type="text" class="w-full border rounded px-3 py-2"placeholder="例)太郎" name="customer_last_name">
+                <input type="text" class="w-full border rounded px-3 py-2"placeholder="例)太郎" name="customer_last_name"  value="{{ old('customer_last_name') }}">
             </div>
             {{-- フリガナ --}}
             <div>
                 <label>セイ</label>
-                <input type="text" class="w-full border rounded px-3 py-2" placeholder="例)タナカ" name="customer_first_furigana"><br>
+                <input type="text" class="w-full border rounded px-3 py-2" placeholder="例)タナカ" name="customer_first_furigana"  value="{{ old('customer_first_furigana') }}"><br>
                 <label>メイ</label>
-                <input type="text"  class="w-full border rounded px-3 py-2" placeholder="例)タロウ" name="customer_last_furigana">
+                <input type="text"  class="w-full border rounded px-3 py-2" placeholder="例)タロウ" name="customer_last_furigana"  value="{{ old('customer_last_furigana') }}">
             </div>
         </div>
         <hr>
@@ -47,11 +50,13 @@
             <label>生年月日</label>
             <span class="text-red-500">必須</span>
             {{-- エラーメッセージエリア --}}
-                <p>error</p>
+                <x-input-error :messages="$errors->get('birthday_year')" class="mt-2" />
+                <x-input-error :messages="$errors->get('birthday_month')" class="mt-2" />
+                <x-input-error :messages="$errors->get('birthday_day')" class="mt-2" />
             <div class="mb-4 flex space-x-2">
                 {{-- 年 --}}
                 <div class="flex-1">
-                    <select class="border rounded" name="birthday_year" id="year">
+                    <select class="border rounded" name="birthday_year" id="year" value="{{ old('birthday_year') }}">
                         <option value=""></option>
                         @for($i = 2025; $i >= 1900; $i--)
                             <option value="{{$i}}">{{$i}}</option>
@@ -61,7 +66,7 @@
                 </div>
                 {{-- 月 --}}
                 <div class="flex-1">
-                    <select class="border rounded" name="birthday_month" id="month">
+                    <select class="border rounded" name="birthday_month" id="month" value="{{ old('birthday_month') }}">
                         <option value=""></option>
                         @for($i = 1; $i <= 12; $i++)
                             <option value="{{$i}}">{{$i}}</option>
@@ -71,7 +76,7 @@
                 </div>
                 {{-- 日 --}}
                 <div class="flex-1">
-                    <select class="border rounded" name="birthday_day" id="day">
+                    <select class="border rounded" name="birthday_day" id="day" value="{{ old('birthday_day') }}">
                         <option value=""></option>
                         @for($i = 1; $i <= 31; $i++)
                             <option value="{{$i}}">{{$i}}</option>
@@ -89,9 +94,9 @@
             <span class="text-red-500">必須</span>
 
             {{-- エラーメッセージエリア --}}
-                <p>error</p>
+                <x-input-error :messages="$errors->get('customer_tel')" class="mt-2" />
             <div>
-                <input type="text" class="border rounded" placeholder="例)08012345678" name="customer_tel">
+                <input type="text" class="border rounded" placeholder="例)08012345678" name="customer_tel" value="{{ old('customer_tel') }}">
             </div>
         </div>
         <hr>
@@ -101,9 +106,9 @@
             <label>郵便番号</label>
             <span class="text-red-500">必須</span>
             {{-- エラーメッセージエリア --}}
-                <p>error</p>
+                <x-input-error :messages="$errors->get('customer_post_number')" class="mt-2" />
             <div>
-                <input type="text" class="border rounded" placeholder="1330052" name="customer_post_number">
+                <input type="text" class="border rounded" placeholder="1330052" name="customer_post_number" value="{{ old('customer_post_number') }}">
             </div>
         </div>
 
@@ -112,8 +117,8 @@
             <label> 都道府県</label>
             <span class="text-red-500">必須</span>
             {{-- エラーメッセージエリア --}}
-                <p>error</p>
-            <select class="border rounded" type="text" class="form-control" name="customer_states">
+                <x-input-error :messages="$errors->get('customer_states')" class="mt-2" />
+            <select class="border rounded" type="text" class="form-control" name="customer_states" value="{{ old('customer_states') }}">
                 @foreach(config('pref') as $key => $score)
                     <option value="{{ $score }}">{{ $score }}</option>
                 @endforeach
@@ -125,13 +130,14 @@
             <p>市区町村・丁目・番地</p>
             <label>必須</label>
             {{-- エラーメッセージエリア --}}
-                <p>error</p>
-            <input type="text" class="border rounded" placeholder="例）千代田区千代田1番1号" name="customer_municipalities">
+                <x-input-error :messages="$errors->get('customer_municipalities')" class="mt-2" />
+                <x-input-error :messages="$errors->get('customer_building_name')" class="mt-2" />
+            <input type="text" class="border rounded" placeholder="例）千代田区千代田1番1号" name="customer_municipalities" value="{{ old('customer_municipalities') }}">
         </div>
         {{-- マンション・建物名など --}}
         <div class="mb-4">
             <p>マンション・建物名など</p>
-            <input type="text" class="border rounded" placeholder="例） 〇〇マンション101号室" name="customer_building_name">
+            <input type="text" class="border rounded" placeholder="例） 〇〇マンション101号室" name="customer_building_name" value="{{ old('customer_building_name') }}">
         </div>
         <hr>
         </div>
