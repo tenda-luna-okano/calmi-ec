@@ -3,6 +3,10 @@
 @section('title', '会員情報変更')
 
 @section('content')
+<div class="border-b border-[#201a1e] mb-6">
+            <h1 class="font-black text-3xl text-center mt-6 ">会員情報変更</h1>
+            <p class="text-center mb-6"></p>
+        </div>
     <form method="POST" action="{{ route('edit_user.update') }}">
         @csrf
         @method('put')

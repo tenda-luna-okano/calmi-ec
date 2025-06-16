@@ -15,8 +15,8 @@
 
 @section('content')
     <div class="border-b border-[#201a1e]">
-    <h1 class="font-black text-3xl text-center m-6">レビュー投稿</h1>
-</div>
+        <h1 class="font-black text-3xl text-center m-6">レビュー投稿</h1>
+    </div>
 
 <div class="bg-white mx-auto w-[90%] p-4 rounded shadow-md mt-5 mb-5">
     <div class="border-b border-[#201a1e] mb-4">
