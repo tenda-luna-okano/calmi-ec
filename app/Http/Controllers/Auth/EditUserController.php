@@ -26,7 +26,7 @@ class EditUserController extends Controller
     }
     public function update(Request $request): RedirectResponse
     {
-        if($request->is_change_password){
+        if($request->is_change_password == 1){
             // validation
             $credentials = $request->validate([
                 // 'customer_name' => ['required', 'string', 'max:255'],
@@ -60,10 +60,11 @@ class EditUserController extends Controller
             ]);
 
             $userdata = Customer::where('customer_id','=',auth()->id())->first();
-            $passwd = $userdata->password;
-            $typedPasswd = \Hash::make($credentials['password']);
+            // $passwd = $userdata->password;
+            // $typedPasswd = \Hash::make($credentials['password']);
+            $checkPasswd = Hash::check($credentials['password'],$userdata->password);
 
-            if($passwd != $typedPasswd){
+            if(!$checkPasswd){
                 return back()->with('passwd_error_msg','パスワードが間違っています。');
             }
 
@@ -117,10 +118,11 @@ class EditUserController extends Controller
             ]);
 
             $userdata = Customer::where('customer_id','=',auth()->id())->first();
-            $passwd = $userdata->password;
-            $typedPasswd = \Hash::make($credentials['password']);
+            // $passwd = $userdata->password;
+            // $typedPasswd = \Hash::make($credentials['password']);
+            $checkPasswd = Hash::check($credentials['password'],$userdata->password);
 
-            if($passwd != $typedPasswd){
+            if(!$checkPasswd){
                 return back()->with('passwd_error_msg','パスワードが間違っています。');
             }
 
@@ -139,6 +141,8 @@ class EditUserController extends Controller
             $customer->customer_municipalities=$credentials['customer_municipalities'];
             $customer->customer_building_name=$credentials['customer_building_name'];
         }
+        // dump($passwd.$typedPasswd);
+
         $customer->save();
 
         return redirect('/');

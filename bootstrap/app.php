@@ -16,7 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
         // 非ログインユーザー用のリダイレクト設定
         $middleware->redirectGuestsTo(function (Request $request) {
             if (request()->routeIs('admin.*')) {
-                return $request->expectsJson() ? null : route('admin.login');
+                // return $request->expectsJson() ? null : route('admin.login');
+                return redirect()->route('admin.login');
+            }else{
+                return redirect()->route('login');
             }
         });
 
@@ -25,9 +28,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo(function (Request $request) {
             if (request()->routeIs('admin.*')) {
                 if(Auth::guard('admin')) {
-                    return route('admin.dashboard');
+                    return redirect()->route('admin.dashboard');
                     // return $request->expectsJson() ? null : route('admin.dashboard');
                 }
+            }else{
+                // return redirect()->route('top');
+                return route('top');
             }
         });
 
