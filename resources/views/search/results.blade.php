@@ -23,7 +23,7 @@
 <!--絞り込み検索-->
  <!--プルダウンカテゴリ選択-->
 <div class="container mx-auto my-6">
-  <form>
+  <form method="get" action="{{ route('products.index') }}">
   <h2 class="text-lg font-bold mb-2 text-center">検索結果</h2>
 
   <div class="flex justify-center">
@@ -85,10 +85,8 @@
       @foreach ($resultItem as $product)
         <div class="col-span-1 flex flex-col items-center">
 
-          <a href="{{route('show',['item_id'=>$product->item_id])}}">
             <img src="{{ asset($product->item_img) }}" alt="{{$product->item_name}}">
             <p>{{$product->item_name}} - ¥{{$product->item_price_in_tax}}</p>
-          </a>
 
           <button class="btn-primary">
               カートに入れる
