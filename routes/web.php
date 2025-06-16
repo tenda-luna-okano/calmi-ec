@@ -227,10 +227,12 @@ Route::put('/mypage/edit_user',[EditUserController::class,'update'])
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
+/* もう一つのController経由のsubscription.indexが正しい
 //定期便詳細ページへ
 Route::get('/subscription/index',function(){
     return view('subscription/index');
 })->name('subscription.index');
+*/
 
 //ジャンルごとのページへ(検索結果ページを後で作成して調整する)
 // Route::get('/search/results/{id}',function(){
