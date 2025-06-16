@@ -17,7 +17,6 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\WithdrawController;
 use App\Http\Controllers\AdminColumnController;
 use App\Http\Controllers\ColumnController;
-
 //admin用ルーティング
 //prefixのなかに入れるとurlに勝手に/adminがつきます
 //ログインしてない用
@@ -73,7 +72,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->name('products.insert');
         Route::get('/products/index', [AdminProductController::class, 'index'])
         ->name('products.index');
-        Route::post('/products/update/{id}', [AdminProductController::class, 'update'])->name('products.update');
+        Route::post('/products/update/{id}', [AdminProductController::class, 'update'])
+        ->name('products.update');
 
         Route::get('/coupons/issue', [AdminCouponController::class, 'issue'])
         ->name('coupons.issue'); // フォーム表示
@@ -91,7 +91,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
 
-        Route::get('/products/index', [AdminProductController::class, 'index']);
+        // Route::get('/products/index', [AdminProductController::class, 'index']);
 
     });
 });
