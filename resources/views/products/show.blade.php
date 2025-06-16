@@ -7,7 +7,7 @@
     <div class="flex justify-center">
         <div class=" w-1/2 ">
             {{-- 商品画像を出力 --}}
-            <img class="mx-4 pe-8 mt-8 " src="{{asset('storage/'.$item->item_img ?? 'https://placehold.jp/150x150.png')}}" alt="商品画像">
+            <img class="mx-4 pe-8 mt-8 " src="{{asset($item->item_img ?? 'https://placehold.jp/150x150.png')}}" alt="商品画像">
         </div>
         {{-- <div class="size-14  w-1/3"></div> --}}
         {{-- 商品説明 --}}
@@ -32,7 +32,7 @@
                     <p>￥</p>
                     {{-- テーブルから値段を取得 --}}
                     {{-- <p>12,300</p> --}}
-                    <p>{{$item->item_price_in_tax}}</p>
+                    <p>{{number_format($item->item_price_in_tax)}}</p>
                 </div>
                 <div class="flex-1 border-black">
                     <p>(TAX IN)</p>
@@ -54,24 +54,26 @@
                 {{-- カートに入れるボタン --}}
                 <div class="flex-1 px-auto">
                     {{-- ログインしているときカートに入れる --}}
-                    {{-- @auth
-                        <form action="{{route('store')}}"></form>
-                        <button class="btn-primary text-xs cart" >カートに入れる</button>
-                    @endauth --}}
+                    @auth
+                        {{-- item_idを渡す --}}
+                        <input type="hidden" name="item_id" value="{{$item->item_id}}">
+                        <input type="hidden" name="cart_id" value="{{$cart->cart_id}}">
+                        <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
+                    @endauth
 
                     {{-- テスト用のだれでもカートに追加できるバージョン --}}
                         
                     {{-- item_idを渡す --}}
-                    <input type="hidden" name="item_id" value="{{$cart->item_id}}">
+                    {{-- <input type="hidden" name="item_id" value="{{$item->item_id}}">
                     <input type="hidden" name="cart_id" value="{{$cart->cart_id}}">
-                    <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
+                    <button class="btn-primary text-xs cart" type="submit">カートに入れる</button> --}}
                         
                         
                     
                     {{-- ログインしていないとき、ログインページにとばすように --}}
-                    {{-- @guest
+                    @guest
                         <button class="btn-primary text-xs" ><a href="/login">カートに入れる</a></button>
-                    @endguest --}}
+                    @endguest
                 </div>
             </div>
             </form>
@@ -90,23 +92,23 @@
                 {{-- カートに入れるボタン --}}
                 <div class="flex-1 px-auto">
                     {{-- ログインしているときカートに入れる --}}
-                    {{-- @auth
-                        <form action="{{route('store')}}"></form>
-                        <button class="btn-primary text-xs cart" >カートに入れる</button>
-                    @endauth --}}
+                    @auth
+                        <input type="hidden" name="item_id" value="{{$item->item_id}}">
+                        <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
+                    @endauth
 
                     {{-- テスト用のだれでもカートに追加できるバージョン --}}
                         
 
-                    <input type="hidden" name="item_id" value="{{$cart->item_id}}">
-                    <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
+                    {{-- <input type="hidden" name="item_id" value="{{$item->item_id}}">
+                    <button class="btn-primary text-xs cart" type="submit">カートに入れる</button> --}}
                         
                         
                     
                     {{-- ログインしていないとき、ログインページにとばすように --}}
-                    {{-- @guest
+                    @guest
                         <button class="btn-primary text-xs" ><a href="/login">カートに入れる</a></button>
-                    @endguest --}}
+                    @endguest
                 </div>
             </div>
             </form>
@@ -152,10 +154,10 @@
                 {{-- レビューの★ --}}
                 <h4>
                 @for($i = 0;$i < $review->review_star;$i++)
-                    ☆
+                    ★
                 @endfor
                 @for($i = 0;$i < 5-$review->review_star;$i++)
-                    ★
+                    ☆
                 @endfor
                 </h4>
                 <div>
@@ -171,10 +173,13 @@
                 <p>{{$review->review_content}}</p>
             </div>
             @endforeach
+            {{-- 追加のレビューがあれば「もっとみる」ボタンを表示 --}}
+            @if(!$all_reviews->isEmpty())
+                <div class="text-right">
+                    <button class="more">もっと見る</button>
+                </div>
+            @endif
         @endif
-        <div class="text-right">
-            <button class="more">もっと見る</button>
-        </div>
     </div>
     
     <hr>
@@ -209,7 +214,7 @@
             @foreach($recommends as $recommend)
                 <div class="flex-1 px-2 ">
                     <a href="{{route('products.show',$recommend->item_id)}}">
-                    <img src="{{asset('storage/'.$recommend->item_img ?? 'https://placehold.jp/150x150.png')}}">
+                    <img src="{{asset($recommend->item_img ?? 'https://placehold.jp/150x150.png')}}">
                 <p>{{$recommend->item_name}}</p> 
                 </a>
             </div>
