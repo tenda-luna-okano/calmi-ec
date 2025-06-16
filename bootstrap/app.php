@@ -20,10 +20,14 @@ return Application::configure(basePath: dirname(__DIR__))
             }
         });
 
-        // ログインユーザー用のリダイレクト設定
-        $middleware->redirectUsersTo(function () {
-            if(Auth::guard('admin')) {
-                return route('admin.dashboard');
+        // ログインユーザー用のリダイレクト設定 これがあるとlogin->admin.login行ってしまいます。
+        // おそらく、auth adminが使われている可能性
+        $middleware->redirectUsersTo(function (Request $request) {
+            if (request()->routeIs('admin.*')) {
+                if(Auth::guard('admin')) {
+                    return route('admin.dashboard');
+                    // return $request->expectsJson() ? null : route('admin.dashboard');
+                }
             }
         });
 
