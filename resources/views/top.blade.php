@@ -2,7 +2,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 
 <style>
     .field{
@@ -70,26 +70,26 @@
         <b style="font-size:30px;">ジャンルごとのご紹介</b><br><br>
         <div class="field">
             <li style="list-style:none;">
-                <a href="{{route('search.results',['id'=>'アロマ'])}}">
-                    アロマ<img class="category" id="アロマ" src="{{ asset('img/ピローミスト.png') }}" alt="" style="width:80%;">
+                <a href="{{route('search.results.category',['idName'=>'アロマ'])}}">
+                    アロマ<img class="category" id="アロマ" src="{{ asset('img/ピローミスト.png') }}" alt="" style="width:60%;">
                 </a>
             </li>
             <li style="list-style:none;">
-                <a href="{{route('search.results',['id'=>'フード'])}}">
-                    フード<img class="category" id="フード" src="{{ asset('img/GABAチョコレート.png') }}" alt="" style="width:80%;">
+                <a href="{{route('search.results.category',['idName'=>'フード'])}}">
+                    フード<img class="category" id="フード" src="{{ asset('img/GABAチョコレート.png') }}" alt="" style="width:60%;">
                 </a>
             </li>
         </div>
         <br>
         <div class="field">
             <li style="list-style:none;">
-                <a href="{{route('search.results',['id'=>'タッチ'])}}">
-                    タッチ<img class="category" id="タッチ" src="{{ asset('img/温感ジェル.png') }}" alt="" style="width:80%;">
+                <a href="{{route('search.results.category',['idName'=>'タッチ'])}}">
+                    タッチ<img class="category" id="タッチ" src="{{ asset('img/温感ジェル.png') }}" alt="" style="width:60%;">
                 </a>
             </li>
             <li style="list-style:none;">
-                <a href="{{route('search.results',['id'=>'ご褒美スイーツ'])}}">
-                    ご褒美スイーツ<img class="category" id="ご褒美スイーツ" src="{{ asset('img/マカロン.png') }}" alt="" style="width:80%;">
+                <a href="{{route('search.results.category',['idName'=>'ご褒美スイーツ'])}}">
+                    ご褒美スイーツ<img class="category" id="ご褒美スイーツ" src="{{ asset('img/マカロン.png') }}" alt="" style="width:60%;">
                 </a>
             </li>
         </div>
@@ -97,7 +97,8 @@
         <div style="height:50px;"></div>
 
     </center>
-
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 @endsection
 
 <script src="{{ asset('/js/slideshow.js') }}"></script>
+

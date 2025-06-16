@@ -12,19 +12,34 @@ use App\Http\Controllers\Auth\EditUserController;
 use App\Http\Controllers\AdminSalesController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\SubscriptionController;
-use App\Http\Controllers\AdminCouponController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\CouponController;
-use App\Http\Controllers\WithdrawController;
-use App\Http\Controllers\AdminColumnController;
 use App\Http\Controllers\ColumnController;
 
 
 Route::get('/', function () {
     return view('top');
+
+
+
+//Route::get('/',[OrderController::class,'confirm']);
+
+Route::get('', function(){
+    return view('search.results');
+
 });
+
+Route::get('/top', function(){
+    return view('top');
+})->name('top');
+
+
+
+
+
+
 // サブスク詳細画面
-Route::get('/subscription/index',[SubscriptionController::class,'index'])->name('subscription.index');
+Route::get('/subscription/index',[SubscriptionController::class,'index'])
+  ->name('subscription.index');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -36,10 +51,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/products/index', [ProductsController::class, 'index']);
+Route::get('/products/index', [ProductsController::class, 'index'])
+->name('products.index');
 // 本番環境は商品IDを指定する
 Route::get('/products/show/{item_id}',[ProductsController::class,'show'])
-->name('show');
+->name('products.show');
 // 商品をカートに保存する
 Route::post('/products/show/{item_id}',[ProductsController::class,'store'])
 ->name('products.store');
@@ -66,6 +82,10 @@ Route::get('/orders/payment', function(){
     return view('orders.payment');
 })->name('orders.payment');
 
+Route::get('/mypage/withdraw_confirm',function(){
+    return view('mypage.withdraw_confirm');
+});
+
 
 Route::get('/mypage/withdraw',function(){
     return view('mypage.withdraw');
@@ -84,6 +104,7 @@ Route::get('/mypage/withdraw_confirm', [WithdrawController::class, 'confirm'])->
 //     return view('admin.coupons.update');
 // });
 
+
 // Route::get('/admin/sales/index', function() {
 //     return view('admin.sales.index');
 // })->name('admin.sales.index');
@@ -91,7 +112,9 @@ Route::get('/mypage/withdraw_confirm', [WithdrawController::class, 'confirm'])->
 
 
 
+
 // Route::get('/admin/products/index', [AdminProductController::class, 'index']);
+
 
 // Route::get('/admin/products/index', function(){
 //     return view ('admin.products.index');
@@ -105,6 +128,7 @@ Route::get('/mypage/withdraw_confirm', [WithdrawController::class, 'confirm'])->
 //Route::post('/admin/auth/login',[AdminloginController::class, 'store']);
 
 //Route::post('logout', [AdminloginController::class, 'destroy'])->name('admin.auth.logout');
+
 
 // 編集フォーム表示
 // Route::get('/admin/products/edit/{id}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
@@ -132,13 +156,16 @@ Route::get('/mypage/withdraw_confirm', [WithdrawController::class, 'confirm'])->
 // });
 
 
+
 // Route::get('/admin/coupons/index',function() {
 //     return view('admin.coupons.index');
 // })->name('admin.coupons.index');
 
+
 // Route::get('/admin/products/insert',function(){
 //     return view('admin.products.insert');
 // });
+
 
 
 Route::get('/contact/index', function () {
@@ -164,19 +191,29 @@ Route::post('/contact/index', [InquiryController::class, 'store'])->name('inquir
 
 Route::get('/mypage/index',[MypageController::class, 'index'])->name('mypage.index');;
 
-Route::get('/top', function () {
-    return view('top');
-})->name('top');
+
 
 Route::get('/mypage/purchase_history_detail', function(){
     return view('mypage.purchase_history_detail');
 });
+
+
+// Route::get('/orders/payment',function(){
+//     return view('orders.payment');
+// })->name('orders.payment');
+
+// Route::get('/orders/confirm',function(){
+//     return view('orders.confirm');
+// })->name('orders.confirm');;
 
 // 購入確認画面
 Route::get('/orders/confirm',[OrderController::class,'confirm'])
 ->name('orders.confirm');
 
 // ユーザー情報変更
+
+//Route::get('/mypage/edit_user',[MyPageController::class,'edit_user']);
+
 Route::get('/mypage/edit_user',[EditUserController::class,'show'])
 ->name('edit_user.show');
 
@@ -184,8 +221,15 @@ Route::put('/mypage/edit_user',[EditUserController::class,'update'])
 ->name('edit_user.update');
 
 
+
 // 購入履歴
-Route::get('/mypage/purchase_history',[MyPageController::class,'history'])->name('mypage.purchase_history');;
+Route::get('/mypage/history',[MyPageController::class,'history']);
+
+//定期便詳細ページへ
+Route::get('/subscription/index',function(){return view('subscription/index');})->name('subscription.index');
+
+//ジャンルごとのページへ(検索結果ページを後で作成して調整する)
+Route::get('/search/results/{id}',function(){return view('search/results');})->name('search.results');
 
 
 Route::post('/reviews/index', [ReviewController::class, 'store'])->name('reviews.store');
@@ -195,6 +239,22 @@ Route::post('/reviews/index', [ReviewController::class, 'store'])->name('reviews
 // Route::get('/admin/coupons/edit/{id}', [CouponController::class, 'edit'])->name('admin.coupons.edit');
 
 // Route::get('/admin/sales/index', [AdminSalesController::class, 'index'])->name('admin.sales.index');
+
+//検索結果
+Route::post('/search/results',[ProductsController::class,'search'])->name('search.results');
+
+//決済方法の取得
+Route::post('/orders/complete',[OrderController::class,'payment'])->name('orders.complete');
+
+//定期便変更画面へ
+Route::get('/subscription/edit',[SubscriptionController::class,'edit'])->name('subscription.edit');
+
+//定期便更新
+Route::post('/subscription/update',[SubscriptionController::class,'update'])->name('subscription.update');
+
+//定期便削除
+Route::get('/subscription/destroy',[SubscriptionController::class,'destroy'])->name('subscription.destroy');
+
 
 // // 更新処理（PUT or POST）
 // Route::post('/admin/coupons/update/{id}', [CouponController::class, 'update'])->name('admin.coupons.update');
@@ -210,7 +270,6 @@ Route::get('/columns/show/{id}', [ColumnController::class, 'show'])->name('colum
 
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
-
 Route::get('/products/show',function(){
     return view('products.show');
 });
@@ -219,11 +278,18 @@ Route::get('/products/show',function(){
 // Route::get('/admin/products/index', [AdminProductController::class, 'index'])->name('admin.products.index');
 // Route::post('/admin/products/update/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
 
-//定期便詳細ページへ
-Route::get('/subscription/index',function(){return view('subscription/index');})->name('subscription.index');
 
-//ジャンルごとのページへ(検索結果ページを後で作成して調整する)
-Route::get('/search/results/{id}',function(){return view('search/results');})->name('search.results');
+
+
+
+//ジャンルごとのページへ
+Route::get('/search/results/category/{idName}',[ProductsController::class,'category'])->name('search.results.category');
+
+//検索結果ページ search/resultsをURLで直接入力したとき用
+Route::get('/search/results',[ProductsController::class,'search'])->name('search.results');
+
+//検索結果ページ
+Route::post('/search/results',[ProductsController::class,'search'])->name('search.results');
 
 //決済方法の取得
-Route::post('/orders/complete',[OrderController::class,'payment'])->name('orders.complete');
+// Route::post('/orders/complete',[OrderController::class,'payment'])->name('orders.complete');

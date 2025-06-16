@@ -3,9 +3,8 @@
 @section('title', '購入履歴')
 
 @section('content')
-<div class="border-b border-[#201a1e]">
-    <h1 class="font-black text-3xl text-center my-6">購入履歴
-    </h1>
+<div class="border-b border-[#201a1e] mb-6">
+            <h1 class="font-black text-3xl text-center mt-6 ">注文履歴</h1>
 </div>
 {{-- <div class="flex justify-end px-6 mt-4 pb-4">
     <a href="#" class="inline-flex items-center justify-center rounded-md bg-neutral-950 px-4 py-2 text-sm font-medium text-white shadow transition hover:bg-neutral-800">

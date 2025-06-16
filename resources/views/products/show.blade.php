@@ -47,7 +47,7 @@
                 {{-- 数字変更 --}}
                 <div class="flex-1 grid grid-cols-3 spinner-container center">
                     <div class="grid-item  w-1/2 bg-[#d0b49f] ml-auto h-8 flex justify-end"><span class="spinner-sub disabled select-none text-white mr-8">-</span></div>
-                    <input class="spinner h-8 select-none text-center w-8 mx-auto" type="text" min="0" max="99" value="1" name="item_count">
+                    <input class="spinner h-8 select-none text-center w-8 mx-auto" type="text" min="1" max="99" value="1" name="item_count">
                     <div class="grid-item w-1/2 bg-[#d0b49f] mr-auto h-8"><span class="spinner-add text-center select-none text-white">+</span></div>
                     
                 </div>
@@ -78,12 +78,12 @@
             @else {{--　カートに商品がないときはカートテーブルに追加　--}}
             <form action="{{route('products.store',$item->item_id)}}" method="POST">
             @csrf
-            <p>新規追加です</p>
+            {{-- 新規追加 --}}
             <div class="flex space-between">
                 {{-- 数字変更 --}}
                 <div class="flex-1 grid grid-cols-3 spinner-container center">
                     <div class="grid-item  w-1/2 bg-[#d0b49f] ml-auto h-8 flex justify-end"><span class="spinner-sub disabled select-none text-white mr-8">-</span></div>
-                    <input class="spinner h-8 select-none text-center w-8 mx-auto" type="text" min="0" max="99" value="1" name="item_count">
+                    <input class="spinner h-8 select-none text-center w-8 mx-auto" type="text" min="1" max="99" value="1" name="item_count">
                     <div class="grid-item w-1/2 bg-[#d0b49f] mr-auto h-8"><span class="spinner-add text-center select-none text-white">+</span></div>
                     
                 </div>
@@ -98,43 +98,8 @@
                     {{-- テスト用のだれでもカートに追加できるバージョン --}}
                         
 
-                            <input type="hidden" name="">
-                            <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
-                        
-                        
-                    
-                    {{-- ログインしていないとき、ログインページにとばすように --}}
-                    {{-- @guest
-                        <button class="btn-primary text-xs" ><a href="/login">カートに入れる</a></button>
-                    @endguest --}}
-                </div>
-            </div>
-            </form>
-            @else {{--　カートに商品がないときはカートテーブルに追加　--}}
-            <form action="{{route('store',$cart)}}" method="POST">
-            @csrf
-            <p>新規追加です</p>
-            <div class="flex space-between">
-                {{-- 数字変更 --}}
-                <div class="flex-1 grid grid-cols-3 spinner-container center">
-                    <div class="grid-item  w-1/2 bg-[#d0b49f] ml-auto h-8 flex justify-end"><span class="spinner-sub disabled select-none text-white mr-8">-</span></div>
-                    <input class="spinner h-8 select-none text-center w-8 mx-auto" type="text" min="0" max="99" value="1" name="item_count">
-                    <div class="grid-item w-1/2 bg-[#d0b49f] mr-auto h-8"><span class="spinner-add text-center select-none text-white">+</span></div>
-                    
-                </div>
-                {{-- カートに入れるボタン --}}
-                <div class="flex-1 px-auto">
-                    {{-- ログインしているときカートに入れる --}}
-                    {{-- @auth
-                        <form action="{{route('store')}}"></form>
-                        <button class="btn-primary text-xs cart" >カートに入れる</button>
-                    @endauth --}}
-
-                    {{-- テスト用のだれでもカートに追加できるバージョン --}}
-                        
-
-                            <input type="hidden" name="">
-                            <button class="btn-primary text-xs cart" >カートに入れる</button>
+                    <input type="hidden" name="item_id" value="{{$cart->item_id}}">
+                    <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
                         
                         
                     
@@ -177,7 +142,7 @@
     <hr>
     {{-- 最初のレビューを2件まで表示 --}}
     <div  class="py-4" id="parent_review">
-        @if(empty($reviews))
+        @if($reviews->isEmpty())
             <p>レビューがありません</p>
             {{--レビュー」があれば表示 --}}
         @else
@@ -199,8 +164,8 @@
                     <p>年代</p>
                     <p>{{$review->reviewer_age}}代</p>
                     {{-- 投稿日、あとでcreated_atにする --}}
-                    
-                    <p>2025/02/12</p>
+                    <p>{{$review->created_at}}</p>
+                    {{-- <p>2025/02/12</p> --}}
                 </div>
                 <p>レビュー内容</p>
                 <p>{{$review->review_content}}</p>
@@ -243,7 +208,7 @@
             {{-- おすすめ五件の画像と商品名を表示 --}}
             @foreach($recommends as $recommend)
                 <div class="flex-1 px-2 ">
-                    <a href="{{route('show',$recommend->item_id)}}">
+                    <a href="{{route('products.show',$recommend->item_id)}}">
                     <img src="{{asset('storage/'.$recommend->item_img ?? 'https://placehold.jp/150x150.png')}}">
                 <p>{{$recommend->item_name}}</p> 
                 </a>

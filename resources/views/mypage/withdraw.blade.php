@@ -8,8 +8,9 @@
 @section('content')
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="pt-6 pb-6 flex justify-center">
-        <h2 class=" underline decoration-#201a1e decoration-3 underline-offset-8">　　　退会　　　</h2>
+    <div class="border-b border-[#201a1e] mb-6">
+        <h1 class="font-black text-3xl text-center mt-6 ">Withdraw</h1>
+        <p class="text-center mb-6">退会完了</p>
     </div>
 
     <div class="bg-white pb-9 pt-6  pr-6 pl-6 w-5/6 mx-auto mb-8">
