@@ -62,7 +62,7 @@ class RegisteredCustomerController extends Controller
         //Customerテーブルに登録
         $user = Customer::create([
             'email' => $credentials['email'],
-            'password' => $credentials['password'],
+            'password' => \Hash::make($credentials['password']),
             'customer_first_name' => $credentials['customer_first_name'],
             'customer_last_name' =>  $credentials['customer_last_name'],
             'customer_first_furigana' => $credentials['customer_first_furigana'],
@@ -85,6 +85,6 @@ class RegisteredCustomerController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('top', absolute: false));
     }
 }

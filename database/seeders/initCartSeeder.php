@@ -30,6 +30,16 @@ class initCartSeeder extends Seeder
             'item_id' => 3,
             'item_count' => 5,
             ],
+            [
+                'customer_id'=>2,
+                'item_id'=>1,
+                'item_count'=>1
+           ],
+           [
+                'customer_id'=>2,
+                'item_id'=>2,
+                'item_count'=>2
+           ]
         ]);
     }
 }

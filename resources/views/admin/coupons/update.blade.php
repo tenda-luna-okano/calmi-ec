@@ -9,7 +9,7 @@
         '6' => 'サプリ',
     ];
 @endphp
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'クーポン発行')
 

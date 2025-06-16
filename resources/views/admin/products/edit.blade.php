@@ -8,7 +8,7 @@
         '5' => 'サプリ',
     ];
 @endphp
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', '商品編集')
 

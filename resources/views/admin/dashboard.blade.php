@@ -1,5 +1,5 @@
 {{--管理者ページはもっと白黒で見やすさを重視してもいいかも--}}
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', '管理者トップページ')
 @php
