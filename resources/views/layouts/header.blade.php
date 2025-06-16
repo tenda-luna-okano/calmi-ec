@@ -47,9 +47,9 @@
 
         <!-- 右：アイコン -->
         <div class="w-1/3 flex justify-end space-x-4 items-center">
-            <span class="material-icons-outlined">account_circle</span>
-            <span class="material-icons-outlined">shopping_bag</span>
-            <span id="searchButton" class="material-icons-outlined">search</span>
+            <a href="{{ route('mypage.index') }}"><span class="material-icons-outlined">account_circle</span></a>
+            <a href="#"><span class="material-icons-outlined">shopping_bag</span></a>
+            <span class="material-icons-outlined">search</span>
         </div>
     </div>
 </header>
@@ -57,7 +57,7 @@
 <!-- サブヘッダー（メニュー） -->
 <nav class="bg-[#e2e6e7] border-t border-gray-300">
     <div class="max-w-7xl mx-auto px-4 py-2 flex justify-center space-x-8 text-sm text-gray-700">
-        <a href="#" class="hover:underline">定期便</a>
+        <a href="{{ route('subscription.index') }}" class="hover:underline">定期便</a>
         <a href="#" class="hover:underline">ジャンル</a>
         <a href="#" class="hover:underline">コラム</a>
     </div>

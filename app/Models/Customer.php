@@ -10,6 +10,9 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 /**
  * Class Customer
@@ -34,7 +37,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
+
  * 
+
  * @property Payment|null $payment
  * @property Collection|Cart[] $carts
  * @property Collection|Notification[] $notifications
@@ -43,9 +48,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @package App\Models
  */
-class Customer extends Model
+
+class Customer extends Authenticatable
 {
 	use SoftDeletes;
+
 	protected $table = 'customers';
 	protected $primaryKey = 'customer_id';
 

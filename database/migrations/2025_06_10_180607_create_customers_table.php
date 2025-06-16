@@ -26,7 +26,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_post_number')->comment('郵便番号');
             $table->string('customer_states')->comment('郵送先住所(都道府県)');
             $table->string('customer_municipalities')->comment('郵送先住所(市区町村・番地)');
-            $table->string('customer_building_name')->comment('郵送先住所(建物名・部屋番号)');
+            $table->string('customer_building_name')->nullable()->comment('郵送先住所(建物名・部屋番号)');
             $table->boolean('customer_status')->comment('会員ステータスフラグ');
             $table->boolean('customer_subscribe_flg')->comment('サブスクフラグ');
             $table->boolean('mail_magazine_flg')->comment('メールマガジン受信フラグ');

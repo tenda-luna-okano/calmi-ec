@@ -27,7 +27,7 @@ class initUsersSeeder extends Seeder
             'customer_first_furigana' => 'シケン',
             'customer_last_furigana' => 'チュウ',
             'email' => 'test@test.com',
-            'customer_tel' => '090-1111-1111',
+            'customer_tel' => '09011111111',
             'customer_birthday'=> '1999-05-29',
             'payment_id' => NULL,
             'customer_post_number' => 1330051,

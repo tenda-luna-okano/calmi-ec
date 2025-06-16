@@ -8,10 +8,6 @@
         '50' => '50代',
         '60' => '60代',
     ];
-    $product = [
-        'item_id' => 1,
-        'name' => 'チョコ',
-        ];
 @endphp
 @extends('layouts.app')
 
@@ -40,9 +36,8 @@
         @csrf
         <div class="text-center">
             <img src="https://placehold.jp/150x150.png" class="mx-auto mb-2">
-            <h3 class="text-lg font-semibold">{{ $product['name'] }}</h3>
+            <h3 class="text-lg font-semibold">{{ $item['name'] }}</h3>
         </div>
-        <input type="hidden" name="review_item_id" value="{{ $product['item_id'] }}">
         <div>
             <p class="font-semibold">評価</p>
             <div class="stars">
