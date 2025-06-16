@@ -1,5 +1,5 @@
 {{--管理者ページに戻るボタンはあとからビューのテンプレを作って作成するためいまは作成しない--}}
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', '商品一覧')
 
@@ -60,8 +60,8 @@
         @foreach ($data as $row)
             <tr class="border-b hover:bg-gray-100">
             <td class="p-2 text-center">{{ $row->date }}</td>
-            <td class="p-2 text-center">¥{{ number_format($row->total_sales) }}</td> 
-        @endforeach 
+            <td class="p-2 text-center">¥{{ number_format($row->total_sales) }}</td>
+        @endforeach
     </table>
 </div>
 @endsection
