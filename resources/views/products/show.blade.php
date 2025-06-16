@@ -7,7 +7,7 @@
     <div class="flex justify-center">
         <div class=" w-1/2 ">
             {{-- 商品画像を出力 --}}
-            <img class="mx-4 pe-8 mt-8 " src="{{asset('storage/'.$item->item_img ?? 'https://placehold.jp/150x150.png')}}" alt="商品画像">
+            <img class="mx-4 pe-8 mt-8 " src="{{asset($item->item_img ?? 'https://placehold.jp/150x150.png')}}" alt="商品画像">
         </div>
         {{-- <div class="size-14  w-1/3"></div> --}}
         {{-- 商品説明 --}}
@@ -22,7 +22,7 @@
             <div class="flex">
 
                 {{-- レビュー表示 --}}
-                <p class="flex-1 text-sm mt-4">☆{{$item->item_review_star}}({{$review_num}})</p>
+                <p class="flex-1 text-sm mt-4">★{{$item->item_review_star}}({{$review_num}})</p>
                 {{-- 画面下のレビュー部分へ --}}
                 <a class="flex-1 text-xs mt-4 ml-2" href="#review">レビューを表示</a>
             </div>
@@ -133,11 +133,12 @@
         <h2 id="review" class="flex-1">レビュー</h2>
         {{-- 商品IDと一緒にレビュー投稿画面へ --}}
         {{-- <form action="{{route('reviews.store')}}" method="POST"> --}}
-        <form action="{{route('reviews.index',$item->item_id)}}" method="POST">
+        {{--<form action="{{route('reviews.index',$item->item_id)}}" method="POST">
+            @csrf
             <input type="hidden" name="item_id" value="{{$item->item_id}}">
             <button class="flex-1 text-right border border-black">レビューを投稿する</button>
-        </form>
-        
+        </form>--}}
+        <button onclick="location.href='{{route('reviews.index',$item->item_id)}}'" class="text-right border border-black">レビューを投稿する</button>
     </div>
     <hr>
     {{-- 最初のレビューを2件まで表示 --}}
@@ -209,7 +210,7 @@
             @foreach($recommends as $recommend)
                 <div class="flex-1 px-2 ">
                     <a href="{{route('products.show',$recommend->item_id)}}">
-                    <img src="{{asset('storage/'.$recommend->item_img ?? 'https://placehold.jp/150x150.png')}}">
+                    <img src="{{asset($recommend->item_img ?? 'https://placehold.jp/150x150.png')}}">
                 <p>{{$recommend->item_name}}</p> 
                 </a>
             </div>
