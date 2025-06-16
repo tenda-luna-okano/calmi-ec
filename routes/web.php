@@ -173,6 +173,7 @@ Route::get('/mypage/withdraw_confirm', [WithdrawController::class, 'confirm'])->
 Route::get('/contact/index', function () {
     return view('contact.index');
 });
+
 // レビュー投稿のビュー
 Route::get('/reviews/index/{item_id}', [
   ReviewController::class,'index'])
@@ -227,10 +228,12 @@ Route::put('/mypage/edit_user',[EditUserController::class,'update'])
 // 購入履歴
 Route::get('/mypage/history',[MyPageController::class,'history']);
 
+/* もう一つのController経由のsubscription.indexが正しい
 //定期便詳細ページへ
 Route::get('/subscription/index',function(){
     return view('subscription/index');
 })->name('subscription.index');
+*/
 
 //ジャンルごとのページへ(検索結果ページを後で作成して調整する)
 // Route::get('/search/results/{id}',function(){
@@ -238,7 +241,8 @@ Route::get('/subscription/index',function(){
 // })->name('search.results');
 
 
-Route::post('/reviews/index', [ReviewController::class, 'store'])->name('reviews.store');
+Route::post('/reviews/store/{item_id}', [ReviewController::class, 'store'])->name('reviews.store');
+
 // Route::get('/admin/coupons/index', [CouponController::class, 'index'])->name('admin.coupons.index');
 
 // // 編集フォームを表示（GET）
