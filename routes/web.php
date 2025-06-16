@@ -69,8 +69,13 @@ Route::get('/products/show',[ProductsController::class,'show']); //テスト用
 
 Route::get('/products/show',[ProductsController::class,'show']); //テスト用
 
+// カート画面
 Route::get('/cart', [CartController::class, 'index'])
 ->name('cart');
+// カートのゴミ箱削除機能
+Route::delete('/cart/{cart}', [CartController::class, 'destroy'])->name('cart.destroy');
+// カートの変更をし、購入確認画面へ遷移
+Route::patch('/cart/{id}',[CartController::class, 'update'])->name('cart.update');
 
 Route::get('/admin/dashboard',function(){
     return view('admin.dashboard');
