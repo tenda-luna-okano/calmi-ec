@@ -173,6 +173,7 @@ Route::get('/mypage/withdraw_confirm', [WithdrawController::class, 'confirm'])->
 Route::get('/contact/index', function () {
     return view('contact.index');
 });
+
 // レビュー投稿のビュー
 Route::get('/reviews/index/{item_id}', [
   ReviewController::class,'index'])
@@ -240,7 +241,8 @@ Route::get('/subscription/index',function(){
 // })->name('search.results');
 
 
-Route::post('/reviews/index', [ReviewController::class, 'store'])->name('reviews.store');
+Route::post('/reviews/store/{item_id}', [ReviewController::class, 'store'])->name('reviews.store');
+
 // Route::get('/admin/coupons/index', [CouponController::class, 'index'])->name('admin.coupons.index');
 
 // // 編集フォームを表示（GET）

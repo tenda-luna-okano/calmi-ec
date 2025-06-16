@@ -15,13 +15,13 @@ class ReviewController extends Controller
     //
     public function index($item_id){
         
-
+        $item=ItemMaster::where('item_id',$item_id)->first();
 
         // レビュー投稿のビューを返す
-        return view('reviews.index');
+        return view('reviews.index',compact('item_id','item'));
     }
 
-      public function store(Request $request)
+      public function store(Request $request,$item_id)
     {
        $validated = $request->validate([
         'review_name' => 'required|string|max:100',
@@ -31,10 +31,11 @@ class ReviewController extends Controller
         'review_content' => 'required|string|max:1000',
         'reviewer_age' => 'required|in:10,20,30,40,50,60',
     ]);
-     $validated['review_item_id'] = $request->item_id;
+    $validated['review_item_id'] = $item_id;
 
     Review::create($validated);
 
+     
     return redirect()->back()->with('message', 'レビューを投稿しました！');  
    }
 }

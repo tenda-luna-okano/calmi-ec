@@ -1,4 +1,3 @@
-
 @php
     $ages = [
         '10' => '10代',
@@ -11,12 +10,21 @@
 @endphp
 @extends('layouts.app')
 
+<style>
+    .review_star>label::before{
+        color:white;
+    }
+    .review_star>input[type="radio"]:checked ~ label:before{
+        color:yellow;
+    }
+</style>
+
 @section('title', 'レビュー投稿')
 
 @section('content')
     <div class="border-b border-[#201a1e]">
-        <h1 class="font-black text-3xl text-center m-6">レビュー投稿</h1>
-    </div>
+    <h1 class="font-black text-3xl text-center m-6">レビュー投稿</h1>
+</div>
 
 <div class="bg-white mx-auto w-[90%] p-4 rounded shadow-md mt-5 mb-5">
     <div class="border-b border-[#201a1e] mb-4">
@@ -31,7 +39,7 @@
             </ul>
         </div>
     @endif
-    <form method="POST" action="{{ route('reviews.store') }}" class="space-y-4">
+    <form method="POST" action="{{ route('reviews.store',$item->item_id) }}" class="space-y-4">
         
         @csrf
         <div class="text-center">
