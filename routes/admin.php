@@ -84,10 +84,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
             return view('coupons.update');
         });
 
-        Route::get('/sales/index', function() {
-            return view('sales.index');
-        })->name('sales.index');
+        // Route::get('/sales/index', function() {
+        //     return view('sales.index');
+        // })->name('sales.index');
 
+        Route::post('/logout',[AdminloginController::class, 'destroy'])
+        ->name('logout');
 
 
 
