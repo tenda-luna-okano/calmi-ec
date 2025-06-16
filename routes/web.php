@@ -93,6 +93,8 @@ Route::get('/mypage/withdraw',function(){
     return view('mypage.withdraw');
 })->name('mypage.withdraw');
 
+Route::post('/mypage/withdraw',[WithdrawController::class, 'withdraw']);
+
 Route::get('/mypage/withdraw_confirm', [WithdrawController::class, 'confirm'])->name('mypage.withdraw_confirm');
 
 
@@ -226,7 +228,8 @@ Route::put('/mypage/edit_user',[EditUserController::class,'update'])
 
 
 // 購入履歴
-Route::get('/mypage/history',[MyPageController::class,'history']);
+Route::get('/mypage/history',[MyPageController::class,'history'])
+->name('mypage.purchase_history');
 
 /* もう一つのController経由のsubscription.indexが正しい
 //定期便詳細ページへ
@@ -280,7 +283,7 @@ Route::get('/columns/index', [ColumnController::class, 'index'])
 Route::get('/columns/show/{id}', [ColumnController::class, 'show'])
 ->name('columns.show');
 
-Route::get('/mypage/history',[MyPageController::class,'history']);
+// Route::get('/mypage/history',[MyPageController::class,'history']);
 
 Route::get('/products/show',function(){
     return view('products.show');
