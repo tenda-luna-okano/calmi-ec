@@ -22,7 +22,7 @@ class initUsersSeeder extends Seeder
 
         DB::table('customers')->insert([
             [
-            'password' => 'tenda',
+            'password' => \Hash::make('tenda'),
             'customer_first_name' => '試験',
             'customer_last_name' => '中',
             'customer_first_furigana' => 'シケン',
@@ -39,7 +39,7 @@ class initUsersSeeder extends Seeder
             'customer_subscribe_flg' => 0,
             'mail_magazine_flg' => 1,
             ],
-            ['password' => '2',
+            ['password' => \Hash::make('2'),
             'customer_first_name' => '試験',
             'customer_last_name' => '中です',
             'customer_first_furigana' => 'シケン',

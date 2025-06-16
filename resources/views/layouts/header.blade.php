@@ -32,16 +32,87 @@
         height:100vh;
         background: rgba(0,0,0,0.5);
 
-        
+
     }
     .field{
         display: flex;
 		justify-content: space-between;
     }
+
+    {{--プルダウン--}}
+    ul ,
+    li {
+    padding: 0;
+    list-style: none;
+    /* width: 100%; */
+    }
+
+    a {
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+    }
+
+    .list {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    background-color: antiquewhite;
+    }
+
+    .link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    /* gap: 5px; */
+    /* padding: 20px 30px; */
+    transition: color .15s;
+    }
+    .link:hover,
+    .link:focus {
+    color: #201a1e;
+    }
+
+    .link-hover::after {
+    content: '▼';
+    font-size: 10px;
+    }
+
+    .dropDown {
+    position: absolute;
+    bottom: 0;
+    display: none;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0px 3px 8px -2px #777;
+    color: initial;
+    transform: translate(0, 100%);
+    font-size: 14px;
+    }
+
+    .link:hover > .dropDown,
+    .link:focus > .dropDown {
+    display: block;
+    }
+
+    .dropDown__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    }
+
+    .dropDown__link {
+    padding: 10px 20px;
+    transition: color .15s;
+    }
+    .dropDown__link:hover,
+    .dropDown__link:focus {
+    color: #201a1e;
+    }
 </style>
 <div class="modal"style="z-index:9998;"></div>
 <div id="header" style="z-index:9999; position:relative">
-    
+
     <!--検索ボックス-->
     <div name="search" id="search">
     <form action="{{route('search.results')}}" method="POST">
@@ -64,15 +135,49 @@
 
             <!-- 中央：ロゴ -->
             <div class="w-1/3 flex justify-center h-full">
-                <img src="{{ asset('img/logo.png') }}" alt="ロゴ" class="h-full object-contain">
+                <a href="{{route('top')}}">
+                    <img src="{{ asset('img/logo.png') }}" alt="ロゴ" class="h-full object-contain">
+                </a>
             </div>
 
             <!-- 右：アイコン -->
-            <div class="w-1/3 flex justify-end space-x-4 items-center">
-                <span class="material-icons-outlined">account_circle</span>
-                <span class="material-icons-outlined">shopping_bag</span>
-                <span id="searchButton" class="material-icons-outlined">search</span>
-            </div>
+            @auth
+                <div class="w-1/3 flex justify-end space-x-4 items-center">
+                    {{-- <a href="{{route('mypage.index')}}" class="flex items-center"><span class="material-icons-outlined">account_circle</span></a> --}}
+                    <li class="list__item">
+                    <div class="link link-hover">
+                        <span class="material-icons-outlined">account_circle</span>
+                        <div class="dropDown">
+                        <ul class="dropDown__list">
+                            <li class="dropDown__item">
+                            <a href="{{route('mypage.index')}}" class="dropDown__link">マイページ</a>
+                            </li>
+                            <li class="dropDown__item">
+                            <a href="{{route('logout')}}" class="dropDown__link flex items-center">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="text-smrounded-md">
+                                        ログアウト
+                                    </button>
+                                </form>
+                            </a>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    </li>
+
+                    <a href="{{route('cart')}}" class="flex items-center"><span class="material-icons-outlined">shopping_bag</span></a>
+                    <span id="searchButton" class="material-icons-outlined">search</span>
+                </div>
+            @else
+                <div class="w-1/3 flex justify-end space-x-4 items-center">
+                    <a href="{{route('login')}} " class="text-sm">ログイン</a>
+                    <a href="{{route('register')}}" class="text-sm">新規登録</a>
+                    <span id="searchButton" class="material-icons-outlined">search</span>
+                </div>
+            @endauth
+
         </div>
     </header>
 
@@ -115,7 +220,7 @@
                     <a href="{{route('search.results.category',['idName'=>'ご褒美スイーツ'])}}">
                         ご褒美スイーツ<img class="category" id="ご褒美スイーツ" src="{{ asset('img/マカロン.png') }}" alt="" style="width:60%;">
                     </a>
-                    
+
                 </li>
             </div>
             <br>
@@ -125,7 +230,7 @@
 </div>
 
 <script>
-    //ヘッダーの虫眼鏡(検索)ボタン押した処理  
+    //ヘッダーの虫眼鏡(検索)ボタン押した処理
     $('#searchButton').on('click',function(){
         $('.modal').css('display','block'),
         $('#search').css('display','block'),
