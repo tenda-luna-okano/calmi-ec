@@ -115,8 +115,7 @@
 
     <!--検索ボックス-->
     <div name="search" id="search">
-    <form action="{{route('search.results')}}" method="POST">
-        @csrf
+    <form action="{{route('search.results')}}" method="get">
         <input type="text" name="search" class="w-3/4" placeholder="キーワードを入力">
 
 
