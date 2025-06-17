@@ -35,8 +35,11 @@
         <a href="{{ route('mypage.withdraw_confirm') }}" class=" block text-center mt-4 pb-4"><span class="material-icons">logout</span>退会</a>
     </div>
     <div class="flex items-center justify-center m-4">
-        <button class="btn-primary">
-            ログアウト
-        </button>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="btn-primary">
+                ログアウト
+            </button>
+        </form>
     </div>
 @endsection
