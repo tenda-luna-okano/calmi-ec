@@ -59,7 +59,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/columns/create',function(){
             return view('admin.columns.create');
-        });
+        })->name('columns.create');
         Route::post('/columns/create', [AdminColumnController::class, 'store'])
         ->name('columns.post');
 
