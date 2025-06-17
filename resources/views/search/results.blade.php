@@ -84,13 +84,18 @@
     <div class="container mx-auto grid grid-cols-2 gap-4">
       @foreach ($resultItem as $product)
         <div class="col-span-1 flex flex-col items-center">
-
+            @csrf
+            <a href="{{route('products.show',$product->item_id)}}">
             <img src="{{ asset($product->item_img) }}" alt="{{$product->item_name}}">
             <p>{{$product->item_name}} - ¥{{$product->item_price_in_tax}}</p>
-
-          <button class="btn-primary">
-              カートに入れる
-          </button>
+            </a>
+          <form action="{{route('products.store',$product->item_id)}}" method="POST">
+            @csrf
+            <input type="hidden" name="item_count" value="1">
+            <button class="btn-primary">
+                カートに入れる
+            </button>
+          </form>
         </div>
       @endforeach
     </div>
