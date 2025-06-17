@@ -152,7 +152,7 @@
                             <a href="{{route('mypage.index')}}" class="dropDown__link">マイページ</a>
                             </li>
                             <li class="dropDown__item">
-                            <a href="{{route('logout')}}" class="dropDown__link flex items-center">
+                            <a class="dropDown__link flex items-center">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="text-smrounded-md">

@@ -17,6 +17,12 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        <div class="w-5/6 mx-auto" >
+            @error('message')
+            <div class="alert alert-danger text-red-600">{{ $message }}</div>
+        @enderror
+        </div>
+
         <!-- Email Address -->
         <div class="w-5/6 mx-auto" >
             <x-input-label for="email" :value="__('Email')" />
