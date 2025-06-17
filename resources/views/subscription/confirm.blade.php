@@ -79,7 +79,7 @@
     {{-- あとで上と同じく商品だけタグを作成し、hiddenでデータを送る --}}
 
     @csrf
-    <input type="hidden" name="subscribe_id" value="{{ $subscription->subscribe_detail_id }}">
+    <input type="hidden" name="subscribe_id" value="{{ $subscription->subscribe_detail_id }">
     <center><button class="btn-primary">決済情報確認へ</button></center>
     <br>
     </form>

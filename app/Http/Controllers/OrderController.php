@@ -18,7 +18,7 @@ class OrderController extends Controller
     public function getCart()
     {
         //customer_idを後でAuthにする
-        $inCart=Cart::where('customer_id',2)->with('item_master')->get();
+        $inCart=Cart::where('customer_id',"=",auth()->id())->with('item_master')->get();
         return $inCart;
     }
 
@@ -44,7 +44,7 @@ class OrderController extends Controller
         //customer_idを後でAuthにする
         $inCart=$this->getCart();
         $sum_price_in_tax=$this->sumPrice_in_tax($inCart);
-        $Customer=Customer::where('customer_id',2)->first();
+        $Customer=Customer::where('customer_id',"=",auth()->id())->first();
         $sum_price=$inCart->sum(function($cartItem){
             return ($cartItem->item_master->item_price)*($cartItem->item_count);
         });
@@ -111,6 +111,8 @@ class OrderController extends Controller
         ]);
         $method=$request->input('payment_method');
 
+        $order_number = Order::select('order_id')->where('customer_id',"=",auth()->id())->first();
+
         //エラー文必要なら後で追加
         if($method=="credit_card")
         {
@@ -148,7 +150,7 @@ class OrderController extends Controller
                 return back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
             }
 
-            return view('orders.complete');
+            return view('orders.complete',['order_number'=>$order_number]);
         }
         else
         {
@@ -163,7 +165,7 @@ class OrderController extends Controller
                 return back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
             }
 
-            return view('orders.complete');
+            return view('orders.complete',['order_number'=>$order_number]);
         }
     }
 }
