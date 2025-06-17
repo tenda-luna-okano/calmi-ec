@@ -70,7 +70,7 @@
         {{-- <div><a href="mypage/top">お気に入り商品</a></div>  --}}
 
         <p><button class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><a href="./history">ご注文履歴</a></button></p>
-        <p><button class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><a href="./withdraw">退会</a></button></p>
+        <p><button class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><a href="{{route('mypage.withdraw_confirm')}}">退会</a></button></p>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

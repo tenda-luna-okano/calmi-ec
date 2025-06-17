@@ -28,9 +28,11 @@ class MyPageController extends Controller
     // 購入履歴
     public function history(Request $request){
         // ユーザーID取得
-        $customer_id = $request->session()->get('customer_id',1);
+        $customer_id = auth()->id();
         // 購入履歴一覧を取得
         $orders = Order::where('customer_id',$customer_id)->get();
+        // 支払方法の初期設定
+        $order_method = '不明';
         // 個別のデータを調整
         foreach($orders as $order){
             // 支払方法を数から名前へ変換
@@ -50,8 +52,8 @@ class MyPageController extends Controller
                 // $order->payment_name='コンビニ';
                 $order_method='コンビニ';
             }else{
-                $order->payment_name='error';
-                // $order_method='error';
+                // $order->payment_name='error';
+                $order_method='error';
             }
             // 注文日を取得し、Y-m-dに変換
             $date = date_create($order->created_at);
@@ -70,7 +72,7 @@ class MyPageController extends Controller
         // 注文日などの概要取得
         $order = Order::where('order_id',$order_id)->first();
         
-        // dd($order);
+        // dd($order_details);
         // 支払方法を数から名前へ変換
         if($order->payment_name==1){
             // $order->payment_name='クレジットカード';

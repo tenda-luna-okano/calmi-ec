@@ -21,15 +21,15 @@
     <!-- 商品2 -->
     <div class="flex flex-row items-center space-x-4">
         {{-- 画像が入っていなかったらロゴを出力するように --}}
-        <img src="{{asset($order_detail->item_master->item_img??'img/logo.png')}}" alt="商品画像" class="w-36 h-36">
+        <img class="w-36 h-36" src="{{asset($item->item_img ?? 'https://placehold.jp/150x150.png')}}" alt="商品画像">
         <div class="text-left">
             {{-- 商品購入詳細 --}}
             <p>商品名：{{$order_detail->item_name}}</p>
-            <p>価格：￥{{$order_detail->item_price_in_tax}}</p>
+            <p>価格：￥{{$order_detail->price_in_tax}}</p>
             <p>数量：{{$order_detail->count}}</p>
         </div>
     </div>
-    <button class="bg-[#d0b49f] text-white px-4 py-2 rounded">商品ページを見る</button>
+    <button class="bg-[#d0b49f] text-white px-4 py-2 rounded"><a href="{{route('products.show',$order_detail->item_id)}}">商品ページを見る</a></button>
     @endforeach
 </div>
 
