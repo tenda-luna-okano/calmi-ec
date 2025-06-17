@@ -57,13 +57,22 @@
         ¥{{ number_format($subscriptions[0]['subscribe_price']) }}
       </p>
     </div>
-  </div> 
+    </div>
 
-  <!-- ボタン -->
-  <div class="flex justify-center mt-6">
-    <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
+    <!-- ボタン -->
+    <div class="flex justify-center mt-6">
+      <form action="{{route('subscription.confirm')}}" method="POST">
+          @csrf
+          <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+          <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
+      </form>
+    </div>
   </div>
-</div>
+
+
+
+
+
 
   <div x-show="activeTab === 1" class="border p-6">
     <div class="flex flex-col lg:flex-row gap-8">
@@ -82,8 +91,14 @@
     </p>
   </div>
 </div>
+
+    <!-- ボタン -->
     <div class="flex justify-center mt-6">
-      <button class="btn-primary">定期便購入ページへ</button>
+      <form action="{{route('subscription.confirm')}}" method="POST">
+          @csrf
+          <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+          <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
+      </form>
     </div>
   </div>
 
@@ -104,8 +119,14 @@
     </p>
   </div>
 </div>
+
+    <!-- ボタン -->
     <div class="flex justify-center mt-6">
-      <button class="btn-primary">定期便購入ページへ</button>
+      <form action="{{route('subscription.confirm')}}" method="POST">
+          @csrf
+          <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+          <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
+      </form>
     </div>
   </div>
 
@@ -139,8 +160,8 @@
             定期便は毎月1日に発送されます。<br>
             お届け前にメールでお知らせします。<br>
             お届けは日本国内のみ対応しています。<br>
-            お届け時間の指定はできません。<br>  
-            ただし、地域によっては時間指定が可能な場合があります。<br> 
+            お届け時間の指定はできません。<br>
+            ただし、地域によっては時間指定が可能な場合があります。<br>
             詳細はご注文時にご確認ください。<br>
         </p>
     </div>

@@ -44,7 +44,7 @@ class initUsersSeeder extends Seeder
             'customer_last_name' => '中です',
             'customer_first_furigana' => 'シケン',
             'customer_last_furigana' => 'チュウデス',
-            'email' => 'test@test.com',
+            'email' => 'test@2.com',
             'customer_tel' => '09011111111',
             'customer_birthday'=> '1999-05-29',
             'payment_id' => NULL,

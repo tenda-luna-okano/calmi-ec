@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Subscribe
- * 
+ *
  * @property int $subscribe_id
  * @property int $customer_id
  * @property int|null $subscribe_detail_id
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $subscribe_end_day
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Customer $customer
  * @property Payment|null $payment
  * @property SubscribeDetailMaster|null $subscribe_detail_master

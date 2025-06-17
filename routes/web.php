@@ -25,15 +25,13 @@ Route::get('/top', function(){
     return view('top');
 })->name('top');
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 // サブスク詳細画面
 Route::get('/subscription/index',[SubscriptionController::class,'index'])
 ->name('subscription.index');
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -64,6 +62,16 @@ Route::middleware('auth')->group(function () {
 
     //定期便削除
     Route::get('/subscription/destroy',[SubscriptionController::class,'destroy'])->name('subscription.destroy');
+
+    //決済方法の取得
+    Route::post('/subscription/complete',[SubscriptionController::class,'payment'])->name('subscription.complete');
+
+    // 購入確認画面
+    Route::post('/subscription/confirm',[SubscriptionController::class,'confirm'])
+    ->name('subscription.confirm');
+
+    Route::post('/subscription/payment', [SubscriptionController::class,'pre_payment'])
+    ->name('subscription.payment');
 
     // 購入確認画面
     Route::get('/orders/confirm',[OrderController::class,'confirm'])
@@ -100,8 +108,6 @@ Route::middleware('auth')->group(function () {
         // マイページの購入履歴詳細画面
         Route::get('purchase_history_detail', [MyPageController::class,'history_detail']);
         Route::post('purchase_history_detail', [MyPageController::class,'history_detail']);
-
-
 
         Route::get('withdraw_confirm',function(){
             return view('mypage.withdraw_confirm');
