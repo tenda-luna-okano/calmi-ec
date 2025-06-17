@@ -306,7 +306,7 @@ Route::get('/serch/results',function(){
 });
 
 //検索結果ページ
-Route::post('/search/results',[ProductsController::class,'search'])
+Route::get('/search/results',[ProductsController::class,'search'])
 ->name('search.results');
 
 
@@ -315,3 +315,20 @@ Route::post('/search/results',[ProductsController::class,'search'])
 //決済方法の取得
 // Route::post('/orders/complete',[OrderController::class,'payment'])->name('orders.complete');
 
+
+//決済方法の取得
+Route::post('/subscription/complete',[SubscriptionController::class,'payment'])->name('subscription.complete');
+
+
+
+// 購入確認画面
+Route::post('/subscription/confirm',[SubscriptionController::class,'confirm'])
+->name('subscription.confirm');
+
+Route::post('/subscription/payment', [SubscriptionController::class,'pre_payment'])
+->name('subscription.payment');
+
+/*
+Route::get('/subscription/confirm', function () {
+    return view('subscription.confirm');
+});*/

@@ -57,14 +57,23 @@
         ¥{{ number_format($subscriptions[0]['subscribe_price']) }}
       </p>
     </div>
-  </div> 
+    </div> 
 
-  <!-- ボタン -->
-  <div class="flex justify-center mt-6">
-    <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
+    <!-- ボタン -->
+    <div class="flex justify-center mt-6">
+      <form action="{{route('subscription.confirm')}}" method="POST">
+          @csrf
+          <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+          <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
+      </form>
+    </div>
   </div>
-</div>
 
+  
+
+  
+  
+  
   <div x-show="activeTab === 1" class="border p-6">
     <div class="flex flex-col lg:flex-row gap-8">
   <!-- 左: 画像 -->
@@ -82,8 +91,14 @@
     </p>
   </div>
 </div>
+    
+    <!-- ボタン -->
     <div class="flex justify-center mt-6">
-      <button class="btn-primary">定期便購入ページへ</button>
+      <form action="{{route('subscription.confirm')}}" method="POST">
+          @csrf
+          <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+          <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
+      </form>
     </div>
   </div>
 
@@ -104,8 +119,14 @@
     </p>
   </div>
 </div>
+    
+    <!-- ボタン -->
     <div class="flex justify-center mt-6">
-      <button class="btn-primary">定期便購入ページへ</button>
+      <form action="{{route('subscription.confirm')}}" method="POST">
+          @csrf
+          <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+          <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
+      </form>
     </div>
   </div>
 
