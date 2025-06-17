@@ -7,6 +7,8 @@
         ['icon' => 'assessment', 'label' => '売上管理', 'href' => 'admin.sales.index'],
         ['icon' => 'inventory', 'label' => '商品管理', 'href' => 'admin.products.index'],
         ['icon' => 'redeem', 'label' => 'クーポン管理', 'href' => 'admin.coupons.index'],
+        ['icon' => 'feed', 'label' => 'コラム投稿', 'href' => 'admin.columns.create'],
+
     ];
 @endphp
 
