@@ -23,7 +23,7 @@
                 確認のため、メールをご送信いたしましたので、ご確認ください。<br><br>
 
                 <!--注文番号後で取得-->
-                サブスクリプション番号：{{$subscription_number['subscription_number']}}
+                サブスクリプション番号：{{$subscription_number['subscribe_id']}}
 
                 <br><br><br>
                 <form action="{{route('top')}}">

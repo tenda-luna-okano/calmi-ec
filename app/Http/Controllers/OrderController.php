@@ -75,7 +75,7 @@ class OrderController extends Controller
         $Orders=Order::create([
             'payment_name'=>$payment_type,
             'payment_id'=>$Payment->payment_id,
-            'customer_id'=>2,//customer_idを後でAuthにする
+            'customer_id'=>auth()->id(),//customer_idを後でAuthにする
             'delivery_post_number'=>$Customer->customer_post_number,
             'delivery_states'=>$Customer->customer_states,
             'delivery_municipalities'=>$Customer->customer_municipalities,
@@ -110,8 +110,6 @@ class OrderController extends Controller
             'payment_method'=>'max:30'
         ]);
         $method=$request->input('payment_method');
-
-        $order_number = Order::select('order_id')->where('customer_id',"=",auth()->id())->first();
 
         //エラー文必要なら後で追加
         if($method=="credit_card")
@@ -150,6 +148,9 @@ class OrderController extends Controller
                 return back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
             }
 
+            $order_number = Order::select('order_id')->where('customer_id',"=",auth()->id())
+            ->orderBy('order_id','desc')->first();
+
             return view('orders.complete',['order_number'=>$order_number]);
         }
         else
@@ -164,6 +165,9 @@ class OrderController extends Controller
             {
                 return back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
             }
+
+            $order_number = Order::select('order_id')->where('customer_id',"=",auth()->id())
+            ->orderBy('order_id','desc')->first();
 
             return view('orders.complete',['order_number'=>$order_number]);
         }

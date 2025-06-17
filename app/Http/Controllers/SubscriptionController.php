@@ -104,7 +104,9 @@ class SubscriptionController extends Controller
     {
         $Id=$request->input('subscriptionID')+1;
         //dd($Id);
-        $subscription = SubscribeDetailMaster::where('subscribe_detail_id',"-",$Id)->first();
+        $subscription = SubscribeDetailMaster::where('subscribe_detail_id',"=",$Id)->first();
+        // $subscription = SubscribeDetailMaster::where('customer_id',"=",auth()->id())
+        // ->orderBy('order_id','desc')->first();
 
         //dd($subscription);
         return view('subscription/confirm',['subscription'=>$subscription]);
@@ -181,10 +183,12 @@ class SubscriptionController extends Controller
                 'card_user_name'=>strtoupper($card_name),
                 'can_use_flg'=>true
             ];
+            dump($id);
 
             $this->SubscriptionInsert($Payment,$id);
 
-            $subscription_number = Subscribe::select('subscribe_id')->where('customer_id','=',auth()->id())->first();
+            $subscription_number = Subscribe::select('subscribe_id')
+            ->where('customer_id','=',auth()->id())->first();
 
 
             return view('subscription.complete',['subscription_number'=>$subscription_number]);
@@ -198,7 +202,8 @@ class SubscriptionController extends Controller
 
             $this->SubscriptionInsert($Payment,$id);
 
-            $subscription_number = Subscribe::select('subscribe_id')->where('customer_id','=',auth()->id())->first();
+            $subscription_number = Subscribe::select('subscribe_id')
+            ->where('customer_id','=',auth()->id())->first();
 
             return view('subscription.complete',['subscription_number'=>$subscription_number]);
         }

@@ -50,6 +50,7 @@
             @if($subscription==null)
                 <p>なし</p>
             @else
+
                 <tr class="w-full">
                     <th class="w-1/4"><img src="{{ asset($subscription->subscribe_img) }}" alt="画像"></th>
                     <th class="w-full pl-3">
@@ -79,7 +80,7 @@
     {{-- あとで上と同じく商品だけタグを作成し、hiddenでデータを送る --}}
 
     @csrf
-    <input type="hidden" name="subscribe_id" value="{{ $subscription->subscribe_detail_id }">
+    <input type="hidden" name="subscribe_id" value="{{ $subscription->subscribe_detail_id }}">
     <center><button class="btn-primary">決済情報確認へ</button></center>
     <br>
     </form>
