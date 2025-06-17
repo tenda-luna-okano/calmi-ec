@@ -58,7 +58,7 @@ class Subscribe extends Model
 		return $this->belongsTo(Payment::class);
 	}
 
-	public function subscribe_detail_master()
+	public function subscribeDetailMaster()
 	{
 		return $this->belongsTo(SubscribeDetailMaster::class, 'subscribe_detail_id');
 	}
