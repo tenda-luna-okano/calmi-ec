@@ -29,7 +29,7 @@
     </div>
     <div class="border border-[#201a19] ml-4 mr-4 flex flex-col">
         <a href="{{ route('mypage.index') }}" class="block border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">account_circle</span>マイページトップ</a>
-        <a href="{{ route('mypage.edit_user') }}" class="block border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">edit</span>登録内容の確認・変更</a>
+        <a href="{{ route('edit_user.show') }}" class="block border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">edit</span>登録内容の確認・変更</a>
         <a href="#" class="block  border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">favorite</span>お気に入り商品</a>
         <a href="{{ route('mypage.purchase_history') }}" class="block border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">receipt</span>ご注文履歴</a>
         <a href="{{ route('mypage.withdraw_confirm') }}" class=" block text-center mt-4 pb-4"><span class="material-icons">logout</span>退会</a>
