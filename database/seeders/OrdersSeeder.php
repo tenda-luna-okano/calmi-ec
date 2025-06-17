@@ -35,6 +35,7 @@ class OrdersSeeder extends Seeder
             'is_paid'=>0,
             'is_delivery'=>0,
             'delivery_day'=>'2025-06-12',
+            'created_at' => '2025-06-12',
         ]);
 
         DB::table('payments')->insert([
@@ -59,6 +60,7 @@ class OrdersSeeder extends Seeder
             'is_paid'=>0,
             'is_delivery'=>0,
             'delivery_day'=>'2025-06-12',
+            'created_at' => '2025-06-12',
         ]);
 
         DB::table('payments')->insert([
@@ -83,6 +85,7 @@ class OrdersSeeder extends Seeder
             'is_paid'=>0,
             'is_delivery'=>0,
             'delivery_day'=>'2025-06-12',
+            'created_at' => '2025-06-12',
         ]);
 
     }
