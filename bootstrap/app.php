@@ -17,9 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(function (Request $request) {
             if (request()->routeIs('admin.*')) {
                 // return $request->expectsJson() ? null : route('admin.login');
-                return redirect()->route('admin.login');
+                // return redirect()->route('admin.login');
+                return route('admin.login');
             }else{
-                return redirect()->route('login');
+                // return redirect()->route('login');
+                return route('login');
             }
         });
 
@@ -28,7 +30,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo(function (Request $request) {
             if (request()->routeIs('admin.*')) {
                 if(Auth::guard('admin')) {
-                    return redirect()->route('admin.dashboard');
+                    // return redirect()->route('admin.dashboard');
+                    return route('admin.dashboard');
                     // return $request->expectsJson() ? null : route('admin.dashboard');
                 }
             }else{

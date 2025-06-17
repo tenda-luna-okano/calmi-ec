@@ -15,10 +15,10 @@
                 <p>退会後はマイページを利用することができなくなります。</p>
             </div>
             <div class="mt-8">
-                <div><button type="button" class="btn-primary mt-8">キャンセル</button></div>
+                <div><a href="{{route('mypage.index')}}"><button type="button" class="btn-primary mt-8">キャンセル</button></a></div>
                 <div type="submit" class="border-black"><button type="submit" class=" mt-8 border border-black py-2 px-6">退会する</button></div>
             </div>
     </form>
     </div>
-    
+
 @endsection

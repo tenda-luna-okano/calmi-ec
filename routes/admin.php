@@ -30,7 +30,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     });
     //ログインしてる用
-   Route::middleware('auth:admin')->group(function() {
+    Route::middleware('auth:admin')->group(function() {
         Route::get('/dashboard', function() {
             return view('admin.dashboard');
         })->name('dashboard');
@@ -40,7 +40,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // })->name('coupons.index');
 
         Route::get('/products/insert',function(){
-            return view('products.insert');
+            return view('admin.products.insert');
         });
 
         Route::get('/coupons/index', [CouponController::class, 'index'])
@@ -58,7 +58,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->name('coupons.update');
 
         Route::get('/columns/create',function(){
-            return view('columns.create');
+            return view('admin.columns.create');
         });
         Route::post('/columns/create', [AdminColumnController::class, 'store'])
         ->name('columns.post');
@@ -81,19 +81,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->name('coupons.store'); // 登録処理
 
         Route::get('/coupons/update',function() {
-            return view('coupons.update');
+            return view('admin.coupons.update');
         });
 
-        // Route::get('/sales/index', function() {
-        //     return view('sales.index');
-        // })->name('sales.index');
+
+        Route::get('/sales/index', function() {
+            return view('admin.sales.index');
+        })->name('sales.index');
+
 
         Route::post('/logout',[AdminloginController::class, 'destroy'])
         ->name('logout');
-
-
-
-        // Route::get('/products/index', [AdminProductController::class, 'index']);
 
     });
 });
