@@ -50,6 +50,7 @@
             @if($subscription==null)
                 <p>なし</p>
             @else
+
                 <tr class="w-full">
                     <th class="w-1/4"><img src="{{ asset($subscription->subscribe_img) }}" alt="画像"></th>
                     <th class="w-full pl-3">
