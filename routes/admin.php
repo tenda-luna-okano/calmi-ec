@@ -85,10 +85,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
 
-        Route::get('/sales/index', function() {
-            return view('admin.sales.index');
-        })->name('sales.index');
+        // Route::get('/sales/index', function() {
+        //     return view('admin.sales.index');
+        // })->name('sales.index');
 
+        Route::get('/sales/index',[AdminSalesController::class,'index'])
+        ->name('sales.index');
 
         Route::post('/logout',[AdminloginController::class, 'destroy'])
         ->name('logout');
