@@ -25,18 +25,6 @@ Route::middleware('guest')->group(function () {
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
-    // bleezeの改造出来てたやんけ
-    // Route::get('register', [RegisteredUserController::class, 'create'])
-    //     ->name('register');
-
-    // Route::post('register', [RegisteredUserController::class, 'store']);
-
-    // Route::get('login', function(){
-    //     return view('auth.login');
-    // })->name('login');
-
-    // Route::post('login', [LoginController::class, 'authenticate']);
-
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
 
