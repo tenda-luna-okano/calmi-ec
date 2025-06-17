@@ -12,7 +12,6 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
         // 非ログインユーザー用のリダイレクト設定
         $middleware->redirectGuestsTo(function (Request $request) {
             if (request()->routeIs('admin.*')) {
