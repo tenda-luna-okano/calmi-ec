@@ -7,7 +7,7 @@
     <h1 class="font-black text-3xl text-center my-6">商品管理</h1>
 </div>
 <div class="flex justify-end px-6 mt-4 pb-4">
-    <a href="{{ route('admin.products.insert_view') }}"  class="inline-flex items-center justify-center rounded-md bg-neutral-950 px-4 py-2 text-sm font-medium text-white shadow transition hover:bg-neutral-800">
+    <a href="{{ route('admin.products.insert') }}"  class="inline-flex items-center justify-center rounded-md bg-neutral-950 px-4 py-2 text-sm font-medium text-white shadow transition hover:bg-neutral-800">
         商品追加
     </a>
 </div>
