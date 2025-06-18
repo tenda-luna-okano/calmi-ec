@@ -16,7 +16,11 @@ class SubscriptionController extends Controller
     public function index()
     {
         $subscriptions = SubscribeDetailMaster::all();
-        return view ('subscription.index', compact('subscriptions'));
+
+        $mySubscription=Subscribe::where('customer_id',auth()->id())->first();
+        //dd($mySubscription);
+
+        return view ('subscription.index', compact('subscriptions','mySubscription'));
     }
 
     /**
