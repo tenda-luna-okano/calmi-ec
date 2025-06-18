@@ -27,6 +27,17 @@
         background: rgba(0,0,0,0.5);
         z-index:9998;
     }
+    .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 2rem; /* ボタン間の余白 */
+    margin-top: 1rem;
+    }
+
+    .button-group form,
+    .button-group button {
+        margin: 0;
+    }
 </style>
 <div class="modal"></div>
 @extends('layouts.app')
@@ -40,22 +51,26 @@
     <div class="change popup">
         <p>定期便を変更しますか</p>
         <br>
+        <div class="button-group">
         <form action="{{route('subscription.update')}}" method="POST">
             @csrf
             <input type="hidden" name="subscriptionID" id="hiddenSubscriptionID" value="1">
             <button type="submit" class="yes">はい</button>
         </form>
         <button class="no">いいえ</button>
+</div>
         {{-- <br><button class="cancel">キャンセル</button> --}}
     </div>
     <!--定期便削除用のポップアップ-->
     <div class="delete popup">
         <p>定期便を解約しますか</p>
+        <div class="button-group">
         <form action="{{route('subscription.destroy')}}">
             <button class="yes">はい</button>
         </form>
         <br><button class="no">いいえ</button>
         {{-- <br><button class="cancel">キャンセル</button> --}}
+</div>
     </div>
 
     <!--登録している定期便を表示させる必要あり-->
