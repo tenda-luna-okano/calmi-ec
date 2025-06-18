@@ -27,7 +27,7 @@ class initItemsSeeder extends Seeder
         DB::table('coupon_masters')->insert([
 
                 'coupon_name' => 'テストクーポン',
-                'coupon_code' => 'TEST0611',
+                'coupon_code' => 'TEST11',
                 'coupon_detail_explanation' => 'テスト用クーポン',
                 'coupon_is_enable' => 1,
                 'coupon_start_day' => '2025-06-01 17:00:00',

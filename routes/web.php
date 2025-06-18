@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
     // カートの変更をし、購入確認画面へ遷移
     Route::patch('/cart/{id}',[CartController::class, 'update'])->name('cart.update');
 
-    Route::get('/orders/payment', function(){
+    Route::post('/orders/payment/', function(){
         return view('orders.payment');
     })->name('orders.payment');
 
@@ -178,6 +178,8 @@ Route::get('/serch/results',function(){
 //検索結果ページ
 Route::post('/search/results',[ProductsController::class,'search'])
 ->name('search.results');
+
+Route::post('/orders/apply-coupon', [OrderController::class, 'applyCoupon'])->name('orders.apply_coupon');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
