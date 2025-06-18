@@ -29,7 +29,7 @@
 
             {{-- 検索ボタン --}}
             <div>
-                <button type="submit" class="bg-[#d0b49f] text-white px-3 py-1.5 rounded text-sm">
+                <button type="submit" class="bg-gray-800 text-white px-3 py-1.5 rounded text-sm">
                     検索
                 </button>
             </div>
