@@ -19,7 +19,7 @@ class OrderController extends Controller
     public function getCart()
     {
         //customer_idを後でAuthにする
-        $inCart=Cart::where('customer_id',2)->with('item_master')->get();
+        $inCart=Cart::where('customer_id',"=",auth()->id())->with('item_master')->get();
         return $inCart;
     }
 
@@ -44,13 +44,14 @@ class OrderController extends Controller
     {
         //customer_idを後でAuthにする
         $inCart=$this->getCart();
+
         
         if(!isset($sum_price_in_tax))$sum_price_in_tax=$this->sumPrice_in_tax($inCart);
         else $sum_price_in_tax=$request->final_price;
 
-        //dd($sum_price_in_tax);
+       
+        $Customer=Customer::where('customer_id',"=",auth()->id())->first();
 
-        $Customer=Customer::where('customer_id',2)->first();
         $sum_price=$inCart->sum(function($cartItem){
             return ($cartItem->item_master->item_price)*($cartItem->item_count);
         });
@@ -81,7 +82,7 @@ class OrderController extends Controller
         $Orders=Order::create([
             'payment_name'=>$payment_type,
             'payment_id'=>$Payment->payment_id,
-            'customer_id'=>2,//customer_idを後でAuthにする
+            'customer_id'=>auth()->id(),//customer_idを後でAuthにする
             'delivery_post_number'=>$Customer->customer_post_number,
             'delivery_states'=>$Customer->customer_states,
             'delivery_municipalities'=>$Customer->customer_municipalities,
@@ -156,7 +157,10 @@ class OrderController extends Controller
                 return back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
             }
 
-            return view('orders.complete');
+            $order_number = Order::select('order_id')->where('customer_id',"=",auth()->id())
+            ->orderBy('order_id','desc')->first();
+
+            return view('orders.complete',['order_number'=>$order_number]);
         }
         else
         {
@@ -171,7 +175,10 @@ class OrderController extends Controller
                 return back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
             }
 
-            return view('orders.complete');
+            $order_number = Order::select('order_id')->where('customer_id',"=",auth()->id())
+            ->orderBy('order_id','desc')->first();
+
+            return view('orders.complete',['order_number'=>$order_number]);
         }
     }
     //クーポンを適用するためのメソッド

@@ -19,11 +19,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $delivery_post_number
  * @property string $delivery_states
  * @property string $delivery_municipalities
-
  * @property string|null $delivery_building_name
  * @property string|null $delivery_postage
  * @property int|null $order_price
-
  * @property int $order_price_in_tax
  * @property bool $is_paid
  * @property bool $is_delivery
