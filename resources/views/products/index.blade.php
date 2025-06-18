@@ -76,7 +76,7 @@
           {{-- 画像をクリックしたら詳細が見れるように --}}
             <a href="{{route('products.show',$item->item_id)}}">
 
-            <img src="{{ asset('storage/' . ($item->item_img ?? 'default.png')) }}"
+            <img src="{{ asset($item->item_img ?? 'img/products/default.png') }}" 
      alt="{{ $item->item_name }}"
      class="w-full aspect-square object-cover mb-2">
             <p>{{ $item['item_name'] }}</p>
