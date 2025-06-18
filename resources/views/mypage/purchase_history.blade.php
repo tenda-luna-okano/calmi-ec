@@ -3,10 +3,41 @@
 @section('title', '購入履歴')
 
 @section('content')
-<div class="border-b border-[#201a1e] mb-6">
+ <div class="border-b border-[#201a1e] mb-6">
             <h1 class="font-black text-3xl text-center mt-6 ">注文履歴</h1>
 </div>
-{{-- <div class="flex justify-end px-6 mt-4 pb-4">
+
+<div class="space-y-4 px-4">
+    @if(!empty($orders) && count($orders) > 0)
+        @foreach ($orders as $order)
+            <div class="bg-white shadow rounded p-4 border border-gray-300">
+                <p class="text-m text-gray-800">ご注文日：{{ $order->created_at->format('Y年n月j日 H:i:s') }}</p>
+                <p class="text-m text-gray-800">ご注文番号：{{ $order->order_id }}</p>
+                <p class="text-m text-gray-800">合計金額：{{ number_format($order->order_price_in_tax) }}円</p>
+                <p class="text-m text-gray-800">決済方法：{{ $order_method }}</p>
+                <p class="text-m text-gray-800">
+                    ご注文状況：
+                    @if($order->is_paid==0)
+                        未払い
+                    @elseif($order->is_paid==1 && $order->is_delivery==0)
+                        支払済み
+                    @elseif($order->is_delivery==1)
+                        発送済み
+                    @endif
+                </p>
+
+                <form action="./purchase_history_detail" method="post" class="mt-4 text-center">
+                    @csrf
+                    <input type="hidden" name="order_id" value="{{ $order->order_id }}">
+                    <button class="border border-gray-400 px-4 py-1 rounded hover:bg-gray-100">詳細を見る</button>
+                </form>
+            </div>
+        @endforeach
+    @else
+        <p class="text-center text-gray-800 text-3xl">注文履歴がありません</p>
+    @endif
+</div>
+<!--{{-- <div class="flex justify-end px-6 mt-4 pb-4">
     <a href="#" class="inline-flex items-center justify-center rounded-md bg-neutral-950 px-4 py-2 text-sm font-medium text-white shadow transition hover:bg-neutral-800">
         
     </a>
@@ -55,28 +86,28 @@
                 </tr>
             @endforeach
             
-        </tbody>
+        </tbody>-->
         @else
             <tbody>
                 <p>注文履歴がありません</p>
             </tbody>
         @endif
     </table>
-    <x-input-label for="mypage_guide">マイページメニュー</x-input-label>
-    <div id="mypage_guide" class="">
-        <p><button class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><a href="./index">マイページトップ</a></button></p>
-        <p><button class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><a href="./edit_user">登録内容の確認・変更</a></button></p>
-        {{-- 時間があったら実装 --}}
-        {{-- <div><a href="mypage/top">お気に入り商品</a></div>  --}}
-
-        <p><button class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><a href="./history">ご注文履歴</a></button></p>
-        <p><button class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><a href="{{route('mypage.withdraw_confirm')}}">退会</a></button></p>
+    <div class="border border-[#201a19] ml-4 mr-4 flex flex-col m-4">
+        <a href="{{ route('mypage.index') }}" class="block border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">account_circle</span>マイページトップ</a>
+        <a href="{{ route('edit_user.show') }}" class="block border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">edit</span>登録内容の確認・変更</a>
+        <a href="{{ route('subscription.edit') }}" class="block  border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">redeem</span>定期便変更・解約</a>
+        <a href="{{ route('mypage.purchase_history') }}" class="block border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">receipt</span>ご注文履歴</a>
+        <a href="{{ route('mypage.withdraw_confirm') }}" class=" block text-center mt-4 pb-4"><span class="material-icons">logout</span>退会</a>
+    </div>
+    <div class="flex items-center justify-center m-4">
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button type="submit" class="btn-primary">
                 ログアウト
             </button>
         </form>
+    </div>
     </div>
     
 @endsection
