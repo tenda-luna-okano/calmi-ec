@@ -71,34 +71,44 @@
 <p class="text-center m-4">{{ $count }}件の商品</p>
 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
     @foreach ($items as $item)
-    
-        <div class="flex flex-col items-center">
-          {{-- 画像をクリックしたら詳細が見れるように --}}
-            <a href="{{route('products.show',$item->item_id)}}">
+      @php
+          // 該当商品がカートにあるか確認（Collection前提）
+          $cartItem = $cart->firstWhere('item_id', $item->item_id);
+      @endphp
 
-            <img src="{{ asset($item->item_img ?? 'img/products/default.png') }}" 
-     alt="{{ $item->item_name }}"
-     class="w-full aspect-square object-cover mb-2">
-            <p>{{ $item['item_name'] }}</p>
-            <p>¥{{ number_format($item->item_price_in_tax) }}</p>
-            </a>
-            @auth
-            <form action="{{route('products.store',$item->item_id)}}" method="POST">
+
+      <div class="flex flex-col items-center">
+        <a href="{{ route('products.show', $item->item_id) }}">
+          <img src="{{ asset($item->item_img ?? 'https://placehold.jp/150x150.png') }}" 
+              alt="{{ $item->item_name }}" 
+              class="w-full aspect-square object-cover mb-2">
+          <p>{{ $item->item_name }}</p>
+          <p>¥{{ number_format($item->item_price_in_tax) }}</p>
+        </a>
+
+        @auth
+          <form action="{{ $cartItem ? route('products.update', $item->item_id) : route('products.store', $item->item_id) }}" method="POST">
+            
+            <!-- <form action="{{route('products.store',$item->item_id)}}" method="POST"> -->
+
             @csrf
-            {{-- 1個だけカートに入れる --}}
+            @if($cartItem)
+              @method('PATCH')
+              <input type="hidden" value="{{$cartItem->cart_id}}" name="cart_id">
+            @endif
             <input type="hidden" name="item_count" value="1">
             <button class="bg-[#d0b49f] text-white px-4 py-2 rounded mt-2">
               カートに入れる
             </button>
-            </form>
-            @endauth
-            @guest
-              <button class="bg-[#d0b49f] text-white px-4 py-2 rounded mt-2">
-                <a href="{{route('login')}}">カートに入れる</a>
-              </button>
-            @endguest
-        </div>
-      
+          </form>
+        @endauth
+
+        @guest
+          <button class="bg-[#d0b49f] text-white px-4 py-2 rounded mt-2">
+            <a href="{{ route('login') }}">カートに入れる</a>
+          </button>
+        @endguest
+      </div>
     @endforeach
 </div>
 @endsection

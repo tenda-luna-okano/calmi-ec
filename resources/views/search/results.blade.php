@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@php
+{{-- @php
     $products = [
         ['name' => '商品1', 'price' => 1000, 'image' => 'https://placehold.jp/150x150.png'],
         ['name' => '商品2', 'price' => 2000, 'image' => 'https://placehold.jp/150x150.png'],
@@ -11,7 +11,7 @@
         ['id' => 2, 'name' => 'カテゴリ2'],
         ['id' => 3, 'name' => 'カテゴリ3'],
     ];
-@endphp
+@endphp --}}
 @section('title', '検索結果')
 
 @section('content')
@@ -34,8 +34,11 @@
         <label class="text-sm">ジャンル</label>
         <select name="categoryId" class="px-2 py-1 border rounded w-[100px] text-sm">
           <option value="">未選択</option>
-          @foreach ($categorys as $category)
-            <option value="{{ $category['id'] }}">{{ $category['name'] }}</option><!--選択時はselectedで代入- -->
+          @foreach ($categories as $category)
+            <option value="{{ $category->category_id }}"
+              {{ request('categoryId') == $category->category_id ? 'selected' : '' }}>
+              {{ $category->category_name }}
+            </option>
           @endforeach
         </select>
       </div>
@@ -43,7 +46,7 @@
       {{-- 最小価格 --}}
       <div class="flex flex-col">
         <label class="text-sm">価格（¥）</label>
-        <input type="number" name="min_price" class="px-2 py-1 border rounded w-[80px] text-sm" value="1000"><!--未入力時は- -->
+        <input type="number" name="min_price" class="px-2 py-1 border rounded w-[80px] text-sm" placeholder="1000" value="{{request ('min_price')}}"><!--未入力時は- -->
       </div>
 
       <div class="flex items-center h-full">
@@ -53,7 +56,7 @@
       {{-- 最大価格 --}}
       <div class="flex flex-col">
         <label class="text-sm invisible">最大</label> <!-- 見出しそろえ用 -->
-        <input type="number" name="max_price" class="px-2 py-1 border rounded w-[80px] text-sm" value="3000"><!--未入力時は- -->
+        <input type="number" name="max_price" class="px-2 py-1 border rounded w-[80px] text-sm" placeholder="3000" value="{{request('max_price')}}"><!--未入力時は- -->
       </div>
 
       {{-- 検索ボタン --}}
@@ -80,24 +83,42 @@
 
 <p class="text-center m-4">{{$itemCount}}件の商品</p><!--見つかった数に変更 -->
 
-<div class="container mx-auto my-6">
-    <div class="container mx-auto grid grid-cols-2 gap-4">
-      @foreach ($resultItem as $product)
-        <div class="col-span-1 flex flex-col items-center">
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
+    @foreach ($resultItem as $item)
+      @php
+          // 該当商品がカートにあるか確認（Collection前提）
+          $cartItem = $cart->firstWhere('item_id', $item->item_id);
+      @endphp
+
+      <div class="flex flex-col items-center">
+        <a href="{{ route('products.show', $item->item_id) }}">
+          <img src="{{ asset($item->item_img ?? 'https://placehold.jp/150x150.png') }}" 
+              alt="{{ $item->item_name }}" 
+              class="w-full aspect-square object-cover mb-2">
+          <p>{{ $item->item_name }}</p>
+          <p>¥{{ number_format($item->item_price_in_tax) }}</p>
+        </a>
+
+        @auth
+          <form action="{{ $cartItem ? route('products.update', $item->item_id) : route('products.store', $item->item_id) }}" method="POST">
             @csrf
-            <a href="{{route('products.show',$product->item_id)}}">
-            <img src="{{ asset($product->item_img) }}" alt="{{$product->item_name}}">
-            <p>{{$product->item_name}} - ¥{{$product->item_price_in_tax}}</p>
-            </a>
-          <form action="{{route('products.store',$product->item_id)}}" method="POST">
-            @csrf
+            @if($cartItem)
+              @method('PATCH')
+              <input type="hidden" value="{{$cartItem->cart_id}}" name="cart_id">
+            @endif
             <input type="hidden" name="item_count" value="1">
-            <button class="btn-primary">
-                カートに入れる
+            <button class="bg-[#d0b49f] text-white px-4 py-2 rounded mt-2">
+              カートに入れる
             </button>
           </form>
-        </div>
-      @endforeach
+        @endauth
+
+        @guest
+          <button class="bg-[#d0b49f] text-white px-4 py-2 rounded mt-2">
+            <a href="{{ route('login') }}">カートに入れる</a>
+          </button>
+        @endguest
+      </div>
+    @endforeach
     </div>
-</div>
  @endsection
