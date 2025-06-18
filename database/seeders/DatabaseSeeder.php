@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             NotificationSeeder::class,
             OrdersSeeder::class,
             SubscriptionItemSeeder::class,
+            ProductsSeeder::class,
         ]);
     }
 }

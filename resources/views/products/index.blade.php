@@ -17,7 +17,7 @@
     <div class="flex flex-wrap items-end gap-3">
 
 
-      
+
       {{-- カテゴリ --}}
       <div class="flex flex-col">
         <label class="text-sm">ジャンル</label>
@@ -54,7 +54,7 @@
           検索
         </button>
       </div>
-        
+
     </div>
   </div>
   <!--並び替え-->
@@ -79,8 +79,8 @@
 
       <div class="flex flex-col items-center">
         <a href="{{ route('products.show', $item->item_id) }}">
-          <img src="{{ asset($item->item_img ?? 'https://placehold.jp/150x150.png') }}" 
-              alt="{{ $item->item_name }}" 
+          <img src="{{ asset($item->item_img ?? 'https://placehold.jp/150x150.png') }}"
+              alt="{{ $item->item_name }}"
               class="w-full aspect-square object-cover mb-2">
           <p>{{ $item->item_name }}</p>
           <p>¥{{ number_format($item->item_price_in_tax) }}</p>
@@ -88,8 +88,8 @@
 
         @auth
           <form action="{{ $cartItem ? route('products.update', $item->item_id) : route('products.store', $item->item_id) }}" method="POST">
-            
-            <!-- <form action="{{route('products.store',$item->item_id)}}" method="POST"> -->
+
+            <!-- <form action="{{--route('products.store',$item->item_id)--}}" method="POST"> -->
 
             @csrf
             @if($cartItem)
