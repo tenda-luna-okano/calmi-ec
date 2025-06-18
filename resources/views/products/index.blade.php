@@ -76,10 +76,9 @@
           {{-- 画像をクリックしたら詳細が見れるように --}}
             <a href="{{route('products.show',$item->item_id)}}">
 
-            <img src="{{ asset($item->item_img ?? 'https://placehold.jp/150x150.png') }}" 
-                 alt="{{ $item->item_name }}" 
-
-                 class="w-full aspect-square object-cover mb-2">
+            <img src="{{ asset('storage/' . ($item->item_img ?? 'default.png')) }}"
+     alt="{{ $item->item_name }}"
+     class="w-full aspect-square object-cover mb-2">
             <p>{{ $item['item_name'] }}</p>
             <p>¥{{ number_format($item->item_price_in_tax) }}</p>
             </a>
