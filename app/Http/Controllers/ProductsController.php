@@ -101,7 +101,7 @@ class ProductsController extends Controller
         $recommends =  ItemMaster::where('item_category',$category_id->item_category)->take(5)->get();
         // cartに同じ商品が入っているかチェックするための変数　空なら商品追加、あるなら商品更新を行う
         $cart = Cart::where('customer_id',auth()->id())->where('item_id',$item_id)->first();
-        // dd(auth()->id());
+        // dd($cart);
         // viewを返す
         return view('products.show',compact('item','reviews','all_reviews','review_num','recommends','cart'));
     }
@@ -238,20 +238,20 @@ class ProductsController extends Controller
         // ユーザーIDを指定
         $validated['customer_id']=auth()->id();
         // 商品IDを指定
-
+        
         $validated['item_id']=$item->item_id;
         // カートIDを指定
         $validated['cart_id']=$item->cart_id;
         // カートテーブルを更新する
-        $cart->update($validated);
+        // $cart->update($validated);
 
         // 直接updateする
-        // Cart::where('customer_id',$request->session()->get('customer_id',1))->where('item_id',$item_id)->update([
-        //     'cart_id'=>$item_id,
-        //     'item_id'=>$item_id,
-        //     'customer_id'=>$request->session()->get('customer_id',1),
-        //     'item_count'=>$item_num_add,
-        // ]);
+        Cart::where('customer_id',auth()->id())->where('item_id',$item->item_id)->update([
+            // 'cart_id'=>$item_id,
+            'item_id'=>$item->item_id,
+            'customer_id'=>auth()->id(),
+            'item_count'=>intval($item_num_add['item_count'])+intval($item_num),
+        ]);
 
 
 
