@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="border-b border-[#201a1e]">
-    <h1 class="font-black text-3xl text-center mt-6 ">Contact</h1>
-    <p class="text-center mb-6">コラム投稿</p>
+    <h1 class="font-black text-3xl text-center mt-6 ">コラム投稿</h1>
+    <p class="text-center mb-6"></p>
 </div>
 {{-- バリデーションエラー表示 --}}
     @if ($errors->any())
@@ -32,7 +32,7 @@
         <textarea id="column_content" name="column_content" class="form-control w-80 h-80" rows="10" placeholder="コラム内容"></textarea>
     </div>
     <div class="flex justify-center mb-6">
-            <button class="btn-primary px-4 py-2">
+            <button class="bg-gray-800 text-white px-3 py-1.5 rounded text-2xl" px-4 py-2">
                 投稿
             </button>
         </div>
