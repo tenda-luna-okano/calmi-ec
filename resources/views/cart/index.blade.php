@@ -36,7 +36,8 @@
                        min="1"
                        max="99"
                        value="{{ $cartItem->item_count }}"
-                       data-cart-id="{{ $cartItem->cart_id }}">
+                       data-cart-id="{{ $cartItem->cart_id }}"
+                       data-item-id="{{ $cartItem->item_id}}">
 
                 {{-- プラス --}}
                 <button type="button" class="spinner-btn spinner-add bg-[#d0b49f] text-white w-8 h-8 rounded">+</button>
@@ -75,7 +76,7 @@
                 ご購入へ
                 </a>
             </button>
-        </div>  
+        </div>
     </div>
 
     {{-- 下の空白用 --}}
@@ -152,7 +153,8 @@ $(document).ready(function () {
             let subtotal = count * price;
             total += subtotal;
 
-            container.find('.subtotal').text('￥' + subtotal.toLocaleString());
+            // container.find('.subtotal').text('￥' + subtotal.toLocaleString());
+            $(this).closest('.flex-1').find('.subtotal').text('小計：￥' + subtotal.toLocaleString());
         });
 
         $('#totalPrice').text('合計 ￥' + total.toLocaleString());

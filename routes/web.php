@@ -51,6 +51,10 @@ Route::middleware('auth')->group(function () {
         return view('orders.payment');
     })->name('orders.payment');
 
+    Route::get('/orders/payment/', function(){
+        return view('orders.payment');
+    });
+
     //決済方法の取得
     Route::post('/orders/complete',[OrderController::class,'payment'])->name('orders.complete');
 
