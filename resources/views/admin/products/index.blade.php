@@ -7,7 +7,7 @@
     <h1 class="font-black text-3xl text-center my-6">商品管理</h1>
 </div>
 <div class="flex justify-end px-6 mt-4 pb-4">
-    <a href="{{ route('admin.products.insert') }}"  class="inline-flex items-center justify-center rounded-md bg-neutral-950 px-4 py-2 text-sm font-medium text-white shadow transition hover:bg-neutral-800">
+    <a href="{{ route('admin.products.insert_view') }}"  class="inline-flex items-center justify-center rounded-md bg-neutral-950 px-4 py-2 text-sm font-medium text-white shadow transition hover:bg-neutral-800">
         商品追加
     </a>
 </div>
@@ -27,7 +27,7 @@
             <tr class="border-b hover:bg-gray-100 text-center">
                 <td class="p-2">{{ $product->item_id }}</td>
                 <td class="p-2">{{ $product->item_name }}</td>
-                <td class="p-2">{{ $product->item_price }}</td>
+                <td class="p-2">{{ $product->item_price_in_tax }}</td>
                 <td class="p-2">{{ $product->item_stock }}</td>
                 <td class="p-2">
                     {{ $product->seling_flg == 1 ? '販売中' : '停止中' }}

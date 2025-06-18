@@ -1,13 +1,4 @@
-{{--管理者用のフォントを変えたい--}}
-@php
-    $categories = [
-        '1' => 'アロマ',
-        '2' => 'フード',
-        '3' => 'タッチ',
-        '4' => 'ご褒美スイーツ',
-        '5' => 'サプリ',
-    ];
-@endphp
+
 @extends('layouts.admin')
 
 @section('title', '商品追加')
@@ -36,10 +27,10 @@
         </div>
         <div class="form-group mt-4 pb-4">
             <label for="category">カテゴリー</label>
-            <select class="w-80" id="category" name="category" class="form-control">
+            <select class="w-80" id="category" name="item_category" class="form-control">
                 <option value="">選択してください</option>
-                @foreach ($categories as $key => $value)
-                    <option value="{{ $key }}">{{ $value }}</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
                 @endforeach
             </select>
         </div>
