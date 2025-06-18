@@ -5,7 +5,6 @@
         '3' => 'フード',
         '4' => 'タッチ',
         '5' => 'ご褒美スイーツ',
-        '6' => 'サプリ',
     ];
 @endphp
 @extends('layouts.admin')
@@ -34,7 +33,7 @@
             <input class="w-80" type="text" id="coupon_name" name="coupon_name" class="form-control" placeholder="インフルエンサー名を入力してください">
         </div>
         <div class="form-group mt-4 pb-4">
-            <label for="coupon_code">クーポンコード</label>
+            <label for="coupon_code">クーポンコード（大文字英数字６桁）</label>
             <input class="w-80" type="text" id="coupon_code" name="coupon_code" class="form-control" placeholder="クーポンコードを入力してください">
         </div>
         <div class="form-group mt-4 pb-4">
