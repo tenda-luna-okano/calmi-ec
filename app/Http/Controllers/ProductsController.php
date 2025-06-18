@@ -123,7 +123,7 @@ class ProductsController extends Controller
         $validated['item_id']=$item_id;
         $cart = Cart::create($validated);
          // 更新メッセージを表示
-        $request->session()->flash('message','カートに挿入しました');
+        $request->session()->flash('message','カートに追加しました');
         // dd($validated);
         return back();
     }
