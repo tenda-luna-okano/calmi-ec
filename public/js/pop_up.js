@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  let currentProductId=null;
   $('.delete_subscription').on('click',function(){
     $('.modal').css('display','block'),
     $('.delete.popup').css('display','block'),
@@ -8,17 +9,14 @@ $(document).ready(function(){
   });
 
   $('.change_subscription').on('click',function(){
+    currentProductId=$(this).data('productId');
+    const hiddenSubscriptionIDInput = $('#hiddenSubscriptionID');
     $('.modal').css('display','block'),
     $('.change.popup').css('display','block'),
     $('.change.popup').css({
         top:'50%',left:'50%',transform: 'translate(-50%, -50%)'
     });
-  });
-
-  //クリック後に定期便の内容をテーブルに反映
-  $('.yes').on('click',function(){
-    $('.modal').css('display','none'),
-    $('.popup').css('display','none')
+    hiddenSubscriptionIDInput.val(currentProductId);
   });
 
   $('.no').on('click',function(){
