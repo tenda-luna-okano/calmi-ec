@@ -39,80 +39,48 @@
                 </div>
             </div>
             {{-- すでにカートに商品があるときは数を足して更新する --}}
-            @if(!empty($cart))
-            <form action="{{route('products.update',$cart)}}" method="post">
-            @csrf
-            @method('patch')
-            <div class="flex space-between">
-                {{-- 数字変更 --}}
-                <div class="flex-1 grid grid-cols-3 spinner-container center">
-                    <div class="grid-item  w-1/2 bg-[#d0b49f] ml-auto h-8 flex justify-end"><span class="spinner-sub disabled select-none text-white mr-8">-</span></div>
-                    <input class="spinner h-8 select-none text-center w-8 mx-auto" type="text" min="1" max="99" value="1" name="item_count">
-                    <div class="grid-item w-1/2 bg-[#d0b49f] mr-auto h-8"><span class="spinner-add text-center select-none text-white">+</span></div>
-                    
-                </div>
-                {{-- カートに入れるボタン --}}
-                <div class="flex-1 px-auto">
-                    {{-- ログインしているときカートに入れる --}}
-                    @auth
-                        {{-- item_idを渡す --}}
-                        <input type="hidden" name="item_id" value="{{$item->item_id}}">
-                        <input type="hidden" name="cart_id" value="{{$cart->cart_id}}">
-                        <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
-                    @endauth
+            <form 
+                action="{{ !empty($cart) ? route('products.update', $cart) : route('products.store', $item->item_id) }}" 
+                method="POST"
+            >
+                @csrf
+                @if(!empty($cart))
+                    @method('PATCH')
+                @endif
 
-                    {{-- テスト用のだれでもカートに追加できるバージョン --}}
-                        
-                    {{-- item_idを渡す --}}
-                    {{-- <input type="hidden" name="item_id" value="{{$item->item_id}}">
-                    <input type="hidden" name="cart_id" value="{{$cart->cart_id}}">
-                    <button class="btn-primary text-xs cart" type="submit">カートに入れる</button> --}}
-                        
-                        
-                    
-                    {{-- ログインしていないとき、ログインページにとばすように --}}
-                    @guest
-                        <button class="btn-primary text-xs" ><a href="/login">カートに入れる</a></button>
-                    @endguest
+                <div class="{{ !empty($cart) ? 'flex space-between' : 'grid grid-cols-4 grid-rows-2' }}">
+                    {{-- 数量変更 --}}
+                    <div class="{{ !empty($cart) ? 'flex-1 grid grid-cols-3 spinner-container center' : 'col-span-3 grid grid-cols-3 gap-1 items-center justify-center max-w-[180px] mx-auto' }}">
+                        <div class="bg-[#d0b49f] text-white text-sm px-2 py-1 rounded hover:bg-[#b89f89] disabled:opacity-50 flex justify-end">
+                            <span class="spinner-sub select-none mr-2 text-center">-</span>
+                        </div>
+                        <input 
+                            class="spinner {{ !empty($cart) ? 'h-8 w-8 mx-auto' : 'w-10 h-8' }} text-sm text-center border rounded focus:outline-none focus:ring-1 focus:ring-[#d0b49f]"
+                            type="text" 
+                            min="1" 
+                            max="99" 
+                            value="1" 
+                            name="item_count"
+                        >
+                        <div class="bg-[#d0b49f] text-white text-sm px-2 py-1 rounded hover:bg-[#b89f89] disabled:opacity-50">
+                            <span class="spinner-add select-none text-center">+</span>
+                        </div>
+                    </div>
+
+                    {{-- カートに入れるボタン --}}
+                    <div class="{{ !empty($cart) ? 'flex-1 px-auto' : 'px-auto col-start-2 row-start-2' }}">
+                        @auth
+                            <input type="hidden" name="item_id" value="{{ $item->item_id }}">
+                            @if(!empty($cart))
+                                <input type="hidden" name="cart_id" value="{{ $cart->cart_id }}">
+                            @endif
+                            <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
+                        @else
+                            <a href="/login" class="btn-primary text-xs inline-block text-center">カートに入れる</a>
+                        @endauth
+                    </div>
                 </div>
-            </div>
             </form>
-            @else {{--　カートに商品がないときはカートテーブルに追加　--}}
-            <form action="{{route('products.store',$item->item_id)}}" method="POST">
-            @csrf
-            {{-- 新規追加 --}}
-            <div class="flex space-between">
-                {{-- 数字変更 --}}
-                <div class="flex-1 grid grid-cols-3 spinner-container center">
-                    <div class="grid-item  w-1/2 bg-[#d0b49f] ml-auto h-8 flex justify-end"><span class="spinner-sub disabled select-none text-white mr-8">-</span></div>
-                    <input class="spinner h-8 select-none text-center w-8 mx-auto" type="text" min="1" max="99" value="1" name="item_count">
-                    <div class="grid-item w-1/2 bg-[#d0b49f] mr-auto h-8"><span class="spinner-add text-center select-none text-white">+</span></div>
-                    
-                </div>
-                {{-- カートに入れるボタン --}}
-                <div class="flex-1 px-auto">
-                    {{-- ログインしているときカートに入れる --}}
-                    @auth
-                        <input type="hidden" name="item_id" value="{{$item->item_id}}">
-                        <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
-                    @endauth
-
-                    {{-- テスト用のだれでもカートに追加できるバージョン --}}
-                        
-
-                    {{-- <input type="hidden" name="item_id" value="{{$item->item_id}}">
-                    <button class="btn-primary text-xs cart" type="submit">カートに入れる</button> --}}
-                        
-                        
-                    
-                    {{-- ログインしていないとき、ログインページにとばすように --}}
-                    @guest
-                        <button class="btn-primary text-xs" ><a href="/login">カートに入れる</a></button>
-                    @endguest
-                </div>
-            </div>
-            </form>
-            @endif
             {{-- 数量変更時のエラーメッセージ,成功メッセージ --}}
             <div>
                 @if(@session('message'))
@@ -279,12 +247,12 @@
                     const starWrapper = document.createElement('div');
                     for(let i = 0; i < review['review_star']; i++){
                         const star = document.createElement('span');
-                        star.innerText = '☆';
+                        star.innerText = '★';
                         starWrapper.appendChild(star);
                     }
                     for(let i = 0; i < 5 - review['review_star']; i++){
                         const star = document.createElement('span');
-                        star.innerText = '★';
+                        star.innerText = '☆';
                         starWrapper.appendChild(star);
                     }
                     child.appendChild(starWrapper);
@@ -301,7 +269,8 @@
 
                     // 投稿日
                     const postDate = document.createElement('p');
-                    postDate.innerText = review['created_at'] ?? '日付不明';
+                    date = new Date(review['created_at']);
+                    postDate.innerText = date.toLocaleString() ?? '日付不明';
                     child.appendChild(postDate);
 
                     // レビュー内容

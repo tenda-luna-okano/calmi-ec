@@ -67,6 +67,9 @@ class EditUserController extends Controller
             if(!$checkPasswd){
                 return back()->with('passwd_error_msg','パスワードが間違っています。');
             }
+            if($credentials['new_password'] == $credentials['new_password_confirmation']){
+                return back()->with('passwd_error_msg','新しいパスワードが同一ではありません。');
+            }
 
             //Customerテーブルに登録
             $customer = Customer::find(auth()->id());
@@ -82,6 +85,7 @@ class EditUserController extends Controller
             $customer->customer_states=$credentials['customer_states'];
             $customer->customer_municipalities=$credentials['customer_municipalities'];
             $customer->customer_building_name=$credentials['customer_building_name'];
+            $customer->mail_magazine_flg=$credentials['mail_magazine_flg'];
             $customer->password=\Hash::make($credentials['new_password']);
 
 
@@ -90,7 +94,7 @@ class EditUserController extends Controller
             $credentials = $request->validate([
                 // 'customer_name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
-                // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                // 'password' => ['required',  Rules\Password::defaults()],
                 'password' => ['required','max:128','alpha_dash'],
 
                 'customer_first_name' => ['required', 'string',],
@@ -140,6 +144,7 @@ class EditUserController extends Controller
             $customer->customer_states=$credentials['customer_states'];
             $customer->customer_municipalities=$credentials['customer_municipalities'];
             $customer->customer_building_name=$credentials['customer_building_name'];
+            $customer->mail_magazine_flg=$credentials['mail_magazine_flg'];
         }
         // dump($passwd.$typedPasswd);
 

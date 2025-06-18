@@ -30,13 +30,16 @@
     <div class="border border-[#201a19] ml-4 mr-4 flex flex-col">
         <a href="{{ route('mypage.index') }}" class="block border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">account_circle</span>マイページトップ</a>
         <a href="{{ route('edit_user.show') }}" class="block border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">edit</span>登録内容の確認・変更</a>
-        <a href="#" class="block  border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">favorite</span>お気に入り商品</a>
+        <a href="{{ route('subscription.edit') }}" class="block  border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">redeem</span>定期便変更・解約</a>
         <a href="{{ route('mypage.purchase_history') }}" class="block border-b border-[#201a19] text-center mt-4 pb-4"><span class="material-icons">receipt</span>ご注文履歴</a>
         <a href="{{ route('mypage.withdraw_confirm') }}" class=" block text-center mt-4 pb-4"><span class="material-icons">logout</span>退会</a>
     </div>
     <div class="flex items-center justify-center m-4">
-        <button class="btn-primary">
-            ログアウト
-        </button>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="btn-primary">
+                ログアウト
+            </button>
+        </form>
     </div>
 @endsection

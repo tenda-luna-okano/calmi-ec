@@ -49,11 +49,16 @@ class SubscriptionController extends Controller
     public function edit(Subscribe $subscription)
     {
         //customer_idをAuthに
-        $subscriptionNow = Subscribe::where('customer_id',auth()->id())->with('subscribeDetailMaster')->first();
+        // $subscriptionNow = Subscribe::where('customer_id',auth()->id())->with('SubscribeDetailMaster')->first();
+        $subscriptionNow = Subscribe::where('customer_id',auth()->id())->first();
         $subscriptionData = SubscribeDetailMaster::all();
+        // もしサブスクしていなければマイページに戻す
+        if(!isset($subscriptionNow)){
+            return back()->with('message','定期便を契約していません');
+        }
 
         $pay='';
-
+        // dd(auth()->id());
         if($subscriptionNow->payment_id==1){$pay='クレジットカード';}
         else if($subscriptionNow->payment_id==2){$pay='paypay';}
         else if($subscriptionNow->payment_id==3){$pay='銀行振込';}
@@ -66,10 +71,10 @@ class SubscriptionController extends Controller
         {
             if($cnt!=$subscriptionNow->subscribe_detail_id)
             {
-                $subscription_img[]=['img'=>SubscribeDetailMaster::where('subscribe_detail_id',$cnt)->first()->subscribe_img,'id'=>$cnt];
+                $subscription_img[]=['img'=>SubscribeDetailMaster::where('subscribe_detail_id',$cnt)->first()->subscribe_img,'id'=>$cnt,'name'=>SubscribeDetailMaster::where('subscribe_detail_id',$cnt)->first()->subscribe_item_name];
             }
         }
-        //dd($subscription_img);
+        // dd($subscription_img);
 
         return view('subscription/edit',['subscription'=>$subscriptionNow,'subscriptionData'=>$subscriptionData,'subscriptionImg'=>$subscription_img,'payment'=>$pay]);
     }
@@ -81,7 +86,8 @@ class SubscriptionController extends Controller
     {
         //dd($request);
         $ID=$request->input('subscriptionID');
-
+        // $ID=$request->subscriptionID;
+        // dd($ID);
         Subscribe::where('customer_id',auth()->id())
         ->update([
             'subscribe_detail_id'=>$ID
@@ -95,6 +101,7 @@ class SubscriptionController extends Controller
     public function destroy(Subscribe $subscription)
     {
         Subscribe::where('customer_id',auth()->id())->delete();
+        return view('top');
     }
 
 
@@ -104,7 +111,9 @@ class SubscriptionController extends Controller
     {
         $Id=$request->input('subscriptionID')+1;
         //dd($Id);
-        $subscription = SubscribeDetailMaster::where('subscribe_detail_id',"-",$Id)->first();
+        $subscription = SubscribeDetailMaster::where('subscribe_detail_id',"=",$Id)->first();
+        // $subscription = SubscribeDetailMaster::where('customer_id',"=",auth()->id())
+        // ->orderBy('order_id','desc')->first();
 
         //dd($subscription);
         return view('subscription/confirm',['subscription'=>$subscription]);
@@ -181,10 +190,12 @@ class SubscriptionController extends Controller
                 'card_user_name'=>strtoupper($card_name),
                 'can_use_flg'=>true
             ];
+            dump($id);
 
             $this->SubscriptionInsert($Payment,$id);
 
-            $subscription_number = Subscribe::select('subscribe_id')->where('customer_id','=',auth()->id())->first();
+            $subscription_number = Subscribe::select('subscribe_id')
+            ->where('customer_id','=',auth()->id())->first();
 
 
             return view('subscription.complete',['subscription_number'=>$subscription_number]);
@@ -198,7 +209,8 @@ class SubscriptionController extends Controller
 
             $this->SubscriptionInsert($Payment,$id);
 
-            $subscription_number = Subscribe::select('subscribe_id')->where('customer_id','=',auth()->id())->first();
+            $subscription_number = Subscribe::select('subscribe_id')
+            ->where('customer_id','=',auth()->id())->first();
 
             return view('subscription.complete',['subscription_number'=>$subscription_number]);
         }

@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Sale
  * 
  * @property int $sale_id
- * @property string $sale_name
+ * @property string|null $sale_name
  * @property string $sale_detail_explanation
  * @property Carbon $sale_start_day
  * @property Carbon|null $sale_end_day

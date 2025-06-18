@@ -36,7 +36,7 @@ class ReviewController extends Controller
     Review::create($validated);
 
      
-    return redirect()->back()->with('message', 'レビューを投稿しました！');  
+    return redirect()->route('products.show', $item_id)->with('message', 'レビューを投稿しました！');  
    }
 }
 
