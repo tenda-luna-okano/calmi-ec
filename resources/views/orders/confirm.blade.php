@@ -101,7 +101,7 @@
         
         @if(isset($discount_amount) && $discount_amount > 0)
             <div class="flex justify-between items-center mb-2 text-green-600">
-                <span>割引額（{{ $coupon_name ?? 'クーポン' }}）：</span>
+                <span>割引額：</span>
                 <span>-{{ number_format($discount_amount) }}円</span>
             </div>
             <hr class="my-2">

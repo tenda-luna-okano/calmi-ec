@@ -23,7 +23,7 @@
     <center>
         <div style="height:30px;"></div>
 
-        <div style="width:90%; border:2px solid #201a1e;">
+        <div class="mb-6 border border-[#ccc] rounded overflow-hidden">
             <ul class="slick">
                 <li><img id="スライドショー用１" src="{{ asset('img/スライドショー用１.png') }}" alt=""></li>
                 <li><img id="スライドショー用２" src="{{ asset('img/スライドショー用２.png') }}" alt=""></li>
@@ -32,13 +32,10 @@
 
         <div style="height:25px;"></div>
 
-        <hr style="width:90%; border:solid #201a1e; height:1px;">
-        <div style="height:25px;"></div>
-
         <!--
             LightNight,DeepNight,PremiumNightの文字が横幅少し広いので松竹梅のような短い名前で表したほうがいいかもしれない
         -->
-        <b style="font-size:30px;">定期便のご紹介</b><br><br>
+        <h2 class="text-xl font-semibold text-center mb-4 border-b pb-2 border-[#d8cfcf]">Calmi定期便ラインナップ</h2>
         <div class="field">
             <li style="list-style:none;">
                 <a href="{{route('subscription.index')}}">
@@ -59,15 +56,13 @@
             
 
         
-        <div style="height:25px;"></div>
-        <hr style="width:90%; border:solid #201a1e; height:1px;">
-        <div style="height:25px;"></div>
         
         <!--
             ジャンルごとの写真がまだないのでジャンルの中から一つの写真をピックアップして載せてます
         -->
-
-        <b style="font-size:30px;">ジャンルごとのご紹介</b><br><br>
+        <div class="m-10"></div>
+        {{-- ジャンルごとのご紹介 --}}
+        <h2 class="text-xl font-semibold text-center mt-4 mb-4 border-b pのご紹介b-2 border-[#d8cfcf]">カテゴリ別に見る癒しグッズ</h2>
         <div class="field">
             <li style="list-style:none;">
                 <a href="{{route('search.results.category',['idName'=>'アロマ'])}}">
