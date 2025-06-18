@@ -194,7 +194,7 @@ class OrderController extends Controller
                     ->where('coupon_start_day', '<=', now())//有効期間開始日
                     ->first();
         if(!$coupon) {
-            return back()->withErrors(['coupon_error' => 'クーポンコードが無効です'])
+            return back()->with(['message' => 'クーポンコードが無効です'])
                         -> withInput()
                         ->with([
                             'cartItems' => $in_cart,
