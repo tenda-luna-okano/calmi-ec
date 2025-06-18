@@ -173,11 +173,11 @@ Route::get('/search/results/category/{idName}',[ProductsController::class,'categ
 ->name('search.results.category');
 
 //検索結果ページ search/resultsをURLで直接入力したとき用
-// Route::get('/search/results',[ProductsController::class,'search'])
-// ->name('search.results');
-Route::get('/serch/results',function(){
-    return view('search.results');
-});
+Route::get('/search/results',[ProductsController::class,'search'])
+->name('search.results');
+// Route::get('/serch/results',function(){
+//     return view('search.results');
+// });
 
 //検索結果ページ
 Route::post('/search/results',[ProductsController::class,'search'])
