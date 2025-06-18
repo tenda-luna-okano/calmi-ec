@@ -191,9 +191,16 @@
             解約は次回お届け日の2週間前までにご連絡ください。<br>
         </p>
         <div class="flex justify-center mb-6">
+          @auth
             <button class="btn-primary px-4 py-2">
-                定期便解約ページへ
+              <a href="{{route('mypage.index')}}">定期便解約ページへ</a>
             </button>
+          @endauth
+          @guest
+              <button class="btn-primary px-4 py-2">
+                <a href="{{route('login')}}">定期便解約ページへ</a>
+            </button>
+          @endguest
         </div>
     </div>
 
