@@ -1,3 +1,8 @@
+@if(session('message'))
+    <script>
+        alert('{{ session('message') }}');
+    </script>
+@endif
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -13,19 +18,33 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body class="font-admin text-lg bg-white">
+<body class="min-h-screen flex flex-col font-admin text-lg bg-white">
+
     <header class="bg-[#e2e6e7]">
-        <button id="dashboard" class="p-4 bg-gray-800 text-white">管理者画面トップへ</button>
+        <div class="flex justify-between">
+            <div>
+                <a href="{{route('admin.dashboard')}}"><button id="dashboard" class="p-4 bg-gray-800 text-white">管理者画面トップへ</button></a>
+            </div>
+            <div>
+                <form method="POST" action="{{ route('admin.logout') }}" class="p-4">
+                    @csrf
+                    <button type="submit" class="text-smrounded-md">
+                        ログアウト
+                    </button>
+                </form>
+            </div>
+        </div>
+
     </header>
 
-    <main>
+    <main class="flex-grow">
         @yield('content')
     </main>
 
     <footer>
-        @include('layouts.footer')
+
     </footer>
 </body>
-
 </html>

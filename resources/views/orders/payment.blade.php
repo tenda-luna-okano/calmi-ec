@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('title', '決済方法確認画面')
-
 @section('content')
+{{ var_dump($_POST) }}
 <div class="max-w-3xl mx-auto my-10 px-6">
     <!-- タイトル -->
     <div class="border-b border-[#201a1e] mb-4">
@@ -16,11 +16,18 @@
     </div>
 
     <!-- 決済フォーム -->
-    <form class="bg-white p-6 rounded shadow-md">
+    <form action="{{route('orders.complete')}}" method="POST" class="bg-white p-6 rounded shadow-md">
         @csrf
 
         <!-- クレジットカード選択 -->
         <div class="mb-4">
+
+            @if($errors->any())
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endif
+
             <label class="inline-flex items-center">
                 <input type="radio" name="payment_method" value="credit_card" class="mr-2" checked>
                 クレジットカード
@@ -30,13 +37,13 @@
             <div class="mt-4 space-y-4">
                 <div>
                     <label class="block text-sm font-medium">カード番号</label>
-                    <input type="text" name="card_number" placeholder="例）090-1234-5678"
+                    <input type="text" name="card_number" placeholder="例）1234567890123456"
                            class="w-full border px-3 py-2 rounded text-sm">
                 </div>
                 <div class="flex gap-4">
                     <div class="flex-1">
                         <label class="block text-sm font-medium">有効期限（月/年）</label>
-                        <input type="text" name="expiry" placeholder="例）12/27"
+                        <input type="text" name="expire" placeholder="例）12/27"
                                class="w-full border px-3 py-2 rounded text-sm">
                     </div>
                     <div class="flex-1">
@@ -72,6 +79,7 @@
                 コンビニ決済
             </label>
         </div>
+        <input type="hidden" name="final_price" value="{{ $_POST['final_price'] }}" >
 
         <!-- 決済ボタン -->
         <div class="mt-8 text-center">

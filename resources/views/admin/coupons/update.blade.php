@@ -9,7 +9,7 @@
         '6' => 'サプリ',
     ];
 @endphp
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'クーポン発行')
 
@@ -17,35 +17,46 @@
     <div class="border-b border-[#201a1e]">
     <h1 class="font-black text-3xl text-center m-6 ">クーポン更新</h1>
 </div>
+{{--エラーメッセージ、本番のときは変える--}}
+@if ($errors->any())
+    <div class="bg-red-100 border border-red-400 text-red-700 p-3 rounded mb-4 text-center">
+        <ul class="list-none pl-5">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="flex justify-center items-center">
-    <form class="max-w-md w-80">
+    <form method="POST" action="{{ route('admin.coupons.update', ['id' => $coupon->coupon_id]) }}" class="max-w-md w-80">
+        @csrf
         <div class="form-group justify-center mt-4 pb-4">
             <label for="coupon_name">インフルエンサー名</label>
-            <input class="w-80" type="text" id="coupon_name" name="coupon_name" class="form-control" placeholder="インフルエンサー名を入力してください">
+            <input class="w-80" type="text" id="coupon_name" name="coupon_name" class="form-control" value="{{ $coupon['coupon_name'] }}">
         </div>
         <div class="form-group mt-4 pb-4">
             <label for="coupon_code">クーポンコード</label>
-            <input class="w-80" type="text" id="coupon_code" name="coupon_code" class="form-control" placeholder="クーポンコードを入力してください">
+            <input class="w-80" type="text" id="coupon_code" name="coupon_code" class="form-control" value="{{ $coupon['coupon_code'] }}">
         </div>
         <div class="form-group mt-4 pb-4">
-            <label for="coupon_description">説明</label>
-            <textarea class="w-80" id="description" name="description" class="form-control" rows="4" placeholder="クーポンの説明を入力してください"></textarea>
+            <label for="coupon_detail_explanation">説明</label>
+            <textarea class="w-80" id="coupon_detail_explanation" name="coupon_detail_explanation" class="form-control" rows="4" placeholder="クーポンの説明を入力してください">{{ $coupon['coupon_detail_explanation'] }}</textarea>
         </div>
         <div class="form-group mt-4 pb-4">
-            <label for="start_day">開始日</label>
-            <input class="w-80" type="date" id="start_day" name="start_day" class="form-control">
+            <label for="coupon_start_day">開始日</label>
+            <input class="w-80" type="date" id="coupon_start_day" name="coupon_start_day" class="form-control" value="{{ $coupon['coupon_start_day'] }}">
         </div>
         <div class="form-group mt-4 pb-4">
-            <label for="end_day">終了日</label>
-            <input class="w-80" type="date" id="end_day" name="end_day" class="form-control">
+            <label for="coupon_end_day">終了日</label>
+            <input class="w-80" type="date" id="coupon_end_day" name="coupon_end_day" class="form-control" value="{{ $coupon['coupon_end_day'] }}">
         </div>
         <div class="form-group mt-4 pb-4">
             <label for="coupon_stock">在庫数</label>
-            <input class="w-80" type="number" id="coupon_stock" name="coupon_stock" class="form-control" placeholder="在庫数を入力してください">
+            <input class="w-80" type="number" id="coupon_stock" name="coupon_stock" class="form-control" value="{{ $coupon['coupon_stock'] }}">
         </div>
         <div class="form-group mt-4 pb-4">
-            <label for="sales_value">割引率</label>
-            <input class="w-80" type="number" id="sales_value" name="sales_value" class="form-control" placeholder="割引率を入力してください">
+            <label for="coupon_sale_value">割引率</label>
+            <input class="w-80" type="number" id="coupon_sale_value" name="coupon_sale_value" class="form-control" value="{{ $coupon['coupon_sale_value'] }}">
         </div>
         <div class="form-group mt-4 pb-4">
             <label for="category">カテゴリー</label>
@@ -59,11 +70,15 @@
         <div class="form-group mt-4 pb-4">
             <legend>状態</legend>
             <div>
-                <input type="radio" id="active" name="active" valeu="1" checked>
+                <input type="radio" id="active" name="coupon_is_enable" value="1"
+                    {{ old('coupon_is_enable', $coupon->coupon_is_enable) == 1 ? 'checked' : '' }}>
                 <label for="active">有効</label>
-                <input type="radio" id="inactive" name="inactive" valeu="0">
+
+                <input type="radio" id="inactive" name="coupon_is_enable" value="0"
+                    {{ old('coupon_is_enable', $coupon->coupon_is_enable) == 0 ? 'checked' : '' }}>
                 <label for="inactive">無効</label>
             </div>
+</div>
         <div class="m-4 flex justify-center items-center">
             <button class="inline-flex h-12 items-center justify-center rounded-md bg-neutral-950 px-6 font-medium text-neutral-50 transition active:scale-110 ">更新</button>
         </div>

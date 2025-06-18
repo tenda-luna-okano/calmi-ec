@@ -1,7 +1,7 @@
 
 
 
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'login')
 
@@ -13,14 +13,19 @@
     </div>
 
     <div class="bg-white w-full max-w-md mx-auto m-6 flex justify-center rounded shadow">
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('admin.login') }}">
         @csrf
+        @error('message')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
         <!-- Email Address -->
         <div class="w-5/6 mx-auto mt-4" >
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <!-- Password -->
@@ -32,7 +37,9 @@
                             name="password"
                             required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            @error('password')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <!-- Remember Me -->
@@ -50,7 +57,7 @@
                 </a>
             @endif
         </div>
-        <button class="btn-primary mx-auto  mb-4 mt-4 flex justify-center w-140">
+        <button class="bg-gray-800 text-white rounded mx-auto  mb-4 mt-4 flex justify-center w-140">
             {{ __('Log in') }}
         </button>
     </form>

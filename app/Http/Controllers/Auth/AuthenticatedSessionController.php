@@ -24,11 +24,35 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        //old version
+        // // var_dump($request['customer_email'].$request['customer_password']);
+        // $request->authenticate();
 
-        $request->session()->regenerate();
+        // $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // // return redirect()->intended(route('dashboard', absolute: false));
+        // // return redirect(route('dashboard'));
+        // return back();
+
+        //new version----------------------------------------
+        $credentials = $request->validate([
+            // 'admin_email' => ['required', 'email'],
+            // 'admin_email' => ['required'],
+            // 'admin_password' => ['required'],
+            'email' => ['required'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::guard('customers')->attempt($credentials)) {
+            $request->session()->regenerate();
+
+            // return redirect()->intended('/admin/top')->with([
+            return back();
+        }
+
+        return back()->withErrors([
+            'message' => 'メールアドレスかパスワードが間違っています',
+        ])->onlyInput('email');
     }
 
     /**
@@ -36,7 +60,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        Auth::guard('customers')->logout();
 
         $request->session()->invalidate();
 
