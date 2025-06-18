@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Products extends Model
 {
     use HasFactory;
 
-    protected $table = 'item_master'; 
+    protected $table = 'item_masters'; 
 
     protected $fillable = [
         'item_name',

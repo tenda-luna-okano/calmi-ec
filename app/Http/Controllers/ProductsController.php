@@ -83,6 +83,7 @@ class ProductsController extends Controller
      * Display the specified resource.
      */
     public function show(Request $request,$item_id){
+        
         // item_idから基本的な情報を収納する変数
         $item = ItemMaster::where('item_id',$item_id)->first();
         // カテゴリーの種類を取得

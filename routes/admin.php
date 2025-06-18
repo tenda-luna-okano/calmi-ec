@@ -39,9 +39,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         //     return view('admin.coupons.index');
         // })->name('coupons.index');
 
-        Route::get('/products/insert',function(){
-            return view('admin.products.insert');
-        });
+        Route::get('/products/insert', [AdminProductController::class, 'insert'])->name('products.insert_view');
 
         Route::get('/coupons/index', [CouponController::class, 'index'])
         ->name('coupons.index');
