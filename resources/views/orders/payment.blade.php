@@ -24,7 +24,7 @@
 
             @if($errors->any())
                 @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                    <li class="text-red-500">{{ $error }}</li>
                 @endforeach
             @endif
 
@@ -79,7 +79,7 @@
                 コンビニ決済
             </label>
         </div>
-        <input type="hidden" name="final_price" value="{{ $_POST['final_price'] }}" >
+        <input type="hidden" name="final_price" value="{{ $_POST['final_price'] ?? old('final_price') }}" >
 
         <!-- 決済ボタン -->
         <div class="mt-8 text-center">

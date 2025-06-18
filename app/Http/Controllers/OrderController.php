@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Customer;
 use App\Rules\ValidationCard;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -45,11 +46,11 @@ class OrderController extends Controller
         //customer_idを後でAuthにする
         $inCart=$this->getCart();
 
-        
+
         if(!isset($sum_price_in_tax))$sum_price_in_tax=$this->sumPrice_in_tax($inCart);
         else $sum_price_in_tax=$request->final_price;
 
-       
+
         $Customer=Customer::where('customer_id',"=",auth()->id())->first();
 
         $sum_price=$inCart->sum(function($cartItem){
@@ -154,7 +155,9 @@ class OrderController extends Controller
             //在庫が足りない場合エラーを返す
             if(!$this->OrderInsert($request,$Payment))
             {
-                return back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
+                // return back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
+                // return redirect()->back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
+                return redirect()->back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
             }
 
             $order_number = Order::select('order_id')->where('customer_id',"=",auth()->id())
@@ -172,7 +175,9 @@ class OrderController extends Controller
             //在庫が足りない場合エラーを返す
             if(!$this->OrderInsert($request,$Payment))
             {
-                return back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
+                // return back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
+                // return redirect()->back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
+                return redirect()->back()->withErrors(['stockOver'=>'在庫がありませんでした'])->withInput();
             }
 
             $order_number = Order::select('order_id')->where('customer_id',"=",auth()->id())
