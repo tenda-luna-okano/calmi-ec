@@ -76,9 +76,6 @@
           {{-- 画像をクリックしたら詳細が見れるように --}}
             <a href="{{route('products.show',$item->item_id)}}">
 
-            <img src="{{ asset($item->item_img) }}" 
-                 alt="{{ $item['item_name'] }}" 
-
             <img src="{{ asset($item->item_img ?? 'https://placehold.jp/150x150.png') }}" 
                  alt="{{ $item->item_name }}" 
 
@@ -86,15 +83,23 @@
             <p>{{ $item['item_name'] }}</p>
             <p>¥{{ number_format($item->item_price_in_tax) }}</p>
             </a>
+            @auth
             <form action="{{route('products.store',$item->item_id)}}" method="POST">
             @csrf
             {{-- 1個だけカートに入れる --}}
             <input type="hidden" name="item_count" value="1">
             <button class="bg-[#d0b49f] text-white px-4 py-2 rounded mt-2">
-                カートに入れる
+              カートに入れる
             </button>
+            </form>
+            @endauth
+            @guest
+              <button class="bg-[#d0b49f] text-white px-4 py-2 rounded mt-2">
+                <a href="{{route('login')}}">カートに入れる</a>
+              </button>
+            @endguest
         </div>
-      </form>
+      
     @endforeach
 </div>
 @endsection

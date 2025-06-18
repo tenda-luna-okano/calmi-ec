@@ -9,8 +9,9 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as UserContract;
+
 
 /**
  * Class AdminUser
@@ -27,8 +28,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @package App\Models
  */
-class AdminUser extends Authenticatable
+class AdminUser extends Model implements UserContract
 {
+    use Authenticatable;
 	protected $table = 'admin_users';
 	protected $primaryKey = 'admin_user_id';
 

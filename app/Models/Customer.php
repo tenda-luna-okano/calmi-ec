@@ -10,13 +10,13 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 
 
 /**
  * Class Customer
- * 
+ *
  * @property int $customer_id
  * @property string $password
  * @property string $customer_first_name
@@ -30,16 +30,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int $customer_post_number
  * @property string $customer_states
  * @property string $customer_municipalities
- * @property string $customer_building_name
+ * @property string|null $customer_building_name
  * @property bool $customer_status
  * @property bool $customer_subscribe_flg
  * @property bool $mail_magazine_flg
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
-
- * 
-
+ *
  * @property Payment|null $payment
  * @property Collection|Cart[] $carts
  * @property Collection|Notification[] $notifications
@@ -48,11 +46,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @package App\Models
  */
-
-class Customer extends Authenticatable
+class Customer extends Model implements UserContract
 {
 	use SoftDeletes;
-
+    use Authenticatable;
 	protected $table = 'customers';
 	protected $primaryKey = 'customer_id';
 
