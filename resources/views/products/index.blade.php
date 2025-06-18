@@ -76,6 +76,7 @@
           $cartItem = $cart->firstWhere('item_id', $item->item_id);
       @endphp
 
+
       <div class="flex flex-col items-center">
         <a href="{{ route('products.show', $item->item_id) }}">
           <img src="{{ asset($item->item_img ?? 'https://placehold.jp/150x150.png') }}" 
@@ -87,6 +88,9 @@
 
         @auth
           <form action="{{ $cartItem ? route('products.update', $item->item_id) : route('products.store', $item->item_id) }}" method="POST">
+            
+            <!-- <form action="{{route('products.store',$item->item_id)}}" method="POST"> -->
+
             @csrf
             @if($cartItem)
               @method('PATCH')

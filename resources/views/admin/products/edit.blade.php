@@ -1,13 +1,4 @@
 {{--管理者用のフォントを変えたい--}}
-@php
-    $categories = [
-        '1' => 'アロマ',
-        '2' => 'フード',
-        '3' => 'タッチ',
-        '4' => 'ご褒美スイーツ',
-        '5' => 'サプリ',
-    ];
-@endphp
 @extends('layouts.admin')
 
 @section('title', '商品編集')
@@ -38,8 +29,8 @@
             <label for="category">カテゴリー</label>
             <select class="w-80" id="category" name="category" class="form-control">
                 <option value="">選択してください</option>
-                @foreach ($categories as $key => $value)
-                    <option value="{{ $key }}">{{ $value }}</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
                 @endforeach
             </select>
         </div>
@@ -67,7 +58,7 @@
             </select>
         </div>
         <div class="m-4 flex justify-center items-center">
-            <button class="inline-flex h-12 items-center justify-center rounded-md bg-neutral-950 px-6 font-medium text-neutral-50 transition active:scale-110 ">商品を追加</button>
+            <button class="inline-flex h-12 items-center justify-center rounded-md bg-neutral-950 px-6 font-medium text-neutral-50 transition active:scale-110 ">編集完了</button>
         </div>
     </form>
 </div>
