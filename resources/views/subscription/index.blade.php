@@ -60,13 +60,24 @@
     </div>
 
     <!-- ボタン -->
-    <div class="flex justify-center mt-6">
-      <form action="{{route('subscription.confirm')}}" method="POST">
-          @csrf
-          <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
-          <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
-      </form>
-    </div>
+    @if(!isset($mySubscription))
+      <div class="flex justify-center mt-6">
+        <form action="{{route('subscription.confirm')}}" method="POST">
+            @csrf
+            <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+            <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
+        </form>
+      </div>
+    @else
+      <div class="flex justify-center mt-6">
+        <form action="{{route('subscription.edit')}}">
+            <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+            <button class="btn-primary px-6 py-2">定期便変更ページへ</button>
+        </form>
+      </div>
+    @endif
+    
+    
   </div>
 
 
@@ -92,15 +103,29 @@
   </div>
 </div>
 
-    <!-- ボタン -->
-    <div class="flex justify-center mt-6">
-      <form action="{{route('subscription.confirm')}}" method="POST">
-          @csrf
-          <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
-          <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
-      </form>
-    </div>
+  <!-- ボタン -->
+    @if(!isset($mySubscription))
+      <div class="flex justify-center mt-6">
+        <form action="{{route('subscription.confirm')}}" method="POST">
+            @csrf
+            <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+            <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
+        </form>
+      </div>
+    @else
+      <div class="flex justify-center mt-6">
+        <form action="{{route('subscription.edit')}}">
+            <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+            <button class="btn-primary px-6 py-2">定期便変更ページへ</button>
+        </form>
+      </div>
+    @endif
+
   </div>
+
+
+
+
 
   <div x-show="activeTab === 2" class="border p-6">
     <div class="flex flex-col lg:flex-row gap-8">
@@ -121,13 +146,22 @@
 </div>
 
     <!-- ボタン -->
-    <div class="flex justify-center mt-6">
-      <form action="{{route('subscription.confirm')}}" method="POST">
-          @csrf
-          <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
-          <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
-      </form>
-    </div>
+    @if(!isset($mySubscription))
+      <div class="flex justify-center mt-6">
+        <form action="{{route('subscription.confirm')}}" method="POST">
+            @csrf
+            <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+            <button class="btn-primary px-6 py-2">定期便購入ページへ</button>
+        </form>
+      </div>
+    @else
+      <div class="flex justify-center mt-6">
+        <form action="{{route('subscription.edit')}}">
+            <input type="hidden" name="subscriptionID" id="subscriptionID" :value="activeTab">
+            <button class="btn-primary px-6 py-2">定期便変更ページへ</button>
+        </form>
+      </div>
+    @endif
   </div>
 
     <div class="mb-10"></div>

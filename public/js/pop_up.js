@@ -28,4 +28,9 @@ $(document).ready(function(){
     $('.modal').css('display','none'),
     $('.popup').css('display','none')
   });
+
+  $('.modal').on('click',function(){
+    $('.modal').css('display','none'),
+    $('.popup').css('display','none')
+  })
 });
