@@ -59,8 +59,10 @@ class ProductsController extends Controller
         $items=$query->get();
         // 商品個数を取得
         $count=$query->count();
+        // カートの商品を参照
+        $cart = Cart::where('customer_id',auth()->id())->get();
         // ビューをデータとともに返す
-        return view('products.index', compact('items','count','categories'));
+        return view('products.index', compact('items','count','categories','cart'));
     }
 
 //     /**
@@ -83,6 +85,7 @@ class ProductsController extends Controller
      * Display the specified resource.
      */
     public function show(Request $request,$item_id){
+        
         // item_idから基本的な情報を収納する変数
         $item = ItemMaster::where('item_id',$item_id)->first();
         // カテゴリーの種類を取得
@@ -279,8 +282,10 @@ class ProductsController extends Controller
         //検索ワードを含むレコード取得
         $resultItem=ItemMaster::where('item_name','like','%'.$SearchWord.'%')->get();
         $itemCount=$resultItem->count();
-
-        return view('search.results',['SearchWord'=>$SearchWord,'resultItem'=>$resultItem,'itemCount'=>$itemCount]);
+        $cart = Cart::where('customer_id',auth()->id())->get();
+        // 今現在実装されているカテゴリーを取得
+        $categories = CategoryMaster::get();
+        return view('search.results',['SearchWord'=>$SearchWord,'resultItem'=>$resultItem,'itemCount'=>$itemCount,'categories'=>$categories,'cart'=>$cart]);
     }
 
     public function category($IdName)
@@ -294,7 +299,11 @@ class ProductsController extends Controller
         //同ジャンルのレコード取得
         $resultItem=ItemMaster::where('item_category',$Id)->get();
         $itemCount=$resultItem->count();
-        return view('search.results',['resultItem'=>$resultItem,'itemCount'=>$itemCount]);
+        $cart = Cart::where('customer_id',auth()->id())->get();
+        // 今現在実装されているカテゴリーを取得
+        $categories = CategoryMaster::get();
+        // dd($resultItem);
+        return view('search.results',['resultItem'=>$resultItem,'itemCount'=>$itemCount,'categories'=>$categories,'cart'=>$cart]);
     }
 
 }

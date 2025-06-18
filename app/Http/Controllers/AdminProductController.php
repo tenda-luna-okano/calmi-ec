@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminProduct;
 use Illuminate\Http\Request;
+use App\Models\CategoryMaster;
 
 class AdminProductController extends Controller
 {
@@ -15,7 +16,12 @@ class AdminProductController extends Controller
         $products = AdminProduct::all();
         return view('admin.products.index', compact('products'));
     }
-
+    
+    public function insert()
+    {
+        $categories = CategoryMaster::all();
+        return view('admin.products.insert', compact('categories'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -27,6 +33,7 @@ class AdminProductController extends Controller
         $request->validate([
             'item_name' => 'required|string|max:255',
             'item_price_in_tax' => 'required|numeric',
+            'item_category' => 'required|numeric',
             'item_stock' => 'required|integer',
             'item_img' => 'nullable|image',
         ]);
@@ -67,7 +74,8 @@ class AdminProductController extends Controller
     public function edit($item_id)
     {
         $product = AdminProduct::findOrFail($item_id);
-        return view('admin.products.edit', compact('product'));
+        $categories = CategoryMaster::all();
+        return view('admin.products.edit', compact('product','categories'));
     }
 
     /**
