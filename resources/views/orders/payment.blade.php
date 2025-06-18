@@ -2,7 +2,7 @@
 
 @section('title', '決済方法確認画面')
 @section('content')
-{{ var_dump($_POST) }}
+
 <div class="max-w-3xl mx-auto my-10 px-6">
     <!-- タイトル -->
     <div class="border-b border-[#201a1e] mb-4">

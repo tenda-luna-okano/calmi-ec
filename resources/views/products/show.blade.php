@@ -3,88 +3,55 @@
 @section('title', '商品詳細')
 
 @section('content')
+{{-- スマホでは縦並び、md以上で横並び --}}
+<div class="flex flex-col md:flex-row justify-center">
     {{-- 商品画像 --}}
-    <div class="flex justify-center">
-        <div class=" w-1/2 ">
-            {{-- 商品画像を出力 --}}
-            <img class="mx-4 pe-8 mt-8 " src="{{asset($item->item_img ?? 'https://placehold.jp/150x150.png')}}" alt="商品画像">
+    <div class="w-full md:w-1/2 flex justify-center">
+        <img class="mx-4 mt-8 max-w-[300px]" src="{{ asset($item->item_img ?? 'https://placehold.jp/150x150.png') }}" alt="商品画像">
+    </div>
+
+    {{-- 商品情報 --}}
+    <div class="w-full md:w-1/2 px-4 mt-6 md:mt-8">
+        <p class="text-sm text-gray-600">{{ $item->category_master->category_name }}</p>
+        <p class="mt-2 text-2xl font-bold">{{ $item->item_name }}</p>
+
+        <div class="flex items-center mt-2 text-sm">
+            <p>★{{ $item->item_review_star }}({{ $review_num }})</p>
+            <a href="#review" class="ml-2 text-xs text-blue-500 underline">レビューを表示</a>
         </div>
-        {{-- <div class="size-14  w-1/3"></div> --}}
-        {{-- 商品説明 --}}
-        <div class=" w-1/2 mx-8">
-            <div class="ml-2">
-                {{-- ジャンル --}}
-                <p class="text-xl">{{$item->category_master->category_name}}</p>
 
-                {{-- 商品名 --}}
-                <p class="mt-4 text-2xl">{{$item->item_name}}</p>
-            </div>
-            <div class="flex">
-
-                {{-- レビュー表示 --}}
-                <p class="flex-1 text-sm mt-4">★{{$item->item_review_star}}({{$review_num}})</p>
-                {{-- 画面下のレビュー部分へ --}}
-                <a class="flex-1 text-xs mt-4 ml-2" href="#review">レビューを表示</a>
-            </div>
-            {{-- 値段 --}}
-            <div class="flex">
-                <div class="flex flex-1">
-                    <p>￥</p>
-                    {{-- テーブルから値段を取得 --}}
-                    {{-- <p>12,300</p> --}}
-                    <p>{{number_format($item->item_price_in_tax)}}</p>
-                </div>
-                <div class="flex-1 border-black">
-                    <p>(TAX IN)</p>
-                </div>
-            </div>
+        <div class="mt-2 text-lg font-semibold">
+            ￥{{ number_format($item->item_price_in_tax) }} <span class="text-sm">(税込)</span>
+        </div>
             {{-- すでにカートに商品があるときは数を足して更新する --}}
-            <form 
-                action="{{ !empty($cart) ? route('products.update', $cart) : route('products.store', $item->item_id) }}" 
-                method="POST"
-            >
-                @csrf
+            <form action="{{ !empty($cart) ? route('products.update', $cart) : route('products.store', $item->item_id) }}" method="POST" class="mt-4">
+        @csrf
+        @if(!empty($cart))
+            @method('PATCH')
+        @endif
+
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <button type="button" class="spinner-sub bg-[#d0b49f] text-white w-8 h-8 rounded">-</button>
+            <input type="text" name="item_count" value="1" min="1" max="99" class="spinner w-12 h-8 text-center border rounded focus:outline-none focus:ring-1 focus:ring-[#d0b49f]">
+            <button type="button" class="spinner-add bg-[#d0b49f] text-white w-8 h-8 rounded">+</button>
+        </div>
+
+        <div class="flex justify-center">
+            @auth
+                <input type="hidden" name="item_id" value="{{ $item->item_id }}">
                 @if(!empty($cart))
-                    @method('PATCH')
+                    <input type="hidden" name="cart_id" value="{{ $cart->cart_id }}">
                 @endif
-
-                <div class="{{ !empty($cart) ? 'flex space-between' : 'grid grid-cols-4 grid-rows-2' }}">
-                    {{-- 数量変更 --}}
-                    <div class="{{ !empty($cart) ? 'flex-1 grid grid-cols-3 spinner-container center' : 'col-span-3 grid grid-cols-3 gap-1 items-center justify-center max-w-[180px] mx-auto' }}">
-                        <div class="bg-[#d0b49f] text-white text-sm px-2 py-1 rounded hover:bg-[#b89f89] disabled:opacity-50 flex justify-end">
-                            <span class="spinner-sub select-none mr-2 text-center">-</span>
-                        </div>
-                        <input 
-                            class="spinner {{ !empty($cart) ? 'h-8 w-8 mx-auto' : 'w-10 h-8' }} text-sm text-center border rounded focus:outline-none focus:ring-1 focus:ring-[#d0b49f]"
-                            type="text" 
-                            min="1" 
-                            max="99" 
-                            value="1" 
-                            name="item_count"
-                        >
-                        <div class="bg-[#d0b49f] text-white text-sm px-2 py-1 rounded hover:bg-[#b89f89] disabled:opacity-50">
-                            <span class="spinner-add select-none text-center">+</span>
-                        </div>
-                    </div>
-
-                    {{-- カートに入れるボタン --}}
-                    <div class="{{ !empty($cart) ? 'flex-1 px-auto' : 'px-auto col-start-2 row-start-2' }}">
-                        @auth
-                            <input type="hidden" name="item_id" value="{{ $item->item_id }}">
-                            @if(!empty($cart))
-                                <input type="hidden" name="cart_id" value="{{ $cart->cart_id }}">
-                            @endif
-                            <button class="btn-primary text-xs cart" type="submit">カートに入れる</button>
-                        @else
-                            <a href="/login" class="btn-primary text-xs inline-block text-center">カートに入れる</a>
-                        @endauth
-                    </div>
-                </div>
-            </form>
+                <button class="btn-primary w-48 text-sm" type="submit">カートに入れる</button>
+            @else
+                <a href="/login" class="btn-primary w-48 text-sm text-center">カートに入れる</a>
+            @endauth
+        </div>
+    </form>
             {{-- 数量変更時のエラーメッセージ,成功メッセージ --}}
             <div>
                 @if(@session('message'))
-                    <div class="text-red-600 font-bold">
+                    <div class="text-red-600 text-center">
                         {{session('message')}}
                     </div>
                 @endif
@@ -92,24 +59,17 @@
         </div>
     </div>
     {{-- 商品特徴 --}}
-    <h2 class="mt-8">商品特徴</h2>
-        <hr class="py-2">
-    <div class="">
-        {{-- <p class="py-8">ジッパーの開口部分が広くて開けやすいポーチは、開けると中に何が入っているか一目瞭然。見た目の割りに大容量なので、旅行時にも活躍すること間違いなし。フランスの地方によくあるバスルームのタイルからインスピレーションを受けたレトロなヴィンテージ調のフラワーパターンが乙女心をくすぐります</p> --}}
-        <p class="py-8">{{$item->item_detail_explanation ?? 'coming soon'}}</p>
+    <h2 class="text-lg font-bold mt-10 mb-2 border-b pb-1">商品特徴</h2>
+    <p class="text-sm text-gray-700">{{ $item->item_detail_explanation ?? 'Coming soon...' }}</p>
+    <div class="flex justify-between items-center mt-10 mb-2">
+        <h2 id="review" class="text-lg font-bold">レビュー</h2>
+        <button 
+            onclick="location.href='{{ route('reviews.index', $item->item_id) }}'" 
+            class="text-sm border border-[#b89f89] rounded px-4 py-1 text-[#5c4a3d] hover:bg-[#f5e9e1] transition">
+            レビューを投稿する
+        </button>
     </div>
-    <hr>
-    <div class="flex py-8">
-        <h2 id="review" class="flex-1">レビュー</h2>
-        {{-- 商品IDと一緒にレビュー投稿画面へ --}}
-        {{-- <form action="{{route('reviews.store')}}" method="POST"> --}}
-        {{--<form action="{{route('reviews.index',$item->item_id)}}" method="POST">
-            @csrf
-            <input type="hidden" name="item_id" value="{{$item->item_id}}">
-            <button class="flex-1 text-right border border-black">レビューを投稿する</button>
-        </form>--}}
-        <button onclick="location.href='{{route('reviews.index',$item->item_id)}}'" class="text-right border border-black">レビューを投稿する</button>
-    </div>
+    
     <hr>
     {{-- 最初のレビューを2件まで表示 --}}
     <div  class="py-4" id="parent_review">
@@ -152,43 +112,19 @@
     </div>
     
     <hr>
+
     {{-- 関連商品表示 --}}
+
     <p>このアイテムが気になった人はこちらも気になっています。</p>
-    {{-- 商品５個表示 --}}
-    <div class="flex bg-white px-4 py-3">
-        {{-- おすすめがあれば表示、なければ「特定の5つの商品」を表示 --}}
-        @if(empty($recommends))
-            <div class="flex-1 px-2 ">
-                <img src="https://placehold.jp/150x150.png">
-                <p>商品名</p>
-            </div>
-            <div class="flex-1 px-2 ">
-                <img src="https://placehold.jp/150x150.png">
-                <p>商品名</p>
-            </div>
-            <div class="flex-1 px-2 ">
-                <img src="https://placehold.jp/150x150.png">
-                <p>商品名</p>
-            </div>
-            <div class="flex-1 px-2 ">
-                <img src="https://placehold.jp/150x150.png">
-                <p>商品名</p>
-            </div>
-            <div class="flex-1 px-2 ">
-                <img src="https://placehold.jp/150x150.png">
-                <p>商品名</p>
-            </div>
-        @else
-            {{-- おすすめ五件の画像と商品名を表示 --}}
-            @foreach($recommends as $recommend)
-                <div class="flex-1 px-2 ">
-                    <a href="{{route('products.show',$recommend->item_id)}}">
-                    <img src="{{asset($recommend->item_img ?? 'https://placehold.jp/150x150.png')}}">
-                <p>{{$recommend->item_name}}</p> 
+    <div class="overflow-x-auto whitespace-nowrap py-4">
+        @foreach($recommends as $recommend)
+            <div class="inline-block w-[140px] mx-2">
+                <a href="{{ route('products.show', $recommend->item_id) }}">
+                    <img src="{{ asset($recommend->item_img ?? 'https://placehold.jp/150x150.png') }}" class="rounded shadow">
+                    <p class="text-sm mt-1 text-center truncate">{{ $recommend->item_name }}</p>
                 </a>
             </div>
-            @endforeach
-        @endif
+        @endforeach
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
