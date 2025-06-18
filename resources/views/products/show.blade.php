@@ -280,12 +280,12 @@
                     const starWrapper = document.createElement('div');
                     for(let i = 0; i < review['review_star']; i++){
                         const star = document.createElement('span');
-                        star.innerText = '☆';
+                        star.innerText = '★';
                         starWrapper.appendChild(star);
                     }
                     for(let i = 0; i < 5 - review['review_star']; i++){
                         const star = document.createElement('span');
-                        star.innerText = '★';
+                        star.innerText = '☆';
                         starWrapper.appendChild(star);
                     }
                     child.appendChild(starWrapper);
@@ -302,7 +302,8 @@
 
                     // 投稿日
                     const postDate = document.createElement('p');
-                    postDate.innerText = review['created_at'] ?? '日付不明';
+                    date = new Date(review['created_at']);
+                    postDate.innerText = date.toLocaleString() ?? '日付不明';
                     child.appendChild(postDate);
 
                     // レビュー内容
